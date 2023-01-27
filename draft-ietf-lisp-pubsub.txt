@@ -364,10 +364,14 @@ Table of Contents
    similar problem may be experienced when a large number of state were
    simultaneously updated.  To prevent such phenomena, Map-Servers
    SHOULD be configured with policies to control the maximum number of
-   subscriptions and also the pace of Map-Notify messages.  The exact
-   details to characterize such policies are deployment and
-   implementation specific.  Likewise, this document does not specify
-   which notifications take precedence when these policies are enforced.
+   subscriptions and also the pace of Map-Notify messages.  For example,
+   the Map-Server may be instructed to limit the resources that are
+   dedicated to unsolicited Map-Notify messages to a small fraction
+   (e.g., less than 10%) of its overall processing and forwarding
+   capacity.  The exact details to characterize such policies are
+   deployment and implementation specific.  Likewise, this document does
+   not specify which notifications take precedence when these policies
+   are enforced.
 
    When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
