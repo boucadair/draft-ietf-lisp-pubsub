@@ -115,24 +115,23 @@ Table of Contents
    LISP sites.
 
    In general, when an ITR/RTR/PITR wants to be notified for mapping
+   changes for a given EID-Prefix, the following steps occur:
 
-   changes for a given EID-Prefix, the following steps occur:  (1) The
-       ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
+       (1) The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
-   : (2) The ITR/RTR/PITR sets the Notification-Requested bit (N-bit)
-   on
+       (2) The ITR/RTR/PITR sets the Notification-Requested bit (N-bit)
+       on the Map-Request and includes its xTR-ID and Site-ID.
 
-   the Map-Request and includes its xTR-ID and Site-ID.  (3) The Map-
-       Request is forwarded to one of the Map-Servers that the EID-
-       Prefix is registered to.
+       (3) The Map-Request is forwarded to one of the Map-Servers that
+       the EID-Prefix is registered to.
 
-   : (4) The Map-Server creates subscription state for the ITR/RTR/
-   PITR
+       (4) The Map-Server creates subscription state for the ITR/RTR/
+       PITR on the EID-Prefix.
 
-   on the EID-Prefix.  (5) The Map-Server sends a Map-Notify to the
-       ITR/RTR/PITR to acknowledge the successful subscription.
+       (5) The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
+       acknowledge the successful subscription.
 
-   : (6) When there is a change in the mapping of the EID-Prefix, the
+   (6) When there is a change in the mapping of the EID-Prefix, the
 
    Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
 
@@ -155,13 +154,14 @@ Table of Contents
 
 3.  Deployment Assumptions
 
-   This document makes the following deployment assumptions:  (1) A
-       unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
+   This document makes the following deployment assumptions:
+
+       (1) A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
        assigned to each xTR.
 
-       : (2) Map-Servers are configured to proxy Map-Replying (i.e.,
-       they are solicited to generate and send Map-Reply messages) for
-       the mappings they are serving.
+       (2) Map-Servers are configured to proxy Map-Replying (i.e., they
+       are solicited to generate and send Map-Reply messages) for the
+       mappings they are serving.
 
    If either assumption is not met, a subscription cannot be
    established, and the network will continue operating without this
@@ -212,8 +212,8 @@ Table of Contents
 
      Figure 1: Map-Request with I-bit, N-bit, xTR-ID, and Site-ID
 
-       The following is added to the Map-Request message defined in
-       Section 5.2 of [RFC9301]:
+   The following is added to the Map-Request message defined in
+   Section 5.2 of [RFC9301]:
 
     * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
     bit xTR-ID and a 64-bit Site-ID fields are present at the end of
@@ -250,8 +250,8 @@ Table of Contents
        Site- ID to the Map-Request.  The xTR-ID uniquely identifies the
        xTR.
 
-   (2) The xTR MUST set the N-bit to 1 for each EID-Record to which the
-   xTR wants to subscribe.
+       (2) The xTR MUST set the N-bit to 1 for each EID-Record to which
+       the xTR wants to subscribe.
 
    The Map-Request is forwarded to the appropriate Map-Server through
    the Mapping System.  This document does not assume that a Map-Server
