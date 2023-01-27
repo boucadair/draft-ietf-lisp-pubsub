@@ -1374,10 +1374,9 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </figcaption></figure>
 </div>
 <p id="section-4-3">The following is added to the Map-Request message defined in Section 5.2 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>:<a href="#section-4-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4-4">
+<p style="margin-left: 4.0em" id="section-4-4">xTR-ID bit (I-bit):<a href="#section-4-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-5">
 <pre>
-  - xTR-ID bit (I-bit):
-
   : This bit is set to 1 to indicate that a 128
   bit xTR-ID and a 64-bit Site-ID fields are present at the end of
   the Map-Request message.  For PubSub operation, an xTR MUST be
@@ -1388,26 +1387,32 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
   after processing that last EID-record, there are no bytes left
   from processing the message.  In this case, the receiver will log
   a malformed Map-Request and drop the message.
-
-  - Notification-Requested bit (N-bit):
-
+</pre><a href="#section-4-5" class="pilcrow">¶</a>
+</div>
+<p style="margin-left: 4.0em" id="section-4-6">Notification-Requested bit (N-bit):<a href="#section-4-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-7">
+<pre>
   : The N-bit of an EID-Record is
   set to 1 to specify that the xTR wants to be notified of updates
   for that mapping record.
-
-  - xTR-ID field:
-
+</pre><a href="#section-4-7" class="pilcrow">¶</a>
+</div>
+<p style="margin-left: 4.0em" id="section-4-8">xTR-ID field:<a href="#section-4-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-9">
+<pre>
   : If the I-bit is set, this field if added at the end
   of the Map-Request message, starting after the final Record in the
   message (or the Map-Reply Record, if present).  The xTR-ID is
   specified in Section 5.6 of {{RFC9301}}.
-
-  - Site-ID field:
-
+</pre><a href="#section-4-9" class="pilcrow">¶</a>
+</div>
+<p style="margin-left: 4.0em" id="section-4-10">Site-ID field:<a href="#section-4-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-11">
+<pre>
   : If the I-bit is set, this field is added at the end
   of the Map-Request message, following the xTR-ID.  The Site-ID is
   defined in Section 5.6 of {{RFC9301}}.
-</pre><a href="#section-4-4" class="pilcrow">¶</a>
+</pre><a href="#section-4-11" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
