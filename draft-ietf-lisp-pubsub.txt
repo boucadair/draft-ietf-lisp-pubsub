@@ -117,7 +117,7 @@ Table of Contents
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
-   (1) The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
+       (1) The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
    (2) The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
    the Map-Request and includes its xTR-ID and Site-ID.
@@ -144,7 +144,11 @@ Table of Contents
 
 2.  Terminology and Requirements Notation
 
-   {::boilerplate bcp14-tagged}
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
    The document uses the terms defined in Section 3 of [RFC9300].
 
@@ -153,11 +157,9 @@ Table of Contents
    This document makes the following deployment assumptions:
 
    (1) A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
-   assigned to each xTR.
-
-   (2) Map-Servers are configured to proxy Map-Replying (i.e., they are
-   solicited to generate and send Map-Reply messages) for the mappings
-   they are serving.
+   assigned to each xTR.  (2) Map-Servers are configured to proxy Map-
+   Replying (i.e., they are solicited to generate and send Map-Reply
+   messages) for the mappings they are serving.
 
    If either assumption is not met, a subscription cannot be
    established, and the network will continue operating without this
@@ -211,29 +213,29 @@ Table of Contents
    The following is added to the Map-Request message defined in
    Section 5.2 of [RFC9301]:
 
-     xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
-     bit xTR-ID and a 64-bit Site-ID fields are present at the end of
-     the Map-Request message.  For PubSub operation, an xTR MUST be
-     configured with an xTR-ID and Site-ID, and it MUST set the I-bit
-     to 1 and include its xTR-ID and Site-ID in the Map-Request
-     messages it generates.  If the I-bit is set but the Site-ID and/or
-     xTR-ID are not included, a receiver can detect the error because
-     after processing that last EID-record, there are no bytes left
-     from processing the message.  In this case, the receiver will log
-     a malformed Map-Request and drop the message.
+    * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
+    bit xTR-ID and a 64-bit Site-ID fields are present at the end of
+    the Map-Request message.  For PubSub operation, an xTR MUST be
+    configured with an xTR-ID and Site-ID, and it MUST set the I-bit
+    to 1 and include its xTR-ID and Site-ID in the Map-Request
+    messages it generates.  If the I-bit is set but the Site-ID and/or
+    xTR-ID are not included, a receiver can detect the error because
+    after processing that last EID-record, there are no bytes left
+    from processing the message.  In this case, the receiver will log
+    a malformed Map-Request and drop the message.
 
-     Notification-Requested bit (N-bit): The N-bit of an EID-Record is
-     set to 1 to specify that the xTR wants to be notified of updates
-     for that mapping record.
+    * Notification-Requested bit (N-bit): The N-bit of an EID-Record is
+    set to 1 to specify that the xTR wants to be notified of updates
+    for that mapping record.
 
-     xTR-ID field: If the I-bit is set, this field if added at the end
-     of the Map-Request message, starting after the final Record in the
-     message (or the Map-Reply Record, if present).  The xTR-ID is
-     specified in Section 5.6 of {{RFC9301}}.
+    * xTR-ID field: If the I-bit is set, this field if added at the end
+    of the Map-Request message, starting after the final Record in the
+    message (or the Map-Reply Record, if present).  The xTR-ID is
+    specified in Section 5.6 of {{RFC9301}}.
 
-     Site-ID field: If the I-bit is set, this field is added at the end
-     of the Map-Request message, following the xTR-ID.  The Site-ID is
-     defined in Section 5.6 of {{RFC9301}}.
+    * Site-ID field: If the I-bit is set, this field is added at the end
+    of the Map-Request message, following the xTR-ID.  The Site-ID is
+    defined in Section 5.6 of {{RFC9301}}.
 
 5.  Mapping Request Subscribe Procedures
 
@@ -242,8 +244,9 @@ Table of Contents
    Record.  The xTR builds a Map-Request according to Section 5.3 of
    [RFC9301] but also does the following:
 
-   (1) The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
-   ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
+       (1) The xTR MUST set the I-bit to 1 and append its xTR-ID and
+       Site- ID to the Map-Request.  The xTR-ID uniquely identifies the
+       xTR.
 
    (2) The xTR MUST set the N-bit to 1 for each EID-Record to which the
    xTR wants to subscribe.
@@ -276,8 +279,8 @@ Table of Contents
    subscription.  The Map-Server builds the Map-Notify according to
    Sections 5.5 and 5.7 of [RFC9301] with the following considerations:
 
-   (1) The Map-Server MUST use the nonce from the Map-Request as the
-   nonce for the Map-Notify.
+       (1) The Map-Server MUST use the nonce from the Map-Request as the
+       nonce for the Map-Notify.
 
    (2) The Map-Server MUST use its security association with the xTR
    (Section 7.1) to sign the authentication data of the Map-Notify.  The
@@ -341,9 +344,9 @@ Table of Contents
    result of an update event follows the encoding and logic defined in
    Section 5.7 of [RFC9301] for Map-Notify, except for the following:
 
-   (1) The Map-Notify MUST be sent to one of the ITR-RLOCs associated
-   with the xTR-ID of the subscriber (which one is implementation
-   specific).
+       (1) The Map-Notify MUST be sent to one of the ITR-RLOCs
+       associated with the xTR-ID of the subscriber (which one is
+       implementation specific).
 
    (2) The Map-Server increments the nonce by one every time it sends a
    Map-Notify as publication to an xTR-ID for a particular EID- Record.
@@ -508,11 +511,11 @@ Table of Contents
    [RFC9303].  As described in Section 4.1.2.1 of
    [I-D.ietf-lisp-eid-mobility], LISP can rely on data-driven Solicit-
    Map-Requests (SMRs) to ensure eventual network converge.  Generally,
-   PubSub offers faster converge due to (1) no need to wait for a data
-   triggered event and (2) less signaling as compared with the SMR-based
-   flow.  Note that when a Map-Server running PubSub has to update a
-   large number of subscribers at once (i.e., when a popular mapping is
-   updated) SMR based convergence may be faster for a small subset of
+   PubSub offers faster convergence due to (1) no need to wait for a
+   data triggered event and (2) less signaling as compared with the SMR-
+   based flow.  Note that when a Map-Server running PubSub has to update
+   a large number of subscribers at once (i.e., when a popular mapping
+   is updated) SMR based convergence may be faster for a small subset of
    the subscribers (those receiving PubSub updates last).  Deployment
    experience reveals that data-driven SMRs and PubSub mechanisms
    complement each other well and combined provide a fast and resilient
@@ -638,10 +641,19 @@ Table of Contents
 
 10.1.  Normative References
 
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/rfc/rfc8126>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
    [RFC9300]  Farinacci, D., Fuller, V., Meyer, D., Lewis, D., and A.
               Cabellos, Ed., "The Locator/ID Separation Protocol
@@ -715,37 +727,25 @@ Acknowledgments
 
 Contributors
 
-      Dino Farinacci
-      lispers.net
-      San Jose, CA
-      USA
+   Dino Farinacci lispers.net San Jose, CA USA
 
-      Email: farinacci@gmail.com
+   Email: farinacci@gmail.com
 
-      Johnson Leong
+   Johnson Leong
 
-      Email: johnsonleong@gmail.com
+   Email: johnsonleong@gmail.com
 
-      Fabio Maino
-      Cisco
-      170 Tasman Drive
-      San Jose, CA
-      USA
+   Fabio Maino Cisco 170 Tasman Drive San Jose, CA USA
 
-      Email: fmaino@cisco.com
+   Email: fmaino@cisco.com
 
-      Christian Jacquenet
-      Orange
-      Rennes  35000
-      France
+   Christian Jacquenet Orange Rennes 35000 France
 
-      Email: christian.jacquenet@orange.com
+   Email: christian.jacquenet@orange.com
 
-      Stefano Secci
-      Cnam
-      France
+   Stefano Secci Cnam France
 
-      Email: stefano.secci@cnam.fr
+   Email: stefano.secci@cnam.fr
 
 Authors' Addresses
 
