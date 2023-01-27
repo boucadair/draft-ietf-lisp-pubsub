@@ -86,30 +86,30 @@ informative:
    notified faster and can be managed in the Mapping System versus the
    LISP sites.
 
-   {: indent='4'}
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
-   : (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
+   {: indent='4'}
+   (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
    {: indent='4'}
-   : (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
+   (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.
 
    {: indent='4'}
-   : (3)  The Map-Request is forwarded to one of the Map-Servers that the
+   (3)  The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.
 
    {: indent='4'}
-   : (4)  The Map-Server creates subscription state for the ITR/RTR/PITR
+   (4)  The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.
 
    {: indent='4'}
-   : (5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
+   (5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.
 
    {: indent='4'}
-   : (6)  When there is a change in the mapping of the EID-Prefix, the
+   (6)  When there is a change in the mapping of the EID-Prefix, the
         Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
         the subscription list.
 
@@ -129,14 +129,14 @@ informative:
 
 #  Deployment Assumptions
 
-   {: indent='4'}
    This document makes the following deployment assumptions:
 
-   : (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
+{: indent='4'}
+   (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
 
    {: indent='4'}
-   : (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
+   (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
 
@@ -190,10 +190,10 @@ informative:
 ~~~~
 {: #Figure-1 title='Map-Request with I-bit, N-bit, xTR-ID, and Site-ID' artwork-align="center"}
 
-   {: indent='4'}
    The following is added to the Map-Request message defined in
    Section 5.2 of {{!RFC9301}}:
 
+   {: indent='4'}
       * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
       bit xTR-ID and a 64-bit Site-ID fields are present at the end of
       the Map-Request message.  For PubSub operation, an xTR MUST be
@@ -228,6 +228,7 @@ informative:
 {: indent='4'}
    (1)  The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
         ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
+
 {: indent='4'}
    (2)  The xTR MUST set the N-bit to 1 for each EID-Record to which the
         xTR wants to subscribe.
