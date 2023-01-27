@@ -26,7 +26,7 @@ author:
  -
    fullname: Vina Ermagan
    organization: Google
-   country:United States of America
+   country: United States of America
    email: ermagan@gmail.com
 
  -
