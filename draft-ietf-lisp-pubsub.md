@@ -93,13 +93,13 @@ informative:
 
    (1)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.
-  
+
    (1)  The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.
 
    (1)  The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.
-   
+
    (1)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.
 
