@@ -1521,7 +1521,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
  compute the authentication data of the Map-Notify.<a href="#section-6-3.3" class="pilcrow">¶</a>
 </li>
       </ol>
-<p id="section-6-4">When the xTR receives a Map-Notify with an EID not local to the xTR,
+<p id="section-6-4">As a reminder, the initial transmission and retransmission of Map-Notify messages by a Map-Server follow the procedure specified in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. Some state changes may trigger an overload that would impact, e.g., the outbound capacity of a Map-Server. A similar problem may be experienced when a large number of state were simultaneously updated. To prevent such phenomena, Map-Servers <span class="bcp14">SHOULD</span> be configured with policies to control the maximum number of subscriptions and also the pace of Map-Notify messages. The exact details to characterize such policies are deployment and implementation specific. Likewise, this document does not specify which notifications take precedence when these policies are enforced.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
    entry on its Map-Cache.  The xTR <span class="bcp14">MUST</span> keep track of the last nonce
    seen in a Map-Notify received as a publication from the Map-Server
@@ -1533,8 +1534,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    the Map-Notify message and logs the fact a replay attack could have
    occurred.  The same considerations discussed in Section 5.6 of
    <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> regarding Map-Register nonces apply here for Map-Notify
-   nonces.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<p id="section-6-5">The xTR processes the received Map-Notify as specified in Section 5.7
+   nonces.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">The xTR processes the received Map-Notify as specified in Section 5.7
    of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, with the following considerations.  The xTR <span class="bcp14">MUST</span> use
    its security association with the Map-Server (<a href="#Section-7.1" class="auto internal xref">Section 7.1</a>) to
    validate the authentication data on the Map-Notify.  The xTR <span class="bcp14">MUST</span> use
@@ -1543,7 +1544,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    has not received back the Map-Notify-Ack (as per Section 5.7 of
    <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>), it can try to send the Map-Notify to a different ITR-RLOC
    for that xTR-ID.  If the Map-Server tries all the ITR-RLOCs without
-   receiving a response, it may stop trying to send the Map-Notify.<a href="#section-6-5" class="pilcrow">¶</a></p>
+   receiving a response, it may stop trying to send the Map-Notify.<a href="#section-6-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="Section-Sec">
