@@ -1259,19 +1259,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
    LISP sites.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-4">(1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-5">(2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
+<p id="section-1-4">(1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">(1)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-6">(3)  The Map-Request is forwarded to one of the Map-Servers that the
+<p id="section-1-6">(1)  The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-7">(4)  The Map-Server creates subscription state for the ITR/RTR/PITR
+<p id="section-1-7">(1)  The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-1-8">(5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
+<p id="section-1-8">(1)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-9">(6)  When there is a change in the mapping of the EID-Prefix, the
+<p id="section-1-9">(1)  When there is a change in the mapping of the EID-Prefix, the
         Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
         the subscription list.<a href="#section-1-9" class="pilcrow">¶</a></p>
-<p style="margin-left: 1.0em" id="section-1-10">(7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+<p id="section-1-10">(1)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.<a href="#section-1-10" class="pilcrow">¶</a></p>
 <p id="section-1-11">This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
