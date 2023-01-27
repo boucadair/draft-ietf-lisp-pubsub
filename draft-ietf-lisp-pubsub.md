@@ -89,25 +89,25 @@ informative:
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
-   (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
+   1. The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
-   (1)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
+   1. The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.
 
-   (1)  The Map-Request is forwarded to one of the Map-Servers that the
+   1. The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.
 
-   (1)  The Map-Server creates subscription state for the ITR/RTR/PITR
+   1. The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.
 
-   (1)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
+   1. The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.
 
-   (1)  When there is a change in the mapping of the EID-Prefix, the
+   1. When there is a change in the mapping of the EID-Prefix, the
         Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
         the subscription list.
 
-   (1)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+   1. Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
@@ -124,12 +124,10 @@ informative:
 
    This document makes the following deployment assumptions:
 
-{: indent='4'}
-   (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
+   1. A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
 
-   {: indent='4'}
-   (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
+   1. Map-Servers are configured to proxy Map-Replying (i.e., they are
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
 
