@@ -117,27 +117,27 @@ Table of Contents
    In general, when an ITR/RTR/PITR wants to be notified for mapping
 
    changes for a given EID-Prefix, the following steps occur:  (1) The
-      ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
+       ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
    : (2) The ITR/RTR/PITR sets the Notification-Requested bit (N-bit)
    on
 
    the Map-Request and includes its xTR-ID and Site-ID.  (3) The Map-
-      Request is forwarded to one of the Map-Servers that the EID-Prefix
-      is registered to.
+       Request is forwarded to one of the Map-Servers that the EID-
+       Prefix is registered to.
 
    : (4) The Map-Server creates subscription state for the ITR/RTR/
    PITR
 
    on the EID-Prefix.  (5) The Map-Server sends a Map-Notify to the
-      ITR/RTR/PITR to acknowledge the successful subscription.
+       ITR/RTR/PITR to acknowledge the successful subscription.
 
    : (6) When there is a change in the mapping of the EID-Prefix, the
 
    Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
 
    the subscription list.  (7) Each ITR/RTR/PITR sends a Map-Notify-Ack
-      to acknowledge the received Map-Notify.
+       to acknowledge the received Map-Notify.
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
@@ -155,12 +155,13 @@ Table of Contents
 
 3.  Deployment Assumptions
 
-   This document makes the following deployment assumptions:
+   This document makes the following deployment assumptions:  (1) A
+       unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
+       assigned to each xTR.
 
-   (1) A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
-   assigned to each xTR.  (2) Map-Servers are configured to proxy Map-
-   Replying (i.e., they are solicited to generate and send Map-Reply
-   messages) for the mappings they are serving.
+       : (2) Map-Servers are configured to proxy Map-Replying (i.e.,
+       they are solicited to generate and send Map-Reply messages) for
+       the mappings they are serving.
 
    If either assumption is not met, a subscription cannot be
    established, and the network will continue operating without this
@@ -211,8 +212,8 @@ Table of Contents
 
      Figure 1: Map-Request with I-bit, N-bit, xTR-ID, and Site-ID
 
-   The following is added to the Map-Request message defined in
-   Section 5.2 of [RFC9301]:
+       The following is added to the Map-Request message defined in
+       Section 5.2 of [RFC9301]:
 
     * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
     bit xTR-ID and a 64-bit Site-ID fields are present at the end of
@@ -283,13 +284,14 @@ Table of Contents
        (1) The Map-Server MUST use the nonce from the Map-Request as the
        nonce for the Map-Notify.
 
-   (2) The Map-Server MUST use its security association with the xTR
-   (Section 7.1) to sign the authentication data of the Map-Notify.  The
-   xTR MUST use the security association to verify the received
-   authentication data.
+       (2) The Map-Server MUST use its security association with the xTR
+       (Section 7.1) to sign the authentication data of the Map-Notify.
+       The xTR MUST use the security association to verify the received
+       authentication data.
 
-   (3) The Map-Server MUST send the Map-Notify to one of the ITR-RLOCs
-   received in the Map-Request (which one is implementation specific).
+       (3) The Map-Server MUST send the Map-Notify to one of the ITR-
+       RLOCs received in the Map-Request (which one is implementation
+       specific).
 
    When the xTR receives a Map-Notify with a nonce that matches one in
    the list of outstanding Map-Request messages sent with an N-bit set,
@@ -349,11 +351,12 @@ Table of Contents
        associated with the xTR-ID of the subscriber (which one is
        implementation specific).
 
-   (2) The Map-Server increments the nonce by one every time it sends a
-   Map-Notify as publication to an xTR-ID for a particular EID- Record.
+       (2) The Map-Server increments the nonce by one every time it
+       sends a Map-Notify as publication to an xTR-ID for a particular
+       EID- Record.
 
-   (3) The Map-Server MUST use its security association with the xTR to
-   compute the authentication data of the Map-Notify.
+       (3) The Map-Server MUST use its security association with the xTR
+       to compute the authentication data of the Map-Notify.
 
    When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
