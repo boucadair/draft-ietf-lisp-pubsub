@@ -2,7 +2,7 @@
 
 
 
-Locator/ID Separation Protocol                        A. Rodriguez-Natal
+LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
 Expires: 31 July 2023                                             Google
