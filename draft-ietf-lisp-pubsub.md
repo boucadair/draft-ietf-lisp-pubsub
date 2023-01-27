@@ -184,6 +184,7 @@ informative:
 The following is added to the Map-Request message defined in Section 5.2 of {{!RFC9301}}:
 
       - xTR-ID bit (I-bit):
+
       : This bit is set to 1 to indicate that a 128
       bit xTR-ID and a 64-bit Site-ID fields are present at the end of
       the Map-Request message.  For PubSub operation, an xTR MUST be
@@ -196,17 +197,20 @@ The following is added to the Map-Request message defined in Section 5.2 of {{!R
       a malformed Map-Request and drop the message.
 
       - Notification-Requested bit (N-bit):
+
       : The N-bit of an EID-Record is
       set to 1 to specify that the xTR wants to be notified of updates
       for that mapping record.
 
       - xTR-ID field:
+
       : If the I-bit is set, this field if added at the end
       of the Map-Request message, starting after the final Record in the
       message (or the Map-Reply Record, if present).  The xTR-ID is
       specified in Section 5.6 of {{!RFC9301}}.
 
       - Site-ID field:
+
       : If the I-bit is set, this field is added at the end
       of the Map-Request message, following the xTR-ID.  The Site-ID is
       defined in Section 5.6 of {{!RFC9301}}.
