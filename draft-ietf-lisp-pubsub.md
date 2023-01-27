@@ -89,18 +89,18 @@ informative:
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
-   {: indent='4'}
+   {: indent='2'}
    (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
-   {: indent='4'}
+   {: indent='2'}
    (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.
 
-   {: indent='4'}
+   {: indent='2'}
    (3)  The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.
 
-   {: indent='4'}
+   {: indent='2'}
    (4)  The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.
 
@@ -108,12 +108,12 @@ informative:
    (5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.
 
-   {: indent='4'}
+   {: indent='2'}
    (6)  When there is a change in the mapping of the EID-Prefix, the
         Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
         the subscription list.
 
-   {: indent='4'}
+   {: indent='2'}
    (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
 
@@ -192,7 +192,8 @@ informative:
 
 The following is added to the Map-Request message defined in Section 5.2 of {{!RFC9301}}:
 
-      * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
+      xTR-ID bit (I-bit):
+      : This bit is set to 1 to indicate that a 128
       bit xTR-ID and a 64-bit Site-ID fields are present at the end of
       the Map-Request message.  For PubSub operation, an xTR MUST be
       configured with an xTR-ID and Site-ID, and it MUST set the I-bit
@@ -203,16 +204,19 @@ The following is added to the Map-Request message defined in Section 5.2 of {{!R
       from processing the message.  In this case, the receiver will log
       a malformed Map-Request and drop the message.
 
-      * Notification-Requested bit (N-bit): The N-bit of an EID-Record is
+      Notification-Requested bit (N-bit):
+      : The N-bit of an EID-Record is
       set to 1 to specify that the xTR wants to be notified of updates
       for that mapping record.
 
-      * xTR-ID field: If the I-bit is set, this field if added at the end
+      xTR-ID field:
+      : If the I-bit is set, this field if added at the end
       of the Map-Request message, starting after the final Record in the
       message (or the Map-Reply Record, if present).  The xTR-ID is
       specified in Section 5.6 of {{!RFC9301}}.
 
-      * Site-ID field: If the I-bit is set, this field is added at the end
+      Site-ID field:
+      : If the I-bit is set, this field is added at the end
       of the Map-Request message, following the xTR-ID.  The Site-ID is
       defined in Section 5.6 of {{!RFC9301}}.
 
@@ -464,7 +468,7 @@ The following is added to the Map-Request message defined in Section 5.2 of {{!R
 
 ##  Mitigating Negative Map-Cache Entries
 
-   Section 8.1 of {{!RFC9303}} suggests two TTL values for Negative Map-
+   Section 8.1 of {{!RFC9301}} suggests two TTL values for Negative Map-
    Replies, either 15-minute (if the EID-Prefix does not exist) or
    1-minute (if the prefix exists but has not been registered).  While
    these values are based on the original operational experience of the
@@ -649,34 +653,37 @@ Thanks to Chris M. Lonvick for the security directorate review, Al Morton for th
 # Contributors
 {:numbered="false"}
 
-Dino Farinacci
-lispers.net
-San Jose, CA
-USA
+-
+fullname: Dino Farinacci
+organization: lispers.net
+city: San Jose
+state: CA
+country: USA
+email: farinacci@gmail.com
 
-Email: farinacci@gmail.com
+-
+fullname: Johnson Leong
+email: johnsonleong@gmail.com
 
-Johnson Leong
+-
+fullname: Fabio Maino
+organization: Cisco
+street: 170 Tasman Drive
+city: San Jose
+state: CA
+country: USA
+email: fmaino@cisco.com
 
-Email: johnsonleong@gmail.com
+-
+fullname: Christian Jacquenet
+organization: Orange
+city: Rennes
+code: 35000
+country: France
+email: christian.jacquenet@orange.com
 
-Fabio Maino
-Cisco
-170 Tasman Drive
-San Jose, CA
-USA
-
-Email: fmaino@cisco.com
-
-Christian Jacquenet
-Orange
-Rennes  35000
-France
-
-Email: christian.jacquenet@orange.com
-
-Stefano Secci
-Cnam
-France
-
-Email: stefano.secci@cnam.fr
+-
+fullname: Stefano Secci
+organization: Cnam
+country: France
+email: stefano.secci@cnam.fr
