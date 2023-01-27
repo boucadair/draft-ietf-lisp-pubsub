@@ -1376,7 +1376,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-4-3">The following is added to the Map-Request message defined in Section 5.2 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-4">
 <pre>
-  xTR-ID bit (I-bit):
+  - xTR-ID bit (I-bit):
   : This bit is set to 1 to indicate that a 128
   bit xTR-ID and a 64-bit Site-ID fields are present at the end of
   the Map-Request message.  For PubSub operation, an xTR MUST be
@@ -1388,18 +1388,18 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
   from processing the message.  In this case, the receiver will log
   a malformed Map-Request and drop the message.
 
-  Notification-Requested bit (N-bit):
+  - Notification-Requested bit (N-bit):
   : The N-bit of an EID-Record is
   set to 1 to specify that the xTR wants to be notified of updates
   for that mapping record.
 
-  xTR-ID field:
+  - xTR-ID field:
   : If the I-bit is set, this field if added at the end
   of the Map-Request message, starting after the final Record in the
   message (or the Map-Reply Record, if present).  The xTR-ID is
   specified in Section 5.6 of {{RFC9301}}.
 
-  Site-ID field:
+  - Site-ID field:
   : If the I-bit is set, this field is added at the end
   of the Map-Request message, following the xTR-ID.  The Site-ID is
   defined in Section 5.6 of {{RFC9301}}.
@@ -1416,22 +1416,26 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    Map-Request to the Mapping System with the N-bit set on the EID-
    Record.  The xTR builds a Map-Request according to Section 5.3 of
    <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> but also does the following:<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-5-2">(1)  The xTR <span class="bcp14">MUST</span> set the I-bit to 1 and append its xTR-ID and Site-
-        ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-5-3">(2)  The xTR <span class="bcp14">MUST</span> set the N-bit to 1 for each EID-Record to which the
-        xTR wants to subscribe.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">The Map-Request is forwarded to the appropriate Map-Server through
+<ol start="1" type="1" class="normal type-1" id="section-5-2">
+<li id="section-5-2.1">The xTR <span class="bcp14">MUST</span> set the I-bit to 1 and append its xTR-ID and Site-
+ ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.<a href="#section-5-2.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-5-2.2">The xTR <span class="bcp14">MUST</span> set the N-bit to 1 for each EID-Record to which the
+ xTR wants to subscribe.<a href="#section-5-2.2" class="pilcrow">¶</a>
+</li>
+      </ol>
+<p id="section-5-3">The Map-Request is forwarded to the appropriate Map-Server through
    the Mapping System.  This document does not assume that a Map-Server
    is pre-assigned to handle the subscription state for a given xTR.
    The Map-Server that receives the Map-Request will be the Map-Server
    responsible to notify that specific xTR about future mapping changes
-   for the subscribed mapping records.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">Upon receipt of the Map-Request, the Map-Server processes it as
+   for the subscribed mapping records.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Upon receipt of the Map-Request, the Map-Server processes it as
    described in Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>.  Furthermore, upon processing,
    for each EID-Record that has the N-bit set to 1, the Map-Server
    proceeds to add the xTR-ID contained in the Map-Request to the list
-   of xTRs that have requested to be subscribed to that EID-Record.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">If an xTR-ID is successfully added to the list of subscribers for an
+   of xTRs that have requested to be subscribed to that EID-Record.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">If an xTR-ID is successfully added to the list of subscribers for an
    EID-Record, the Map-Server <span class="bcp14">MUST</span> extract the nonce and ITR-RLOCs
    present in the Map-Request, and store the association between the
    EID-Record, xTR-ID, ITR-RLOCs and nonce.  Any already present state
@@ -1439,50 +1443,55 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    overwritten.  When the LISP deployment has a single Map-Server, the
    Map-Server can be configured to keep a single nonce per xTR-ID for
    all EID-Records (when used, this option <span class="bcp14">MUST</span> be enabled at the Map-
-   Server and all xTRs).<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">If the xTR-ID is added to the list, the Map-Server <span class="bcp14">MUST</span> send a Map-
+   Server and all xTRs).<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">If the xTR-ID is added to the list, the Map-Server <span class="bcp14">MUST</span> send a Map-
    Notify message back to the xTR to acknowledge the successful
    subscription.  The Map-Server builds the Map-Notify according to
-   Sections 5.5 and 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> with the following considerations:<a href="#section-5-7" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-5-8">(1)  The Map-Server <span class="bcp14">MUST</span> use the nonce from the Map-Request as the
-        nonce for the Map-Notify.<a href="#section-5-8" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-5-9">(2)  The Map-Server <span class="bcp14">MUST</span> use its security association with the xTR
-        (<a href="#Section-7.1" class="auto internal xref">Section 7.1</a>) to sign the authentication data of the Map-Notify.
-        The xTR <span class="bcp14">MUST</span> use the security association to verify the received
-        authentication data.<a href="#section-5-9" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-5-10">(3)  The Map-Server <span class="bcp14">MUST</span> send the Map-Notify to one of the ITR-RLOCs
-        received in the Map-Request (which one is implementation
-        specific).<a href="#section-5-10" class="pilcrow">¶</a></p>
-<p id="section-5-11">When the xTR receives a Map-Notify with a nonce that matches one in
+   Sections 5.5 and 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> with the following considerations:<a href="#section-5-6" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5-7">
+<li id="section-5-7.1">The Map-Server <span class="bcp14">MUST</span> use the nonce from the Map-Request as the
+ nonce for the Map-Notify.<a href="#section-5-7.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-5-7.2">The Map-Server <span class="bcp14">MUST</span> use its security association with the xTR
+ (<a href="#Section-7.1" class="auto internal xref">Section 7.1</a>) to sign the authentication data of the Map-Notify.
+ The xTR <span class="bcp14">MUST</span> use the security association to verify the received
+ authentication data.<a href="#section-5-7.2" class="pilcrow">¶</a>
+</li>
+        <li id="section-5-7.3">The Map-Server <span class="bcp14">MUST</span> send the Map-Notify to one of the ITR-RLOCs
+ received in the Map-Request (which one is implementation
+ specific).<a href="#section-5-7.3" class="pilcrow">¶</a>
+</li>
+      </ol>
+<p id="section-5-8">When the xTR receives a Map-Notify with a nonce that matches one in
    the list of outstanding Map-Request messages sent with an N-bit set,
    it knows that the Map-Notify is to acknowledge a successful
    subscription.  The xTR processes this Map-Notify as described in
    Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> with the following considerations.  The xTR
    <span class="bcp14">MUST</span> use the Map-Notify to populate its Map-Cache with the returned
-   EID-Prefix and RLOC-set.<a href="#section-5-11" class="pilcrow">¶</a></p>
-<p id="section-5-12">The subscription of an xTR-ID may fail for a number of reasons.  For
+   EID-Prefix and RLOC-set.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-9">The subscription of an xTR-ID may fail for a number of reasons.  For
    example, it fails because of local configuration policies (such as
    accept and drop lists of subscribers) or because the Map-Server has
    exhausted the resources to dedicate to the subscription of that EID-
    Record (e.g., the number of subscribers excess the capacity of the
-   Map-Server).<a href="#section-5-12" class="pilcrow">¶</a></p>
-<p id="section-5-13">If the subscription request fails, the Map-Server <span class="bcp14">MUST</span> send a Map-
+   Map-Server).<a href="#section-5-9" class="pilcrow">¶</a></p>
+<p id="section-5-10">If the subscription request fails, the Map-Server <span class="bcp14">MUST</span> send a Map-
    Reply to the originator of the Map-Request, as described in
    Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>.  The xTR processes the Map-Reply as
-   specified in Section 8.1 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>.<a href="#section-5-13" class="pilcrow">¶</a></p>
-<p id="section-5-14">The subscription state can also be created explicitly by
+   specified in Section 8.1 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>.<a href="#section-5-10" class="pilcrow">¶</a></p>
+<p id="section-5-11">The subscription state can also be created explicitly by
    configuration at the Map-Server (possible when a pre-shared security
    association exists, see <a href="#Section-Sec" class="auto internal xref">Section 7</a>).  In this case, the initial nonce
    associated with the xTR-ID (and EID-Record) <span class="bcp14">MUST</span> be randomly
-   generated by the Map-Server.<a href="#section-5-14" class="pilcrow">¶</a></p>
-<p id="section-5-15">The following specifies the procedure to remove a subscription.  If
+   generated by the Map-Server.<a href="#section-5-11" class="pilcrow">¶</a></p>
+<p id="section-5-12">The following specifies the procedure to remove a subscription.  If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
    Address), the Map-Server <span class="bcp14">MUST</span> remove the subscription state for that
    xTR-ID.  In this case, the Map-Server <span class="bcp14">MUST</span> send the Map-Notify to the
-   source RLOC of the Map-Request.<a href="#section-5-15" class="pilcrow">¶</a></p>
-<p id="section-5-16">When an EID-Record is removed from the Map-Server (either when
+   source RLOC of the Map-Request.<a href="#section-5-12" class="pilcrow">¶</a></p>
+<p id="section-5-13">When an EID-Record is removed from the Map-Server (either when
    explicitly withdrawn or when its TTL expires), the Map-Server
-   notifies its subscribers (if any) via a Map-Notify with TTL equal 0.<a href="#section-5-16" class="pilcrow">¶</a></p>
+   notifies its subscribers (if any) via a Map-Notify with TTL equal 0.<a href="#section-5-13" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="mapping-notification-publish-procedures">
@@ -1504,15 +1513,20 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    mapping.  The Map-Notify message sent to each of the subscribers as a
    result of an update event follows the encoding and logic defined in
    Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> for Map-Notify, except for the following:<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-6-3">(1)  The Map-Notify <span class="bcp14">MUST</span> be sent to one of the ITR-RLOCs associated
-        with the xTR-ID of the subscriber (which one is implementation
-        specific).<a href="#section-6-3" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-6-4">(2)  The Map-Server increments the nonce by one every time it sends a
-        Map-Notify as publication to an xTR-ID for a particular EID-
-        Record.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<p style="margin-left: 2.0em" id="section-6-5">(3)  The Map-Server <span class="bcp14">MUST</span> use its security association with the xTR to
-        compute the authentication data of the Map-Notify.<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">When the xTR receives a Map-Notify with an EID not local to the xTR,
+<ol start="1" type="1" class="normal type-1" id="section-6-3">
+<li id="section-6-3.1">The Map-Notify <span class="bcp14">MUST</span> be sent to one of the ITR-RLOCs associated
+ with the xTR-ID of the subscriber (which one is implementation
+ specific).<a href="#section-6-3.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-6-3.2">The Map-Server increments the nonce by one every time it sends a
+ Map-Notify as publication to an xTR-ID for a particular EID-
+ Record.<a href="#section-6-3.2" class="pilcrow">¶</a>
+</li>
+        <li id="section-6-3.3">The Map-Server <span class="bcp14">MUST</span> use its security association with the xTR to
+ compute the authentication data of the Map-Notify.<a href="#section-6-3.3" class="pilcrow">¶</a>
+</li>
+      </ol>
+<p id="section-6-4">When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
    entry on its Map-Cache.  The xTR <span class="bcp14">MUST</span> keep track of the last nonce
    seen in a Map-Notify received as a publication from the Map-Server
@@ -1524,8 +1538,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    the Map-Notify message and logs the fact a replay attack could have
    occurred.  The same considerations discussed in Section 5.6 of
    <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> regarding Map-Register nonces apply here for Map-Notify
-   nonces.<a href="#section-6-6" class="pilcrow">¶</a></p>
-<p id="section-6-7">The xTR processes the received Map-Notify as specified in Section 5.7
+   nonces.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">The xTR processes the received Map-Notify as specified in Section 5.7
    of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, with the following considerations.  The xTR <span class="bcp14">MUST</span> use
    its security association with the Map-Server (<a href="#Section-7.1" class="auto internal xref">Section 7.1</a>) to
    validate the authentication data on the Map-Notify.  The xTR <span class="bcp14">MUST</span> use
@@ -1534,7 +1548,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
    has not received back the Map-Notify-Ack (as per Section 5.7 of
    <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>), it can try to send the Map-Notify to a different ITR-RLOC
    for that xTR-ID.  If the Map-Server tries all the ITR-RLOCs without
-   receiving a response, it may stop trying to send the Map-Notify.<a href="#section-6-7" class="pilcrow">¶</a></p>
+   receiving a response, it may stop trying to send the Map-Notify.<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="Section-Sec">
