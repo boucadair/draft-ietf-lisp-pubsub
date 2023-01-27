@@ -1259,50 +1259,51 @@ svg :is([fill="white"], [fill^="#fff"]) {
    LISP sites.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-1-3">
         <dt id="section-1-3.1">In general, when an ITR/RTR/PITR wants to be notified for mapping</dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.2">
+        <dd style="margin-left: 1.5em" id="section-1-3.2">
           <p id="section-1-3.2.1"></p><a href="#section-1-3.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-1-3.3">   changes for a given EID-Prefix, the following steps occur:</dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.4">
+        <dd style="margin-left: 1.5em" id="section-1-3.4">
           <p id="section-1-3.4.1">(1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.<a href="#section-1-3.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.5"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.6">
-          <p id="section-1-3.6.1">(2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
-   the Map-Request and includes its xTR-ID and Site-ID.<a href="#section-1-3.6.1" class="pilcrow">¶</a></p>
+<dt id="section-1-3.5">: (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.6">
+          <p id="section-1-3.6.1"></p><a href="#section-1-3.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.7"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.8">
+<dt id="section-1-3.7">        the Map-Request and includes its xTR-ID and Site-ID.</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.8">
           <p id="section-1-3.8.1">(3)  The Map-Request is forwarded to one of the Map-Servers that the
    EID-Prefix is registered to.<a href="#section-1-3.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.9"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.10">
-          <p id="section-1-3.10.1">(4)  The Map-Server creates subscription state for the ITR/RTR/PITR
-   on the EID-Prefix.<a href="#section-1-3.10.1" class="pilcrow">¶</a></p>
+<dt id="section-1-3.9">: (4)  The Map-Server creates subscription state for the ITR/RTR/PITR</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.10">
+          <p id="section-1-3.10.1"></p><a href="#section-1-3.10" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.11"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.12">
+<dt id="section-1-3.11">        on the EID-Prefix.</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.12">
           <p id="section-1-3.12.1">(5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
    acknowledge the successful subscription.<a href="#section-1-3.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.13"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.14">
-          <p id="section-1-3.14.1">(6)  When there is a change in the mapping of the EID-Prefix, the
-   Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
-   the subscription list.<a href="#section-1-3.14.1" class="pilcrow">¶</a></p>
+<dt id="section-1-3.13">: (6)  When there is a change in the mapping of the EID-Prefix, the</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.14">
+          <p id="section-1-3.14.1"></p><a href="#section-1-3.14" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
-<dt id="section-1-3.15"></dt>
-        <dd style="margin-left: 2.0em" id="section-1-3.16">
-          <p id="section-1-3.16.1">(7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
-   received Map-Notify.<a href="#section-1-3.16.1" class="pilcrow">¶</a></p>
+<dt id="section-1-3.15">        Map-Server sends a Map-Notify message to each ITR/RTR/PITR in</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.16">
+          <p id="section-1-3.16.1"></p><a href="#section-1-3.16" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-1-3.17">        the subscription list.</dt>
+        <dd style="margin-left: 1.5em" id="section-1-3.18">
+          <p id="section-1-3.18.1">(7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+   received Map-Notify.<a href="#section-1-3.18.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
