@@ -114,7 +114,7 @@ informative:
         the subscription list.
 
    {: indent='4'}
-   : (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+   (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
@@ -190,10 +190,8 @@ informative:
 ~~~~
 {: #Figure-1 title='Map-Request with I-bit, N-bit, xTR-ID, and Site-ID' artwork-align="center"}
 
-   The following is added to the Map-Request message defined in
-   Section 5.2 of {{!RFC9301}}:
+The following is added to the Map-Request message defined in Section 5.2 of {{!RFC9301}}:
 
-   {: indent='4'}
       * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
       bit xTR-ID and a 64-bit Site-ID fields are present at the end of
       the Map-Request message.  For PubSub operation, an xTR MUST be
