@@ -598,19 +598,16 @@ informative:
    The remaining bits are Unassigned.
 
    The policy for allocating new bits from this sub-registry is
-   Specification Required (Section 4.6 of {{!RFC8126}}).  It is suggested
-   that multiple designated experts be appointed for registry change
-   requests.
+   Specification Required (Section 4.6 of {{!RFC8126}}).
 
+   Review requests are evaluated on the advice of one or more designated experts.
    Criteria that should be applied by the designated experts include
    determining whether the proposed registration duplicates existing
-   entries and whether the registration description is clear and fits
+   entries and whether the registration description is sufficiently detailed and fits
    the purpose of this registry.  These criteria are considered in
    addition to those already provided in Section 4.6 of {{!RFC8126}} (e.g.,
    the proposed registration must be documented in a permanent and
-   readily available public specification).  Registration requests are
-   evaluated within a three-week review period on the advice of one or
-   more designated experts.  Within the review period, the designated
+   readily available public specification).  The designated
    experts will either approve or deny the registration request,
    communicating this decision to IANA.  Denials should include an
    explanation and, if applicable, suggestions as to how to make the
