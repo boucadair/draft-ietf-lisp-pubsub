@@ -110,7 +110,7 @@ informative:
 
    (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
-{: vspace='0'}
+
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
@@ -222,7 +222,7 @@ informative:
 
    (2)  The xTR MUST set the N-bit to 1 for each EID-Record to which the
         xTR wants to subscribe.
-{: vspace='0'}
+
 
    The Map-Request is forwarded to the appropriate Map-Server through
    the Mapping System.  This document does not assume that a Map-Server
@@ -264,7 +264,7 @@ informative:
    (3)  The Map-Server MUST send the Map-Notify to one of the ITR-RLOCs
         received in the Map-Request (which one is implementation
         specific).
-{: vspace='0'}
+
 
    When the xTR receives a Map-Notify with a nonce that matches one in
    the list of outstanding Map-Request messages sent with an N-bit set,
@@ -331,7 +331,7 @@ informative:
 
    (3)  The Map-Server MUST use its security association with the xTR to
         compute the authentication data of the Map-Notify.
-{: vspace='0'}
+
 
    When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
@@ -490,7 +490,7 @@ informative:
    {{!RFC9303}}.  As described in Section 4.1.2.1 of
    {{?I-D.ietf-lisp-eid-mobility}}, LISP can rely on data-driven Solicit-
    Map-Requests (SMRs) to ensure eventual network converge.  Generally,
-   PubSub offers faster converge due to (1) no need to wait for a data
+   PubSub offers faster convergence due to (1) no need to wait for a data
    triggered event and (2) less signaling as compared with the SMR-based
    flow.  Note that when a Map-Server running PubSub has to update a
    large number of subscribers at once (i.e., when a popular mapping is
