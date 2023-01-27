@@ -1268,27 +1268,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
         on the EID-Prefix.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p style="margin-left: 2.0em" id="section-1-8">(5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-1-9">
-        <dt id="section-1-9.1">(6)  When there is a change in the mapping of the EID-Prefix, the</dt>
-        <dd style="margin-left: 2.0em" id="section-1-9.2">
-          <p id="section-1-9.2.1"></p><a href="#section-1-9.2" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-1-9.3">        Map-Server sends a Map-Notify message to each ITR/RTR/PITR in</dt>
-        <dd style="margin-left: 2.0em" id="section-1-9.4">
-          <p id="section-1-9.4.1"></p><a href="#section-1-9.4" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-1-9.5">        the subscription list.</dt>
-        <dd style="margin-left: 2.0em" id="section-1-9.6">
-          <p id="section-1-9.6.1">(7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
-   received Map-Notify.<a href="#section-1-9.6.1" class="pilcrow">¶</a></p>
-</dd>
-      <dd class="break"></dd>
-</dl>
-<p id="section-1-10">This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
+<p style="margin-left: 2.0em" id="section-1-9">(6)  When there is a change in the mapping of the EID-Prefix, the
+        Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
+        the subscription list.<a href="#section-1-9" class="pilcrow">¶</a></p>
+<p style="margin-left: 2.0em" id="section-1-10">(7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+        received Map-Notify.<a href="#section-1-10" class="pilcrow">¶</a></p>
+<p id="section-1-11">This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
-   several EID-Prefixes within a single Map-Request.<a href="#section-1-10" class="pilcrow">¶</a></p>
+   several EID-Prefixes within a single Map-Request.<a href="#section-1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology-and-requirements-notation">
@@ -1373,8 +1360,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#name-map-request-with-i-bit-n-bi" class="selfRef">Map-Request with I-bit, N-bit, xTR-ID, and Site-ID</a>
         </figcaption></figure>
 </div>
-<p id="section-4-3">The following is added to the Map-Request message defined in
-   Section 5.2 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>:<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-3">The following is added to the Map-Request message defined in Section 5.2 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4-4">
 <pre>
   * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128

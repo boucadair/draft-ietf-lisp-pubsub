@@ -131,12 +131,12 @@ Table of Contents
        (5) The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
        acknowledge the successful subscription.
 
-   (6) When there is a change in the mapping of the EID-Prefix, the
+       (6) When there is a change in the mapping of the EID-Prefix, the
+       Map-Server sends a Map-Notify message to each ITR/RTR/PITR in the
+       subscription list.
 
-   Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
-
-   the subscription list.  (7) Each ITR/RTR/PITR sends a Map-Notify-Ack
-       to acknowledge the received Map-Notify.
+       (7) Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
+       received Map-Notify.
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
