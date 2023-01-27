@@ -23,7 +23,7 @@ title: "TODO - Your title"
 abbrev: "TODO - Abbreviation"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-ietf-lisp-pubsub-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
 number:
 date:
