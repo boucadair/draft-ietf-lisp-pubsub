@@ -86,10 +86,10 @@ informative:
    notified faster and can be managed in the Mapping System versus the
    LISP sites.
 
+   {: indent='4'}
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
-   {: indent='4'}
    : (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
    {: indent='4'}
@@ -129,11 +129,14 @@ informative:
 
 #  Deployment Assumptions
 
+   {: indent='4'}
    This document makes the following deployment assumptions:
 
-   (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
+   : (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
-   (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
+
+   {: indent='4'}
+   : (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
 
@@ -187,6 +190,7 @@ informative:
 ~~~~
 {: #Figure-1 title='Map-Request with I-bit, N-bit, xTR-ID, and Site-ID' artwork-align="center"}
 
+   {: indent='4'}
    The following is added to the Map-Request message defined in
    Section 5.2 of {{!RFC9301}}:
 
@@ -224,7 +228,7 @@ informative:
 {: indent='4'}
    (1)  The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
         ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
-
+{: indent='4'}
    (2)  The xTR MUST set the N-bit to 1 for each EID-Record to which the
         xTR wants to subscribe.
 
@@ -261,11 +265,13 @@ informative:
    (1)  The Map-Server MUST use the nonce from the Map-Request as the
         nonce for the Map-Notify.
 
+{: indent='4'}
    (2)  The Map-Server MUST use its security association with the xTR
         ({{Section-7.1}}) to sign the authentication data of the Map-Notify.
         The xTR MUST use the security association to verify the received
         authentication data.
 
+{: indent='4'}
    (3)  The Map-Server MUST send the Map-Notify to one of the ITR-RLOCs
         received in the Map-Request (which one is implementation
         specific).
@@ -330,10 +336,12 @@ informative:
         with the xTR-ID of the subscriber (which one is implementation
         specific).
 
+{: indent='4'}
    (2)  The Map-Server increments the nonce by one every time it sends a
         Map-Notify as publication to an xTR-ID for a particular EID-
         Record.
 
+{: indent='4'}
    (3)  The Map-Server MUST use its security association with the xTR to
         compute the authentication data of the Map-Notify.
 
