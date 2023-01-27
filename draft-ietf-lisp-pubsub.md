@@ -86,28 +86,34 @@ informative:
    notified faster and can be managed in the Mapping System versus the
    LISP sites.
 
-{: indent='4'}
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
+   {: indent='4'}
    : (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
+   {: indent='4'}
    : (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
         the Map-Request and includes its xTR-ID and Site-ID.
 
+   {: indent='4'}
    : (3)  The Map-Request is forwarded to one of the Map-Servers that the
         EID-Prefix is registered to.
 
+   {: indent='4'}
    : (4)  The Map-Server creates subscription state for the ITR/RTR/PITR
         on the EID-Prefix.
 
+   {: indent='4'}
    : (5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to
         acknowledge the successful subscription.
 
+   {: indent='4'}
    : (6)  When there is a change in the mapping of the EID-Prefix, the
         Map-Server sends a Map-Notify message to each ITR/RTR/PITR in
         the subscription list.
 
+   {: indent='4'}
    : (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
 
