@@ -9,8 +9,8 @@ number:
 date:
 consensus: true
 v: 3
-area: "RTG"
-workgroup: "LISP"
+area: "Routing"
+workgroup: "Locator/ID Separation Protocol"
 keyword:
  - Automation
  - Reliable
