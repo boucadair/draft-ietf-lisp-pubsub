@@ -89,6 +89,7 @@ informative:
    In general, when an ITR/RTR/PITR wants to be notified for mapping
    changes for a given EID-Prefix, the following steps occur:
 
+{: indent='4'}
    (1)  The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.
 
    (2)  The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on
@@ -109,6 +110,7 @@ informative:
 
    (7)  Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the
         received Map-Notify.
+{: vspace='0'}
 
    This operation is repeated for all EID-Prefixes for which ITRs/RTRs/
    PITRs want to be notified.  An ITR/RTR/PITR can set the N-bit for
@@ -116,7 +118,7 @@ informative:
 
 #  Terminology and Requirements Notation
 
-   {::boilerplate bcp14-tagged}
+{::boilerplate bcp14-tagged}
 
    The document uses the terms defined in Section 3 of {{!RFC9300}}.
 
@@ -126,7 +128,6 @@ informative:
 
    (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
-
    (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
@@ -184,7 +185,7 @@ informative:
    The following is added to the Map-Request message defined in
    Section 5.2 of {{!RFC9301}}:
 
-      xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
+      * xTR-ID bit (I-bit): This bit is set to 1 to indicate that a 128
       bit xTR-ID and a 64-bit Site-ID fields are present at the end of
       the Map-Request message.  For PubSub operation, an xTR MUST be
       configured with an xTR-ID and Site-ID, and it MUST set the I-bit
@@ -195,16 +196,16 @@ informative:
       from processing the message.  In this case, the receiver will log
       a malformed Map-Request and drop the message.
 
-      Notification-Requested bit (N-bit): The N-bit of an EID-Record is
+      * Notification-Requested bit (N-bit): The N-bit of an EID-Record is
       set to 1 to specify that the xTR wants to be notified of updates
       for that mapping record.
 
-      xTR-ID field: If the I-bit is set, this field if added at the end
+      * xTR-ID field: If the I-bit is set, this field if added at the end
       of the Map-Request message, starting after the final Record in the
       message (or the Map-Reply Record, if present).  The xTR-ID is
       specified in Section 5.6 of {{!RFC9301}}.
 
-      Site-ID field: If the I-bit is set, this field is added at the end
+      * Site-ID field: If the I-bit is set, this field is added at the end
       of the Map-Request message, following the xTR-ID.  The Site-ID is
       defined in Section 5.6 of {{!RFC9301}}.
 
@@ -215,11 +216,13 @@ informative:
    Record.  The xTR builds a Map-Request according to Section 5.3 of
    {{!RFC9301}} but also does the following:
 
+{: indent='4'}
    (1)  The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
         ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
 
    (2)  The xTR MUST set the N-bit to 1 for each EID-Record to which the
         xTR wants to subscribe.
+{: vspace='0'}
 
    The Map-Request is forwarded to the appropriate Map-Server through
    the Mapping System.  This document does not assume that a Map-Server
@@ -249,6 +252,7 @@ informative:
    subscription.  The Map-Server builds the Map-Notify according to
    Sections 5.5 and 5.7 of {{!RFC9301}} with the following considerations:
 
+{: indent='4'}
    (1)  The Map-Server MUST use the nonce from the Map-Request as the
         nonce for the Map-Notify.
 
@@ -260,6 +264,7 @@ informative:
    (3)  The Map-Server MUST send the Map-Notify to one of the ITR-RLOCs
         received in the Map-Request (which one is implementation
         specific).
+{: vspace='0'}
 
    When the xTR receives a Map-Notify with a nonce that matches one in
    the list of outstanding Map-Request messages sent with an N-bit set,
@@ -315,6 +320,7 @@ informative:
    result of an update event follows the encoding and logic defined in
    Section 5.7 of {{!RFC9301}} for Map-Notify, except for the following:
 
+{: indent='4'}
    (1)  The Map-Notify MUST be sent to one of the ITR-RLOCs associated
         with the xTR-ID of the subscriber (which one is implementation
         specific).
@@ -325,6 +331,7 @@ informative:
 
    (3)  The Map-Server MUST use its security association with the xTR to
         compute the authentication data of the Map-Notify.
+{: vspace='0'}
 
    When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
@@ -630,34 +637,34 @@ Thanks to Chris M. Lonvick for the security directorate review, Al Morton for th
 # Contributors
 {:numbered="false"}
 
-       Dino Farinacci
-       lispers.net
-       San Jose, CA
-       USA
+Dino Farinacci
+lispers.net
+San Jose, CA
+USA
 
-       Email: farinacci@gmail.com
+Email: farinacci@gmail.com
 
-       Johnson Leong
+Johnson Leong
 
-       Email: johnsonleong@gmail.com
+Email: johnsonleong@gmail.com
 
-       Fabio Maino
-       Cisco
-       170 Tasman Drive
-       San Jose, CA
-       USA
+Fabio Maino
+Cisco
+170 Tasman Drive
+San Jose, CA
+USA
 
-       Email: fmaino@cisco.com
+Email: fmaino@cisco.com
 
-       Christian Jacquenet
-       Orange
-       Rennes  35000
-       France
+Christian Jacquenet
+Orange
+Rennes  35000
+France
 
-       Email: christian.jacquenet@orange.com
+Email: christian.jacquenet@orange.com
 
-       Stefano Secci
-       Cnam
-       France
+Stefano Secci
+Cnam
+France
 
-       Email: stefano.secci@cnam.fr
+Email: stefano.secci@cnam.fr
