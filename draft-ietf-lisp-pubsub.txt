@@ -734,19 +734,37 @@ Acknowledgments
 
 Contributors
 
-   - fullname: Dino Farinacci organization: lispers.net city: San Jose
-   state: CA country: USA email: farinacci@gmail.com
+      Dino Farinacci
+      lispers.net
+      San Jose, CA
+      USA
 
-   - fullname: Johnson Leong email: johnsonleong@gmail.com
+      Email: farinacci@gmail.com
 
-   - fullname: Fabio Maino organization: Cisco street: 170 Tasman Drive
-   city: San Jose state: CA country: USA email: fmaino@cisco.com
+      Johnson Leong
 
-   - fullname: Christian Jacquenet organization: Orange city: Rennes
-   code: 35000 country: France email: christian.jacquenet@orange.com
+      Email: johnsonleong@gmail.com
 
-   - fullname: Stefano Secci organization: Cnam country: France email:
-   stefano.secci@cnam.fr
+      Fabio Maino
+      Cisco
+      170 Tasman Drive
+      San Jose, CA
+      USA
+
+      Email: fmaino@cisco.com
+
+      Christian Jacquenet
+      Orange
+      Rennes  35000
+      France
+
+      Email: christian.jacquenet@orange.com
+
+      Stefano Secci
+      Cnam
+      France
+
+      Email: stefano.secci@cnam.fr
 
 Authors' Addresses
 
