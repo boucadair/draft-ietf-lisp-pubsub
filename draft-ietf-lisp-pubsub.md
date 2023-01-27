@@ -626,6 +626,9 @@ informative:
    this document.  This work was partly funded by the ANR LISP-Lab
    project #ANR-13-INFR-009 (https://www.lisp-lab.org).
 
+Many thanls to Alvaro Retano for the careful AD review.
+
+Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, and  Magnus Westerlund for the tsv directorate review.
 
 # Contributors
 {:numbered="false"}
