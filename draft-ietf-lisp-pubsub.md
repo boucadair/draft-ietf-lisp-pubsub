@@ -329,6 +329,7 @@ The following is added to the Map-Request message defined in Section 5.2 of {{!R
    1.  The Map-Server MUST use its security association with the xTR to
         compute the authentication data of the Map-Notify.
 
+As a reminder, the initial transmission and retransmission of Map-Notify messages by a Map-Server follow the procedure specified in Section 5.7 of {{!RFC9301}}. Some state changes may trigger an overload that would impact, e.g., the outbound capacity of a Map-Server. A similar problem may be experienced when a large number of state were simultaneously updated. To prevent such phenomena, Map-Servers SHOULD be configured with policies to control the maximum number of subscriptions and also the pace of Map-Notify messages. The exact details to characterize such policies are deployment and implementation specific. Likewise, this document does not specify which notifications take precedence when these policies are enforced.
 
    When the xTR receives a Map-Notify with an EID not local to the xTR,
    the xTR knows that the Map-Notify has been received to update an
