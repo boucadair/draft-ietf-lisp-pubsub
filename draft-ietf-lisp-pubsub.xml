@@ -518,9 +518,10 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
         </section>
 
         <section numbered="false" anchor="Acknowledgments" title="Acknowledgments"  toc="default">
-          <t>  We would like to thank Marc Portoles, Balaji Venkatachalapathy, Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their great suggestions and help regarding this document. This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://www.lisp-lab.org).</t>
-        
+          <t> We would like to thank Marc Portoles, Balaji Venkatachalapathy, Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their great suggestions and help regarding this document. </t>
           <t> Many thanks to Alvaro Retano for the careful AD review. Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, and Magnus Westerlund for the tsv directorate review.</t>
+          <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://www.lisp-lab.org).</t>
+
         </section>
       </back>
     </rfc>
