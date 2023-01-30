@@ -327,7 +327,7 @@ Table of Contents
    subscription state for the xTR-ID to the least-specific prefix that
    both matches the original query and does not match any EID-Prefix
    known to exist in the LISP-capable infrastructure.  Alternatively,
-   the Map-Server CAN instead determine that such subscription request
+   the Map-Server can instead determine that such subscription request
    fails, and send a Negative Map-Reply following Section 8.3 of
    [RFC9301].  In both cases, the TTL of the temporary subscription
    state or the Negative Map-Reply SHOULD be configurable, with a value
