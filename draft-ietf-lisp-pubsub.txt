@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 31 July 2023                                             Google
+Expires: 3 August 2023                                            Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                         27 January 2023
+                                                         30 January 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 July 2023.
+   This Internet-Draft will expire on 3 August 2023.
 
 Copyright Notice
 
@@ -401,7 +401,9 @@ Table of Contents
 7.  Security Considerations
 
    Generic security considerations related to LISP control messages are
-   discussed in Section 9 of [RFC9301].
+   discussed in Section 9 of [RFC9301].  To prevent xTR-ID hijacking, it
+   is RECOMMENDED to follow guidance from Section 9 of [RFC9301] to
+   ensure integrity protection of Map-Request messages.
 
    In the particular case of PubSub, cache poisoning via malicious Map-
    Notify messages is avoided by the use of nonce and the security
