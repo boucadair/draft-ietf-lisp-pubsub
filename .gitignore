@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-ietf-lisp-pubsub.xml
+draft-ietf-lisp-pubsub.md
 package-lock.json
 report.xml
 !requirements.txt
