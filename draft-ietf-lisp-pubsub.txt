@@ -67,12 +67,10 @@ Table of Contents
    7.  Security Considerations
      7.1.  Security Association between ITR and Map-Server
      7.2.  DDoS Attack Mitigation
-   8.  Contributors
-   9.  Acknowledgments
-   10. IANA Considerations
-   11. References
-     11.1.  Normative References
-     11.2.  Informative References
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Sample PubSub Deployment Experiences
      A.1.  PubSub as a Monitoring Tool
      A.2.  Mitigating Negative Map-Cache Entries
@@ -80,6 +78,8 @@ Table of Contents
      A.4.  Enhanced Reachability with Dynamic Redistribution of
            Prefixes
      A.5.  Better Serviceability
+   Contributors
+   Acknowledgments
    Authors' Addresses
 
 1.  Introduction
@@ -166,7 +166,7 @@ Table of Contents
 
    Figure 1 shows the format of the updated Map-Request to support the
    PubSub functionality.  In particular, this document associates a
-   meaning with one of the reserved bits (see Section 10).
+   meaning with one of the reserved bits (see Section 8).
 
         0                   1                   2                   3
         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -486,59 +486,7 @@ Table of Contents
    Request from that xTR-ID (i.e., the Map-Server will send a Map-
    Reply).
 
-8.  Contributors
-
-       Dino Farinacci
-       lispers.net
-       San Jose, CA
-       USA
-
-       Email: farinacci@gmail.com
-
-
-       Johnson Leong
-
-       Email: johnsonleong@gmail.com
-
-
-       Fabio Maino
-       Cisco
-       San Jose, CA
-       USA
-
-       Email: fmaino@cisco.com
-
-
-       Christian Jacquenet
-       Orange
-       Rennes
-       France
-
-       Email: christian.jacquenet@orange.com
-
-
-       Stefano Secci
-       Cnam
-       France
-
-       Email: stefano.secci@cnam.fr
-
-
-9.  Acknowledgments
-
-   We would like to thank Marc Portoles, Balaji Venkatachalapathy,
-   Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their
-   great suggestions and help regarding this document.  This work was
-   partly funded by the ANR LISP-Lab project #ANR-13-INFR-009
-   (https://www.lisp-lab.org).
-
-   Many thanks to Alvaro Retano for the careful AD review.  Thanks to
-   Chris M.  Lonvick for the security directorate review, Al Morton for
-   the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride
-   for the rtg-dir review, and Magnus Westerlund for the tsv directorate
-   review.
-
-10.  IANA Considerations
+8.  IANA Considerations
 
    This document requests IANA to assign a new bit from the "LISP
    Control Plane Header Bits: Map-Request" sub-registry under the
@@ -591,9 +539,9 @@ Table of Contents
    Denials should include an explanation and, if applicable, suggestions
    as to how to make the request successful.
 
-11.  References
+9.  References
 
-11.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -624,7 +572,7 @@ Table of Contents
               RFC 9303, DOI 10.17487/RFC9303, October 2022,
               <https://www.rfc-editor.org/info/rfc9303>.
 
-11.2.  Informative References
+9.2.  Informative References
 
    [I-D.haindl-lisp-gb-atn]
               Haindl, B., Lindner, M., Moreno, V., Portoles-Comeras, M.,
@@ -788,6 +736,59 @@ A.5.  Better Serviceability
    particularly when they are debugging problems.  With PubSub, the Map-
    Cache is updated with the correct RLOC information, even when it is
    not being used or waiting to expire, and this helps with debugging.
+
+Contributors
+
+       Dino Farinacci
+       lispers.net
+       San Jose, CA
+       USA
+
+       Email: farinacci@gmail.com
+
+
+       Johnson Leong
+
+       Email: johnsonleong@gmail.com
+
+
+       Fabio Maino
+       Cisco
+       San Jose, CA
+       USA
+
+       Email: fmaino@cisco.com
+
+
+       Christian Jacquenet
+       Orange
+       Rennes
+       France
+
+       Email: christian.jacquenet@orange.com
+
+
+       Stefano Secci
+       Cnam
+       France
+
+       Email: stefano.secci@cnam.fr
+
+
+Acknowledgments
+
+   We would like to thank Marc Portoles, Balaji Venkatachalapathy,
+   Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their
+   great suggestions and help regarding this document.
+
+   Many thanks to Alvaro Retano for the careful AD review.  Thanks to
+   Chris M.  Lonvick for the security directorate review, Al Morton for
+   the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride
+   for the rtg-dir review, and Magnus Westerlund for the tsv directorate
+   review.
+
+   This work was partly funded by the ANR LISP-Lab project #ANR-
+   13-INFR-009 (https://www.lisp-lab.org).
 
 Authors' Addresses
 
