@@ -359,7 +359,7 @@ As a reminder, the initial transmission and retransmission of Map-Notify message
 #  Security Considerations {#Section-Sec}
 
    Generic security considerations related to LISP control messages are
-   discussed in Section 9 of {{!RFC9301}}.
+   discussed in Section 9 of {{!RFC9301}}. To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance from Section 9 of {{!RFC9301}} to ensure integrity protection of Map-Request messages.
 
    In the particular case of PubSub, cache poisoning via malicious Map-
    Notify messages is avoided by the use of nonce and the security
