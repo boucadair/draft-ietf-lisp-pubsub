@@ -159,7 +159,7 @@ Table of Contents
 
    If either assumption is not met, a subscription cannot be
    established, and the network will continue operating without this
-   enhancement.  The configuration of xTR-IDs (and Site-IDs) are out of
+   enhancement.  The configuration of xTR-IDs (and Site-IDs) is out of
    the scope of this document.
 
 4.  Map-Request PubSub Additions
