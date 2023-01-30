@@ -321,7 +321,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
         <section anchor="security" title="Security Considerations">
-          <t>Generic security considerations related to LISP control messages are discussed in Section 9 of <xref target="RFC9301"></xref>.</t>
+          <t>Generic security considerations related to LISP control messages are discussed in Section 9 of <xref target="RFC9301"></xref>. To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance from Section 9 of <xref target="RFC9301"></xref> to ensure integrity protection of Map-Request messages.</t>
 
           <t>In the particular case of PubSub, cache poisoning via malicious Map-Notify messages is avoided by the use of nonce and the security association between the ITRs and the Map-Servers.</t>
 
