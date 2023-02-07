@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-05T00:50:29.784672+00:00",
+  "timestamp": "2023-02-07T00:45:28.870711+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "I'm afraid that we need to have a timestamp added to the Map-Request to prevent replay attacks and thus avoid that a replayed Map-Request overwrites an existing subscription and trigger Map-Notify messages.\r\n",
       "createdAt": "2023-02-03T11:15:57Z",
-      "updatedAt": "2023-02-03T18:02:08Z",
+      "updatedAt": "2023-02-06T10:11:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -120,6 +120,20 @@
           "body": "The same para from where you extracted the quote also says: \r\n\r\n> An ETR that registers to the Mapping System SHOULD store\r\n>       the last nonce sent in persistent storage, so when it restarts, it\r\n>       can continue using an incrementing nonce.  If the ETR cannot\r\n>       support saving the nonce, then when it restarts, it MUST use a new\r\n>       authentication key to register to the Mapping System.\r\n\r\nIsn't odd to have a MUST for xTR for nonce storage for Map-Requests, while this is only a SHOULD for Map-Register?",
           "createdAt": "2023-02-03T18:02:08Z",
           "updatedAt": "2023-02-03T18:02:08Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sorry I had in mind the MS, you\u2019re right that we ended up with a SHOULD for ETRs and Map-Register. If we want to support a SHOULD also for ITRs and Map-Requests, one option is indeed to explore the timestamp route. Unfortunately, that would depart from the rest of the LISP architecture where timestamps are not used (afaik). I wonder if we could find a way to handle this that does not require to introduce a new concept in LISP (also we prevent unexpected side effects, if any). \r\n\r\nThinking on this, I wonder if the solution might be on Section 7.1 of PubSub. There we describe a tamper-proof way to subscribe and create a security association (provided the security guidelines of PubSub, 9301, and 9303 are followed). How about we specify that for scenarios subject to replay attacks that include ITRs that lose state (non-persistent storage) the procedure described in Section 7.1 MUST be followed to restart the nonce (the MS needs to check that the OTK that restarts the nonce has been not used before of course). This would be equivalent to ETRs on 9301 that require to use a new authentication key when persistent storage is not an option. What do you think?",
+          "createdAt": "2023-02-05T15:37:26Z",
+          "updatedAt": "2023-02-05T15:37:26Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> Sorry I had in mind the MS, you\u2019re right that we ended up with a SHOULD for ETRs and Map-Register. If we want to support a SHOULD also for ITRs and Map-Requests, one option is indeed to explore the timestamp route. Unfortunately, that would depart from the rest of the LISP architecture where timestamps are not used (afaik). I wonder if we could find a way to handle this that does not require to introduce a new concept in LISP (also we prevent unexpected side effects, if any).\r\n> \r\n\r\nACK. This is not used currently but pubsub have specifics. However, it is pragmatic to explore first the other option below. \r\n\r\n> Thinking on this, I wonder if the solution might be on Section 7.1 of PubSub. There we describe a tamper-proof way to subscribe and create a security association (provided the security guidelines of PubSub, 9301, and 9303 are followed). \r\n\r\nI assume this will cover also adding an explicit mention that we deviate from 5.2 of 9301 for nonce generation for sub updates (for whatever reason local to the xTR): The nonce++ of Map-Request for a specific EID used by the xTR (updates) should be based on the nonce seen in the latest (authenticated) map-notify. \r\n\r\n> How` about we specify that for scenarios subject to replay attacks that include ITRs that lose state (non-persistent storage) the procedure described in Section 7.1 MUST be followed to restart the nonce (the MS needs to check that the OTK that restarts the nonce has been not used before of course). This would be equivalent to ETRs on 9301 that require to use a new authentication key when persistent storage is not an option. What do you think?\r\n\r\nThe MS will accept an update/withdrawal, if nonce++ or new distinct nonce but with a new authentication key. I think this would work but this has scalability issues as the MS has to store every key-id used in a Map-Request. Otherwise, the replayed message can pass through when when that key was removed from the MS logs.  I expect also comments about how to ensure that a distinct key is used when restarts especially for xTR without permanent storage, though.  \r\n\r\nBTW, I started https://github.com/boucadair/lisp-pubsub-flow-examples to exercise the spec and illustrate the expected behavior. The current version assumes the nonce++/key-id storage approach.\r\n",
+          "createdAt": "2023-02-06T10:11:14Z",
+          "updatedAt": "2023-02-06T10:11:14Z"
         }
       ]
     },
