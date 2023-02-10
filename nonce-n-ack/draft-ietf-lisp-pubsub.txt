@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 13 August 2023                                           Google
+Expires: 14 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                         9 February 2023
+                                                        10 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 August 2023.
+   This Internet-Draft will expire on 14 August 2023.
 
 Copyright Notice
 
@@ -277,7 +277,7 @@ Table of Contents
    If an xTR-ID is successfully added to the list of subscribers for an
    EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs
    present in the Map-Request, and store the association between the
-   EID-Prefix, xTR-ID, ITR-RLOCs and nonce.  Any already present state
+   EID-Prefix, xTR-ID, ITR-RLOCs, and nonce.  Any already present state
    regarding ITR-RLOCs and/or nonce for the same xTR-ID MUST be
    overwritten.  When the LISP deployment has a single Map-Server, the
    Map-Server can be configured to keep a single nonce per xTR-ID for
