@@ -374,6 +374,10 @@ Table of Contents
    subscription state exists for the xTR-ID, the Map-Server SHOULD stop
    publishing updates about this more-specific EID-Prefix to that xTR,
    until the xTR explicitly subscribes to the more-specific EID-Prefix.
+   The same considerations regarding authentication, integrity
+   protection, and nonce checks described in this section and Section 7
+   for Map-Requests used to update subscription state, apply for Map-
+   Requests used to remove subscription state.
 
    When an EID-Prefix is removed from the Map-Server (either when
    explicitly withdrawn or when its TTL expires), the Map-Server
