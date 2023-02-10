@@ -267,12 +267,12 @@ Table of Contents
    is using the procedure described in Section 7.1 to create a new
    security association, the Map-Server MUST verify that the nonce in
    the Map-Request is greater than the stored nonce (if any) associated
-   with the EID-prefix and xTR-ID.  Otherwise, the Map-Server drops the
-   Map-Request message and logs the fact a replay attack could have
-   occurred.  Furthermore, upon processing, for the EID-Record that has
-   the N-bit set to 1, the Map-Server proceeds to add the xTR-ID
-   contained in the Map-Request to the list of xTRs that have requested
-   to be subscribed to that EID-Prefix.
+   with the EID-prefix and xTR-ID.  Otherwise, the Map-Server silently
+   drops the Map-Request message and logs the event to record that a
+   replay attack could have occurred.  Furthermore, upon processing, for
+   the EID-Record that has the N-bit set to 1, the Map-Server proceeds
+   to add the xTR-ID contained in the Map-Request to the list of xTRs
+   that have requested to be subscribed to that EID-Prefix.
 
    If an xTR-ID is successfully added to the list of subscribers for an
    EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs
