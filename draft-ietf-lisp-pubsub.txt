@@ -345,13 +345,16 @@ Table of Contents
    The following specifies the procedure to remove a subscription: If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
    Address), the Map-Server MUST remove the subscription state for that
-   xTR-ID.  In this case, the Map-Server MUST send the Map-Notify to the
-   source RLOC of the Map-Request.  If the Map-Server has received this
-   Map-Request for an EID-Prefix without explicit subscription state for
-   that xTR-ID, but covered by a less-specific EID-Prefix for which
-   subscription state exists for the xTR-ID, the Map-Server SHOULD stop
-   publishing updates about this more-specific EID-Prefix to that xTR,
-   until the xTR explicitly subscribes to the more-specific EID-Prefix.
+   xTR-ID if that subscription state exist.  In this case, the Map-
+   Server MUST send the Map-Notify to the source RLOC of the Map-
+   Request.  If no subscription state is found, and absent any local
+   policy, the Map-Server SHOULD send a Map-Notify like if the state
+   exists.  If the Map-Server has received this Map-Request for an EID-
+   Prefix without explicit subscription state for that xTR-ID, but
+   covered by a less-specific EID-Prefix for which subscription state
+   exists for the xTR-ID, the Map-Server SHOULD stop publishing updates
+   about this more-specific EID-Prefix to that xTR, until the xTR
+   explicitly subscribes to the more-specific EID-Prefix.
 
    When an EID-Record is removed from the Map-Server (either when
    explicitly withdrawn or when its TTL expires), the Map-Server
