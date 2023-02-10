@@ -134,6 +134,9 @@ Table of Contents
    details for this and other scenarios are described later in the
    document.
 
+   The reader may refer to [I-D.boucadair-lisp-pubsub-flow-examples] for
+   sample flows to illustrate the the use of the PubSub specification.
+
 2.  Terminology and Requirements Notation
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -573,6 +576,13 @@ Table of Contents
               <https://www.rfc-editor.org/info/rfc9303>.
 
 9.2.  Informative References
+
+   [I-D.boucadair-lisp-pubsub-flow-examples]
+              Boucadair, M., "LISP PubSub Flow Examples", Work in
+              Progress, Internet-Draft, draft-boucadair-lisp-pubsub-
+              flow-examples-01, 7 February 2023,
+              <https://datatracker.ietf.org/doc/html/draft-boucadair-
+              lisp-pubsub-flow-examples-01>.
 
    [I-D.haindl-lisp-gb-atn]
               Haindl, B., Lindner, M., Moreno, V., Portoles-Comeras, M.,
