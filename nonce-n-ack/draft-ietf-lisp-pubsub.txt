@@ -323,14 +323,14 @@ Table of Contents
    subscription.  The xTR processes this Map-Notify, as described in
    Section 5.7 of [RFC9301], and MUST use the Map-Notify to populate its
    Map-Cache with the returned EID-Prefix and RLOC-set.  As a reminder,
-   following [RFC9301], the xTR has to send a Map-Notify-Ack back to the
-   Map-Server.  If the Map-Server does not receive the Map-Notify-Ack
-   after exhausting the Map-Notify retransmissions described in
-   Section 5.7 of [RFC9301], the Map-Server CAN remove the subscription
-   state.  If the Map-Server removes the subscription state it SHOULD
-   notify the xTR by sending a single Map-Notify with the same nonce but
-   with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/
-   Auth-Failure".
+   following Section 5.7 of [RFC9301], the xTR has to send a Map-Notify-
+   Ack back to the Map-Server.  If the Map-Server does not receive the
+   Map-Notify-Ack after exhausting the Map-Notify retransmissions
+   described in Section 5.7 of [RFC9301], the Map-Server can remove the
+   subscription state.  If the Map-Server removes the subscription
+   state, it SHOULD notify the xTR by sending a single Map-Notify with
+   the same nonce but with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits
+   set to 5 "Drop/Auth-Failure".
 
    The subscription of an xTR-ID may fail for a number of reasons.  For
    example, it fails because of local configuration policies (such as
