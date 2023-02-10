@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 3 August 2023                                            Google
+Expires: 14 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                         30 January 2023
+                                                        10 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2023.
+   This Internet-Draft will expire on 14 August 2023.
 
 Copyright Notice
 
@@ -645,7 +645,7 @@ A.2.  Mitigating Negative Map-Cache Entries
    used to relax TTL values and cache negative mapping entries for
    longer periods of time, avoiding unnecessary refreshes of these
    forwarding entries, and drastically reducing signaling in these
-   scenarios.  In general, a TTL-based schema is a "polling mechanism"
+   scenarios.  In general, a TTL-based schema is a “polling mechanism”
    that leads to more signaling where PubSub provides an "event
    triggered mechanism" at the cost of state.
 
@@ -746,8 +746,8 @@ Acknowledgments
    Many thanks to Alvaro Retano for the careful AD review.  Thanks to
    Chris M.  Lonvick for the security directorate review, Al Morton for
    the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride
-   for the rtg-dir review, and Magnus Westerlund for the tsv directorate
-   review.
+   for the rtg-dir review, Magnus Westerlund for the tsv directorate
+   review, and Sheng Jiang for the int-dir review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
    13-INFR-009 (https://www.lisp-lab.org).
