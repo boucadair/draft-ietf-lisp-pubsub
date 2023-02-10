@@ -16,8 +16,7 @@ An alternate method (rfc include) is described in the references. -->
 <!ENTITY I-D.ietf-lisp-eid-mobility SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-lisp-eid-mobility.xml">
 <!ENTITY I-D.haindl-lisp-gb-atn SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.haindl-lisp-gb-atn.xml">
 <!ENTITY I-D.moreno-lisp-uberlay SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moreno-lisp-uberlay.xml">
-
-
+<!ENTITY I-D.boucadair-lisp-pubsub-flow-examples SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.boucadair-lisp-pubsub-flow-examples.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
@@ -171,6 +170,8 @@ please see http://xml.resource.org/authoring/README.html. -->
       </list></t>
 
       <t>This operation is repeated for all EID-Prefixes for which ITRs/RTRs/PITRs want to be notified. An ITR/RTR/PITR can set the N-bit for several EID-Prefixes within a single Map-Request. Please note that the steps above illustrate only the simplest scenario and that details for this and other scenarios are described later in the document.</t>
+
+      <t>The reader may refer to <xref target="I-D.boucadair-lisp-pubsub-flow-examples"></xref> for sample flows to illustrate the the use of the PubSub specification.</t>
 
     </section>
 
@@ -428,12 +429,12 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           &I-D.moreno-lisp-uberlay;
 
+          &I-D.boucadair-lisp-pubsub-flow-examples;
         </references>
 
         <section anchor="deployment" title="Sample PubSub Deployment Experiences">
 
             <t>Early implementations of PubSub have been running in production networks for some time. The following subsections provides an inventory of some experience lessons from these deployments.</t>
-
             <section anchor="deploy-monitoring" title="PubSub as a Monitoring Tool">
 
                 <t>Some LISP deployments are using PubSub as a way to monitor EID-Prefixes (particularly, EID-to-RLOC mappings). To that aim, some LISP implementations have extended the LISP Internet Groper (lig)  <xref target="RFC6835"></xref> tool to use PubSub. Such an extension is meant to support an interactive mode with lig, and request subscription for the EID of interest. If there are RLOC changes, the Map-Server sends a notification and then the lig client displays that change to the user. </t>
@@ -477,7 +478,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
         </section>
         <section numbered="false" anchor="Acknowledgments" title="Acknowledgments"  toc="default">
           <t> We would like to thank Marc Portoles, Balaji Venkatachalapathy, Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their great suggestions and help regarding this document. </t>
-          <t> Many thanks to Alvaro Retano for the careful AD review. Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, and Magnus Westerlund for the tsv directorate review.</t>
+          <t> Many thanks to Alvaro Retano for the careful AD review. Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.</t>
           <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://www.lisp-lab.org).</t>
 
         </section>
