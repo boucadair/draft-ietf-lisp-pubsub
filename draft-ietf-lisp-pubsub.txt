@@ -225,7 +225,7 @@ Table of Contents
 
       Notification-Requested bit (N-bit): The N-bit of an EID-Record is
       set to 1 to specify that the xTR wants to be notified of updates
-      for that mapping record.
+      for that EID-Prefix.
 
       xTR-ID field: If the I-bit is set, this field if added at the end
       of the Map-Request message, starting after the final Record in the
@@ -246,8 +246,17 @@ Table of Contents
    (1)  The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
         ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
 
-   (2)  The xTR MUST set the N-bit to 1 for each EID-Record to which the
+   (2)  The xTR MUST set the N-bit to 1 for the EID-Record to which the
         xTR wants to subscribe.
+
+   (3)  If the xTR has a nonce associated with the EID-Prefix, it MUST
+        use this nonce increased by one in the Map-Request.  It is
+        RECOMMENDED that the xTR uses persistent storage to keep nonce
+        state.  If the xTR does not have persistent storage and does not
+        have a nonce associated with the EID-Prefix, it MUST reset the
+        nonce by using the procedure described in Section 7.1 to
+        successfully create a new security association with the Map-
+        Server.
 
    The Map-Request is forwarded to the appropriate Map-Server through
    the Mapping System.  This document does not assume that a Map-Server
@@ -257,19 +266,25 @@ Table of Contents
    for the subscribed mapping records.
 
    Upon receipt of the Map-Request, the Map-Server processes it as
-   described in Section 8.3 of [RFC9301].  Furthermore, upon processing,
-   for each EID-Record that has the N-bit set to 1, the Map-Server
-   proceeds to add the xTR-ID contained in the Map-Request to the list
-   of xTRs that have requested to be subscribed to that EID-Record.
+   described in Section 8.3 of [RFC9301].  In addition, unless the xTR
+   is using the procedure described in Section 7.1 to create a new
+   security association, the Map-Server MUST verify that the nonce in
+   the Map-Request is greater than the stored nonce (if any) associated
+   with the EID-prefix and xTR-ID.  Otherwise, the Map-Server silently
+   drops the Map-Request message and logs the event to record that a
+   replay attack could have occurred.  Furthermore, upon processing, for
+   the EID-Record that has the N-bit set to 1, the Map-Server proceeds
+   to add the xTR-ID contained in the Map-Request to the list of xTRs
+   that have requested to be subscribed to that EID-Prefix.
 
    If an xTR-ID is successfully added to the list of subscribers for an
-   EID-Record, the Map-Server MUST extract the nonce and ITR-RLOCs
+   EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs
    present in the Map-Request, and store the association between the
-   EID-Record, xTR-ID, ITR-RLOCs and nonce.  Any already present state
+   EID-Prefix, xTR-ID, ITR-RLOCs, and nonce.  Any already present state
    regarding ITR-RLOCs and/or nonce for the same xTR-ID MUST be
    overwritten.  When the LISP deployment has a single Map-Server, the
    Map-Server can be configured to keep a single nonce per xTR-ID for
-   all EID-Records (when used, this option MUST be enabled at the Map-
+   all EID-Prefixes (when used, this option MUST be enabled at the Map-
    Server and all xTRs).
 
    If the xTR-ID is added to the list, the Map-Server MUST send a Map-
@@ -310,19 +325,29 @@ Table of Contents
    it knows that the Map-Notify is to acknowledge a successful
    subscription.  The xTR processes this Map-Notify, as described in
    Section 5.7 of [RFC9301], and MUST use the Map-Notify to populate its
-   Map-Cache with the returned EID-Prefix and RLOC-set.
+   Map-Cache with the returned EID-Prefix and RLOC-set.  As a reminder,
+   following Section 5.7 of [RFC9301], the xTR has to send a Map-Notify-
+   Ack back to the Map-Server.  If the Map-Server does not receive the
+   Map-Notify-Ack after exhausting the Map-Notify retransmissions
+   described in Section 5.7 of [RFC9301], the Map-Server can remove the
+   subscription state.  If the Map-Server removes the subscription
+   state, it SHOULD notify the xTR by sending a single Map-Notify with
+   the same nonce but with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits
+   set to 5 "Drop/Auth-Failure".
 
    The subscription of an xTR-ID may fail for a number of reasons.  For
    example, it fails because of local configuration policies (such as
-   accept and drop lists of subscribers) or because the Map-Server has
+   accept and drop lists of subscribers), because the Map-Server has
    exhausted the resources to dedicate to the subscription of that EID-
-   Record (e.g., the number of subscribers excess the capacity of the
-   Map-Server).
+   Prefix (e.g., the number of subscribers excess the capacity of the
+   Map-Server), or because the xTR tried but was not successful in
+   establishing a new security association (Section 7.1).
 
    If the subscription request fails, the Map-Server MUST send a Map-
    Reply to the originator of the Map-Request, as described in
    Section 8.3 of [RFC9301].  The xTR processes the Map-Reply as
-   specified in Section 8.1 of [RFC9301].
+   specified in Section 8.1 of [RFC9301].  If the subscription request
+   fails, it is up to the implementation to try to subscribe again.
 
    If the Map-Server receives a subscription request for an EID-Prefix
    not present in the mapping database, it SHOULD follow the same logic
@@ -339,24 +364,25 @@ Table of Contents
    The subscription state can also be created explicitly by
    configuration at the Map-Server (possible when a pre-shared security
    association exists, see Section 7).  In this case, the initial nonce
-   associated with the xTR-ID (and EID-Record) MUST be randomly
+   associated with the xTR-ID (and EID-Prefix) MUST be randomly
    generated by the Map-Server.
 
    The following specifies the procedure to remove a subscription: If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
    Address), the Map-Server MUST remove the subscription state for that
-   xTR-ID if that subscription state exist.  In this case, the Map-
-   Server MUST send the Map-Notify to the source RLOC of the Map-
-   Request.  If no subscription state is found, and absent any local
-   policy, the Map-Server SHOULD send a Map-Notify like if the state
-   exists.  If the Map-Server has received this Map-Request for an EID-
-   Prefix without explicit subscription state for that xTR-ID, but
-   covered by a less-specific EID-Prefix for which subscription state
-   exists for the xTR-ID, the Map-Server SHOULD stop publishing updates
-   about this more-specific EID-Prefix to that xTR, until the xTR
-   explicitly subscribes to the more-specific EID-Prefix.
+   xTR-ID.  In this case, the Map-Server MUST send the Map-Notify to the
+   source RLOC of the Map-Request.  If the Map-Server has received this
+   Map-Request for an EID-Prefix without explicit subscription state for
+   that xTR-ID, but covered by a less-specific EID-Prefix for which
+   subscription state exists for the xTR-ID, the Map-Server SHOULD stop
+   publishing updates about this more-specific EID-Prefix to that xTR,
+   until the xTR explicitly subscribes to the more-specific EID-Prefix.
+   The same considerations regarding authentication, integrity
+   protection, and nonce checks described in this section and Section 7
+   for Map-Requests used to update subscription state, apply for Map-
+   Requests used to remove subscription state.
 
-   When an EID-Record is removed from the Map-Server (either when
+   When an EID-Prefix is removed from the Map-Server (either when
    explicitly withdrawn or when its TTL expires), the Map-Server
    notifies its subscribers (if any) via a Map-Notify with TTL equal 0.
 
@@ -384,7 +410,7 @@ Table of Contents
 
    (2)  The Map-Server increments the nonce by one every time it sends a
         Map-Notify as publication to an xTR-ID for a particular EID-
-        Record.
+        Prefix.
 
    (3)  The Map-Server MUST use its security association with the xTR to
         compute the authentication data of the Map-Notify.
@@ -393,9 +419,9 @@ Table of Contents
    the xTR knows that the Map-Notify has been received to update an
    entry on its Map-Cache.  The xTR MUST keep track of the last nonce
    seen in a Map-Notify received as a publication from the Map-Server
-   for the EID-Record.  When the LISP deployment has a single Map-
+   for the EID-Prefix.  When the LISP deployment has a single Map-
    Server, the xTR can be configured to keep track of a single nonce for
-   all EID-Records (when used, this option MUST be enabled at the Map-
+   all EID-Prefix (when used, this option MUST be enabled at the Map-
    Server and all xTRs).  If a Map-Notify received as a publication has
    a nonce value that is not greater than the saved nonce, the xTR drops
    the Map-Notify message and logs the fact a replay attack could have
@@ -418,13 +444,19 @@ Table of Contents
 7.  Security Considerations
 
    Generic security considerations related to LISP control messages are
-   discussed in Section 9 of [RFC9301].  To prevent xTR-ID hijacking, it
-   is RECOMMENDED to follow guidance from Section 9 of [RFC9301] to
-   ensure integrity protection of Map-Request messages.
+   discussed in Section 9 of [RFC9301].
 
    In the particular case of PubSub, cache poisoning via malicious Map-
    Notify messages is avoided by the use of nonce and the security
    association between the ITRs and the Map-Servers.
+
+   To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance
+   from Section 9 of [RFC9301] to ensure integrity protection of Map-
+   Request messages.  It is also RECOMMENDED that the Map-Resolver
+   verifies that the xTR is allowed to use PubSub and to use the xTR-ID
+   and ITR-RLOCs included in the Map-Request.  Map-Servers SHOULD be
+   configured to only accept subscription requests from Map-Resolvers
+   that verify Map-Requests as previously described.
 
 7.1.  Security Association between ITR and Map-Server
 
@@ -444,16 +476,19 @@ Table of Contents
    KDF( OTK ), where KDF is the Key Derivation Function indicated by the
    OTK Wrapping ID.  If OTK Wrapping ID equals NULL-KEY-WRAP-128 then
    the PubSubKey is the OTK.  Note that as opposed to the pre-shared
-   PubSubKey, this generated PubSubKey is different per EID-Record the
+   PubSubKey, this generated PubSubKey is different per EID-Prefix the
    ITR subscribes to (since the ITR will use a different OTK per Map-
    Request).
 
    When the Map-Server receives the Map-Request it follows the procedure
-   specified in Section 5.  If the Map-Server has to reply with a Map-
-   Reply (e.g., due to PubSub not supported or subscription not
-   accepted), then it follows normal LISP-SEC procedure described in
-   Section 5.7 of [RFC9303].  No PubSubKey or security association is
-   created in this case.
+   specified in Section 5.  The Map-Server SHOULD verify that the OTK
+   has not been used before.  If PubSub is being used in an environment
+   where replay attacks might occur, then the Map-Server MUST verify
+   that the OTK has not been used before.  If the Map-Server has to
+   reply with a Map-Reply (e.g., due to PubSub not supported,
+   subscription not accepted, or OTK reused.), then it follows normal
+   LISP-SEC procedure described in Section 5.7 of [RFC9303].  No
+   PubSubKey or security association is created in this case.
 
    Otherwise, if the Map-Server has to reply with a Map-Notify (e.g.,
    due to subscription accepted) to a received Map-Request, the
@@ -469,9 +504,9 @@ Table of Contents
 
    *  The PubSubKey can now be used to sign and authenticate any Map-
       Notify between the Map-Server and the ITR for the subscribed EID-
-      Record.  This includes the Map-Notify sent as a confirmation to
+      Prefix.  This includes the Map-Notify sent as a confirmation to
       the subscription.  When the ITR wants to update the security
-      association for that Map-Server and EID-Record, it follows again
+      association for that Map-Server and EID-Prefix, it follows again
       the procedure described in this section.
 
    Note that if the Map-Server replies with a Map-Notify, none of the
