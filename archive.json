@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-09T00:44:05.636318+00:00",
+  "timestamp": "2023-02-12T00:49:00.442933+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "I'm afraid that we need to have a timestamp added to the Map-Request to prevent replay attacks and thus avoid that a replayed Map-Request overwrites an existing subscription and trigger Map-Notify messages.\r\n",
       "createdAt": "2023-02-03T11:15:57Z",
-      "updatedAt": "2023-02-06T10:11:14Z",
+      "updatedAt": "2023-02-11T09:04:24Z",
       "closedAt": null,
       "comments": [
         {
@@ -134,6 +134,27 @@
           "body": "> Sorry I had in mind the MS, you\u2019re right that we ended up with a SHOULD for ETRs and Map-Register. If we want to support a SHOULD also for ITRs and Map-Requests, one option is indeed to explore the timestamp route. Unfortunately, that would depart from the rest of the LISP architecture where timestamps are not used (afaik). I wonder if we could find a way to handle this that does not require to introduce a new concept in LISP (also we prevent unexpected side effects, if any).\r\n> \r\n\r\nACK. This is not used currently but pubsub have specifics. However, it is pragmatic to explore first the other option below. \r\n\r\n> Thinking on this, I wonder if the solution might be on Section 7.1 of PubSub. There we describe a tamper-proof way to subscribe and create a security association (provided the security guidelines of PubSub, 9301, and 9303 are followed). \r\n\r\nI assume this will cover also adding an explicit mention that we deviate from 5.2 of 9301 for nonce generation for sub updates (for whatever reason local to the xTR): The nonce++ of Map-Request for a specific EID used by the xTR (updates) should be based on the nonce seen in the latest (authenticated) map-notify. \r\n\r\n> How` about we specify that for scenarios subject to replay attacks that include ITRs that lose state (non-persistent storage) the procedure described in Section 7.1 MUST be followed to restart the nonce (the MS needs to check that the OTK that restarts the nonce has been not used before of course). This would be equivalent to ETRs on 9301 that require to use a new authentication key when persistent storage is not an option. What do you think?\r\n\r\nThe MS will accept an update/withdrawal, if nonce++ or new distinct nonce but with a new authentication key. I think this would work but this has scalability issues as the MS has to store every key-id used in a Map-Request. Otherwise, the replayed message can pass through when when that key was removed from the MS logs.  I expect also comments about how to ensure that a distinct key is used when restarts especially for xTR without permanent storage, though.  \r\n\r\nBTW, I started https://github.com/boucadair/lisp-pubsub-flow-examples to exercise the spec and illustrate the expected behavior. The current version assumes the nonce++/key-id storage approach.\r\n",
           "createdAt": "2023-02-06T10:11:14Z",
           "updatedAt": "2023-02-06T10:11:14Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "I think that nonce++ still don't solve the replay attack issue when the replayed attack is sent after a withdrawal. to make it short, nonce++ works fine when there is a state in the Map-Server ... but is broken when no state is maintained by the Map-Server.",
+          "createdAt": "2023-02-10T21:21:32Z",
+          "updatedAt": "2023-02-10T21:21:32Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As we discussed above, the Map-Server MUST keep the nonce in persistent storage for Map-Registers in 9301. The same can be used here, even to keep the nonce after a withdrawal.\r\n\r\nPlease keep also in mind that many production deployments of LISP run a single logical Map-Server, where a single nonce can be kept per xTR-ID (as we describe in the PubSub spec).",
+          "createdAt": "2023-02-10T23:33:38Z",
+          "updatedAt": "2023-02-10T23:33:38Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> even to keep the nonce after a withdrawal.\r\n\r\nI'm not comfortable to say that in a spec...\r\n\r\n> where a single nonce can be kept per xTR-ID (as we describe in the PubSub spec).\r\n\r\nThis one softens (but does not nullify) the issue if an xTR has at least other active state. Worth be mentioned.\r\n\r\n",
+          "createdAt": "2023-02-11T09:04:24Z",
+          "updatedAt": "2023-02-11T09:04:24Z"
         }
       ]
     },
@@ -142,15 +163,15 @@
       "id": "I_kwDOI2dNNs5dj2vg",
       "title": "side effects of rate-limits (from Magnus)",
       "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "> Also beyond rate limiting, is there a possibility here to reject the MAP-requests from a source address, without causing a denial of service attack possibility? My shallow review seem to indicate that there exist such a risk. What I am considering is that there is a legit xTR (B) with IP (IP-B). If the attacker sends a MAP-Request with nonce-A, with IP source address IP-B. The Map-Notify will go to B. B can\u2019t map this to a request it made as no Nonce matches what it sends and discards the message. Thus, the map server getting a mix of legit and spoofed requests may decide to band IP-B from asking things, thus enabling a denial of service on B. ",
       "createdAt": "2023-02-03T11:17:03Z",
-      "updatedAt": "2023-02-03T11:21:19Z",
-      "closedAt": null,
+      "updatedAt": "2023-02-10T10:25:49Z",
+      "closedAt": "2023-02-10T10:25:49Z",
       "comments": [
         {
           "author": "boucadair",
@@ -180,24 +201,74 @@
       "labels": [],
       "body": ">    The subscription state can also be created explicitly by\r\n>    configuration at the Map-Server (possible when a pre-shared security\r\n>    association exists, see Section 7).  In this case, the initial nonce\r\n>    associated with the xTR-ID (and EID-Record) MUST be randomly\r\n>    generated by the Map-Server.\r\n\r\nThe behavior is underspecified.",
       "createdAt": "2023-02-07T08:22:44Z",
-      "updatedAt": "2023-02-07T08:22:44Z",
+      "updatedAt": "2023-02-10T18:00:50Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "How the triggered Map-Notify are handled by the xTR given that they don't have a state? \r\nDo we allow xTRs to delete explicitly created subscriptions?",
+          "createdAt": "2023-02-09T18:20:42Z",
+          "updatedAt": "2023-02-09T18:20:42Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> How the triggered Map-Notify are handled by the xTR given that they don't have a state? \r\n\r\nNo special behavior is needed IMHO. Maybe we can just add a note to say that xTRs can disable via configuration the processing of \"non-explicitly-subscribed\" publications.\r\n\r\n> Do we allow xTRs to delete explicitly created subscriptions?\r\n\r\nI would think so.\r\n\r\n",
+          "createdAt": "2023-02-10T10:33:01Z",
+          "updatedAt": "2023-02-10T10:33:01Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> No special behavior is needed IMHO\r\n\r\nAs no state matching the Map-Notify will be found in the xTR, the message will be discarded. How the xTR differentiates between an update of an explicitly configured state vs. a replay of an Map-Notify (which can be sent once an xTR has explicitly deleted the corresponding state)?\r\n\r\n> Maybe we can just add a note to say that xTRs can disable via configuration the processing of \"non-explicitly-subscribed\" publications.\r\n\r\nAgree. Assuming we are able to unambiguously distinguish such Map-Notify. \r\n\r\nI tend to simply delete the sentence about explicitly configured entries. If we maintain it, we need to add more text.\r\n\r\n",
+          "createdAt": "2023-02-10T10:47:38Z",
+          "updatedAt": "2023-02-10T10:47:38Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > No special behavior is needed IMHO\r\n> \r\n> As no state matching the Map-Notify will be found in the xTR, the message will be discarded. How the xTR differentiates between an update of an explicitly configured state vs. a replay of an Map-Notify (which can be sent once an xTR has explicitly deleted the corresponding state)?\r\n\r\nCurrently Section 6 reads:\r\n\r\n>When the xTR receives a Map-Notify with an EID not local to the xTR,\r\n   the xTR knows that the Map-Notify has been received to update an\r\n   entry on its Map-Cache.  **The xTR MUST keep track of the last nonce\r\n   seen in a Map-Notify received as a publication from the Map-Server\r\n   for the EID-Prefix.**  When the LISP deployment has a single Map-\r\n   Server, the xTR can be configured to keep track of a single nonce for\r\n   all EID-Prefix (when used, this option MUST be enabled at the Map-\r\n   Server and all xTRs).  If a Map-Notify received as a publication has\r\n   a nonce value that is not greater than the saved nonce, the xTR drops\r\n   the Map-Notify message and logs the fact a replay attack could have\r\n   occurred.  **The same considerations discussed in Section 5.6 of\r\n   [RFC9301] regarding Map-Register nonces apply here for Map-Notify\r\n   nonces.**\r\n\r\nThe way I understand this is that the xTR will always be able to refer to the nonce to check if the message could had been replayed. Hope I'm not missing something.\r\n\r\nSaid that, it is true that we were missing some spec on the paragraph about explicit subscriptions (besides a note on a configuration option). We should say that the nonce is random only if the Map-Server doesn't have a suitable nonce (e.g. a single nonce per xTR-ID might be used and there might be subscription state for another prefix). I'll open a PR with a quick fix for your review.  ",
+          "createdAt": "2023-02-10T17:05:49Z",
+          "updatedAt": "2023-02-10T17:05:49Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "> The way I understand this is that the xTR will always be able to refer to the nonce to check if the message could had been replayed. Hope I'm not missing something.\r\n\r\nI think there is something I'm missing.\r\n\r\nI always understood the explicit subscription in the draft as that the subscription is created on the Map-Server without requiring a Map-Request from the subscriber (xTR). Map-Notify that will be triggered by the update of such state will have a nonce, but I'm failing to see how nonce checks will help the xTR if the xTR does not have a local state in the first place.\r\n\r\n\r\n",
+          "createdAt": "2023-02-10T17:35:08Z",
+          "updatedAt": "2023-02-10T18:00:50Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If the xTR has no state whatsoever for a nonce associated with the EID-Prefix, the xTR will create it with the first nonce it sees for that EID-Prefix. Assuming the considerations regarding persistent storage etc, are accounted for (for which Section 6 points to 9301), the first nonce seen has to be legit since an attacker cannot craft a brand new message (it's the missing the auth key) and for a message to be replayed it first needs to have been legitimately sent. This is my understanding at least.",
+          "createdAt": "2023-02-10T18:00:23Z",
+          "updatedAt": "2023-02-10T18:00:23Z"
+        },
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If the xTR has no state whatsoever for a nonce associated with the EID-Prefix, the xTR will create it with the first nonce it sees for that EID-Prefix. Assuming the considerations regarding persistent storage etc, are accounted for (for which Section 6 points to 9301), the first nonce seen has to be legit since an attacker cannot craft a brand new message (it's the missing the auth key) and for a message to be replayed it first needs to have been legitimately sent. This is my understanding at least.",
+          "createdAt": "2023-02-10T18:00:26Z",
+          "updatedAt": "2023-02-10T18:00:26Z"
+        }
+      ]
     },
     {
       "number": 4,
       "id": "I_kwDOI2dNNs5d0QBJ",
       "title": "Handling subscription withdrawals but no state found",
       "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": ">    The following specifies the procedure to remove a subscription.  If\r\n>    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown\r\n>    Address), the Map-Server MUST remove the subscription state for that\r\n>    xTR-ID.  In this case, the Map-Server MUST send the Map-Notify to the\r\n>    source RLOC of the Map-Request.\r\n\r\nI suggest we indicate that a Map-Notify will be sent back by the Map-Server even if no subscription is found.",
       "createdAt": "2023-02-07T09:26:45Z",
-      "updatedAt": "2023-02-07T09:26:45Z",
-      "closedAt": null,
+      "updatedAt": "2023-02-10T10:28:43Z",
+      "closedAt": "2023-02-10T10:28:43Z",
       "comments": []
     }
   ],
@@ -207,26 +278,345 @@
       "id": "PR_kwDOI2dNNs5JiKWZ",
       "title": "Add an informative reference to the sample-flow pubsub I-D",
       "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/5",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-02-08T15:02:43Z",
-      "updatedAt": "2023-02-08T15:02:43Z",
+      "updatedAt": "2023-02-10T10:25:48Z",
       "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
       "baseRefName": "main",
       "baseRefOid": "68e5b4fc469cf8000d95f4fe1182c10fe0afece0",
       "headRepository": "boucadair/draft-ietf-lisp-pubsub",
       "headRefName": "boucadair-patch-1",
       "headRefOid": "fa4c3649c82e1e57d6cfd141ecaca368bfc39337",
+      "closedAt": "2023-02-10T10:25:48Z",
+      "mergedAt": "2023-02-10T10:25:48Z",
+      "mergedBy": "arnatal",
+      "mergeCommit": {
+        "oid": "426709035c5be5178cd5cfd83e99a173d13fd3fe"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI2dNNs5ND49w",
+          "commit": {
+            "abbreviatedOid": "fa4c364"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Sounds good, thanks for the I-D.",
+          "createdAt": "2023-02-10T10:25:31Z",
+          "updatedAt": "2023-02-10T10:25:31Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOI2dNNs5JoIfh",
+      "title": "delete when no state is found",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/6",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "an xTR may send a delete to make sure that no (stale) mapping is maintained by the MS. ",
+      "createdAt": "2023-02-09T15:00:36Z",
+      "updatedAt": "2023-02-10T10:28:42Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "084d098c475c3471e4715bd5f7d2b76e9f7af0a2",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "f02ff412d207f10cfcca14a27453d6fcde017c34",
+      "closedAt": "2023-02-10T10:28:42Z",
+      "mergedAt": "2023-02-10T10:28:42Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "ab3ceeecbc1370d432f44335af23f2e3b42fac8c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI2dNNs5ND313",
+          "commit": {
+            "abbreviatedOid": "324cc81"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM. Suggesting minor edits just to reorder the text a bit",
+          "createdAt": "2023-02-10T10:22:43Z",
+          "updatedAt": "2023-02-10T10:23:52Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n          <t>The following specifies the procedure to remove a subscription: If the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID if that subscription state exist. In this case, the Map-Server MUST send the Map-Notify to the source RLOC of the Map-Request. If no subscription state is found, and absent any local policy, the Map-Server SHOULD send a Map-Notify like if the state exists. If the Map-Server has received this Map-Request for an EID-Prefix without explicit subscription state for that xTR-ID, but covered by a less-specific EID-Prefix for which subscription state exists for the xTR-ID, the Map-Server SHOULD stop publishing updates about this more-specific EID-Prefix to that xTR, until the xTR explicitly subscribes to the more-specific EID-Prefix.</t>\r\n```",
+              "createdAt": "2023-02-10T10:22:43Z",
+              "updatedAt": "2023-02-10T10:23:52Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOI2dNNs5Jo4LH",
+      "title": "Nonce checks on Map-Request and Map-Notify-Ack for reachability checks.",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/7",
+      "state": "MERGED",
+      "author": "arnatal",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-09T17:11:06Z",
+      "updatedAt": "2023-02-10T12:33:18Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "ab3ceeecbc1370d432f44335af23f2e3b42fac8c",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "nonce-n-ack",
+      "headRefOid": "9220511a60e1e8b0092ecfce0548864fabc1b454",
+      "closedAt": "2023-02-10T12:33:18Z",
+      "mergedAt": "2023-02-10T12:33:18Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "7de7650dc76f7945ed9f04b85b17e7cd5872dc57"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI2dNNs5M_ftL",
+          "commit": {
+            "abbreviatedOid": "7d46362"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-02-09T17:59:19Z",
+          "updatedAt": "2023-02-09T18:16:00Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\n          <t>Upon receipt of the Map-Request, the Map-Server processes it as described in Section 8.3 of <xref target=\"RFC9301\"></xref>. In addition, unless the xTR is using the procedure described in <xref target=\"association\"></xref> to create a new security association, the Map-Server MUST verify that the nonce in the Map-Request is greater than the stored nonce (if any) associated with the EID-prefix and xTR-ID. Otherwise, the Map-Server silently drops the Map-Request message and logs the event to record that a replay attack could have occurred. Furthermore, upon processing, for the EID-Record that has the N-bit set to 1, the Map-Server proceeds to add the xTR-ID contained in the Map-Request to the list of xTRs that have requested to be subscribed to that EID-Prefix. </t>\r\n```",
+              "createdAt": "2023-02-09T17:59:19Z",
+              "updatedAt": "2023-02-09T18:16:00Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\n          <t>If an xTR-ID is successfully added to the list of subscribers for an EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs present in the Map-Request, and store the association between the EID-Prefix, xTR-ID, ITR-RLOCs,  and nonce. Any already present state regarding ITR-RLOCs and/or nonce for the same xTR-ID MUST be overwritten. When the LISP deployment has a single Map-Server, the Map-Server can be configured to keep a single nonce per xTR-ID for all EID-Prefixes (when used, this option MUST be enabled at the Map-Server and all xTRs).</t>\r\n```",
+              "createdAt": "2023-02-09T18:00:55Z",
+              "updatedAt": "2023-02-09T18:16:00Z"
+            },
+            {
+              "originalPosition": 34,
+              "body": "```suggestion\r\n          <t>When the xTR receives a Map-Notify with a nonce that matches one in the list of outstanding Map-Request messages sent with an N-bit set, it knows that the Map-Notify is to acknowledge a successful subscription. The xTR processes this Map-Notify, as described in Section 5.7 of <xref target=\"RFC9301\"></xref>, and MUST use the Map-Notify to populate its Map-Cache with the returned EID-Prefix and RLOC-set. As a reminder, following Section 5.7 of <xref target=\"RFC9301\"></xref>, the xTR has to send a Map-Notify-Ack back to the Map-Server. If the Map-Server does not receive the Map-Notify-Ack after exhausting the Map-Notify retransmissions described in Section 5.7 of <xref target=\"RFC9301\"></xref>, the Map-Server can remove the subscription state. If the Map-Server removes the subscription state, it SHOULD notify the xTR by sending a single Map-Notify with the same nonce but with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits set to 5 \"Drop/Auth-Failure\".</t>\r\n```",
+              "createdAt": "2023-02-09T18:05:21Z",
+              "updatedAt": "2023-02-09T18:16:00Z"
+            },
+            {
+              "originalPosition": 47,
+              "body": "```suggestion\r\n          <t>The following specifies the procedure to remove a subscription: If the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID. In this case, the Map-Server MUST send the Map-Notify to the source RLOC of the Map-Request. If the Map-Server has received this Map-Request for an EID-Prefix without explicit subscription state for that xTR-ID, but covered by a less-specific EID-Prefix for which subscription state exists for the xTR-ID, the Map-Server SHOULD stop publishing updates about this more-specific EID-Prefix to that xTR, until the xTR explicitly subscribes to the more-specific EID-Prefix. The same considerations regarding authentication, integrity protection, and nonce checks described in this section and <xref target=\"security\"></xref> for Map-Requests used to update subscription state, apply for Map-Requests used to remove subscription state.</t>",
+              "createdAt": "2023-02-09T18:09:56Z",
+              "updatedAt": "2023-02-10T12:30:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5ND1uo",
+          "commit": {
+            "abbreviatedOid": "7d46362"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T10:17:21Z",
+          "updatedAt": "2023-02-10T10:17:21Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "I worry we are defining the same behavior twice. I would rather have a sentence here that just says something like: \r\n\r\n```The same considerations regarding authentication, integrity protection, and nonce checks described in this section and Section 7 for Map-Requests used to create subscription state, apply for Map-Requests used to remove subscription state.```",
+              "createdAt": "2023-02-10T10:17:21Z",
+              "updatedAt": "2023-02-10T10:17:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5ND3qs",
+          "commit": {
+            "abbreviatedOid": "7d46362"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T10:22:21Z",
+          "updatedAt": "2023-02-10T10:22:21Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "Works for me. Thanks.",
+              "createdAt": "2023-02-10T10:22:21Z",
+              "updatedAt": "2023-02-10T10:22:22Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOI2dNNs5Ju4Yn",
+      "title": "Explicit subscription",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/8",
+      "state": "OPEN",
+      "author": "arnatal",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Clarified nonce for explicit subscription",
+      "createdAt": "2023-02-10T17:15:48Z",
+      "updatedAt": "2023-02-11T09:08:22Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "7de7650dc76f7945ed9f04b85b17e7cd5872dc57",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "explicit-sub",
+      "headRefOid": "439614f2c22eca4a2e576b99837c37ec101e7d9d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOI2dNNs5NHD1y",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T17:42:33Z",
+          "updatedAt": "2023-02-10T17:42:34Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Let's assume this case: \r\n\r\n> xTR===>Map-Request(EID1) ==> MS\r\n>                       ....\r\n> xTR<====N1:Map-Notify(EID1)===MS\r\n>                     ...\r\n> xTR<====Ni: Map-Notify(EID1)===MS\r\n> xTR===>Map-Request(delete EID1 state) ==> MS\r\n> xTR<====N1:Map-Notify(EID1)=== Attacker\r\n\r\nIf the xTR is configured to accept notifications for non-explicitly subscribed state, how it will distinguish the last N1 in the example above vs. a legitimate message from the Map-Server?\r\n",
+              "createdAt": "2023-02-10T17:42:33Z",
+              "updatedAt": "2023-02-10T17:42:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5NHIe-",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T17:52:02Z",
+          "updatedAt": "2023-02-10T17:52:02Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The way the draft reads today, the xTR MUST keep nonce state if it ever has gotten it from a Map-Notify. The draft doesn't say that the local nonce state goes away when the xTR requests the deletion of subscription.\r\n\r\n> The xTR MUST keep track of the last nonce seen in a Map-Notify received as a publication from the Map-Server for the EID-Prefix. \r\n\r\nThe replayed Map-Notify will have N1 < Ni\r\n\r\nP.S. The considerations on persistent storage are carried over from RFC9301",
+              "createdAt": "2023-02-10T17:52:02Z",
+              "updatedAt": "2023-02-10T17:52:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5NHP7T",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T18:08:27Z",
+          "updatedAt": "2023-02-10T18:08:28Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "> The way the draft reads today, the xTR MUST keep nonce state if it ever has gotten it from a Map-Notify. The draft doesn't say that the local nonce state goes away when the xTR requests the deletion of subscription.\r\n \r\nHmm. This is for an active subscription. Not for any random prefix the xTR has subscribed and withdrawn in the past.",
+              "createdAt": "2023-02-10T18:08:27Z",
+              "updatedAt": "2023-02-10T18:16:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5NHRez",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-10T18:13:35Z",
+          "updatedAt": "2023-02-10T18:13:36Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The only way I see explicit subscriptions would work without side effects is to coordinate out-of-band the creation of the sate/nonce in both the xTR/Map-Server (using for example, NETCONF). Then, notifications handling at the xTR would follow the normal procedure. \r\n\r\nHowever, why that out-band provisioning is better than triggering the subscription from the xTR itself is questionable. ",
+              "createdAt": "2023-02-10T18:13:35Z",
+              "updatedAt": "2023-02-10T18:17:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5NJWg0",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-11T00:03:01Z",
+          "updatedAt": "2023-02-11T00:03:01Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "That is fine, I'm willing to go with that. As I mentioned in my other response, many of these deployments are going to use a single Map-Server where a single nonce can be used per xTR-ID.\r\n\r\nI'll edit the PR over the weekend to add some text to mention the pre-configured nonce, stay tuned. ",
+              "createdAt": "2023-02-11T00:03:01Z",
+              "updatedAt": "2023-02-11T00:04:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5NKCg5",
+          "commit": {
+            "abbreviatedOid": "439614f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-11T09:08:09Z",
+          "updatedAt": "2023-02-11T09:08:10Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Deal! \r\n\r\nPlease consider adding a statement about if we expect any \"special\" processing at the Map-Server for such state: indicate if by default we disable or enable explicit-subscriptions to be deleted/updated by an xTR. Thanks. ",
+              "createdAt": "2023-02-11T09:08:10Z",
+              "updatedAt": "2023-02-11T09:08:22Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
