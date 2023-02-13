@@ -501,23 +501,24 @@ Table of Contents
    When the Map-Server receives the Map-Request it follows the procedure
    specified in Section 5 with the following considerations: The Map-
    Server SHOULD verify that the OTK has not been used before.  If
-   PubSub is being used in a deployment concerned about Map-Request
-   replays, then the Map-Server MUST verify that the OTK has not been
-   used before.  If the Map-Server verifies the OTK and cannot determine
-   that OTK has not been used before, it MUST respond to the Map-Request
-   with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT
-   bits set to 5 "Drop/Auth-Failure".  The xTR might try again with a
-   different OTK upon reception of this Negative Map-Reply.  Note that a
-   Map-Server implementation might decide to not keep full past OTKs and
-   instead use some form of hash.  In that case, hash collisions are
-   handled as if the OTK has been reused.  Such implementation needs to
-   balance the hash length with the rate of collisions expected for the
-   particular deployment, this is implementation specific.  If the Map-
-   Server has to reply with a Map-Reply for any other reason (e.g., due
-   to PubSub not supported, subscription not accepted, etc.), then it
-   follows normal LISP-SEC procedure described in Section 5.7 of
-   [RFC9303].  No PubSubKey, security association, or subscription state
-   is created when the Map-Server responds with any Map-Reply message.
+   PubSub is being used in an environment concerned with Map-Request
+   replay attacks, then the Map-Server MUST verify that the OTK has not
+   been used before.  If the Map-Server verifies the OTK and cannot
+   determine that OTK has not been used before, it MUST respond to the
+   Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0)
+   with ACT bits set to 5 "Drop/Auth-Failure".  The xTR might try again
+   with a different OTK upon reception of this Negative Map-Reply.  Note
+   that a Map-Server implementation might decide to not keep full past
+   OTKs and instead use some form of hash.  In that case, hash
+   collisions are handled as if the OTK has been reused.  Such an
+   implementation needs to balance the hash length with the rate of
+   collisions expected for the particular deployment; this is
+   implementation specific.  If the Map-Server has to reply with a Map-
+   Reply for any other reason (e.g., due to PubSub not supported,
+   subscription not accepted, etc.), then it follows normal LISP-SEC
+   procedure described in Section 5.7 of [RFC9303].  No PubSubKey,
+   security association, or subscription state is created when the Map-
+   Server responds with any Map-Reply message.
 
    Otherwise, if the Map-Server has to reply with a Map-Notify (e.g.,
    due to subscription accepted) to a received Map-Request, the
