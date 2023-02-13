@@ -171,7 +171,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       <t>This operation is repeated for all EID-Prefixes for which ITRs/RTRs/PITRs want to be notified. An ITR/RTR/PITR can set the N-bit for several EID-Prefixes within a single Map-Request. Please note that the steps above illustrate only the simplest scenario and that details for this and other scenarios are described later in the document.</t>
 
-      <t>The reader may refer to <xref target="I-D.boucadair-lisp-pubsub-flow-examples"></xref> for sample flows to illustrate the the use of the PubSub specification.</t>
+      <t>The reader may refer to <xref target="I-D.boucadair-lisp-pubsub-flow-examples"></xref> for sample flows to illustrate the use of the PubSub specification.</t>
 
     </section>
 
@@ -439,7 +439,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
         <section anchor="deployment" title="Sample PubSub Deployment Experiences">
 
-            <t>Early implementations of PubSub have been running in production networks for some time. The following subsections provides an inventory of some experience lessons from these deployments.</t>
+            <t>Early implementations of PubSub have been running in production networks for some time. The following subsections provide an inventory of some experience lessons from these deployments.</t>
             <section anchor="deploy-monitoring" title="PubSub as a Monitoring Tool">
 
                 <t>Some LISP deployments are using PubSub as a way to monitor EID-Prefixes (particularly, EID-to-RLOC mappings). To that aim, some LISP implementations have extended the LISP Internet Groper (lig)  <xref target="RFC6835"></xref> tool to use PubSub. Such an extension is meant to support an interactive mode with lig, and request subscription for the EID of interest. If there are RLOC changes, the Map-Server sends a notification and then the lig client displays that change to the user. </t>
@@ -488,9 +488,9 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.</t>
 
-          <t> Thanks to John Scudder and Erik Kline for the IESG review.</t>
+          <t> Thanks to John Scudder, Erik Kline, and Lars Eggert for the IESG review.</t>
 
-          <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://www.lisp-lab.org).</t>
+          <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).</t>
 
         </section>
     <section numbered="false" title="Contributors" toc="default">
