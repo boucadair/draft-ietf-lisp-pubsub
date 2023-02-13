@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 16 August 2023                                           Google
+Expires: 17 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                        12 February 2023
+                                                        13 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2023.
+   This Internet-Draft will expire on 17 August 2023.
 
 Copyright Notice
 
@@ -363,17 +363,18 @@ Table of Contents
 
    The subscription state can also be created explicitly by
    configuration at the Map-Server (possible when a pre-shared security
-   association exists, see Section 7).  If at the time the explicit
-   subscription is configured there is no nonce that can be used for the
-   subscription state (e.g. from a different subscription already
-   established with the xTR when a single nonce is kept for xTR-ID),
-   then both the xTR and Map-Server MUST be configured with an initial
-   nonce to use.  It is RECOMMENDED to have a configuration option to
-   enable/disable the xTR to accept publication information for EID-
-   Prefixes it did not explicitly subscribe to.  By default the xTR can
-   modify explicit subscription state following the procedures described
-   in this section, however the Map-Server MAY disable this via
-   configuration.
+   association exists, see Section 7) using a variety of means that are
+   out of scope.  If at the time the explicit subscription is configured
+   there is no nonce that can be used for the explicit subscription
+   state (e.g., from a different subscription already established with
+   the same xTR when a single nonce is kept per xTR-ID), then both the
+   xTR and Map-Server MUST be configured with the initial nonce to use.
+   It is RECOMMENDED to have a configuration option to enable (or
+   disable) the xTR to accept publication information for EID-Prefixes
+   it did not explicitly subscribe to.  By default, the xTR is allowed
+   to modify explicit subscription state following the procedures
+   described in this section, however the Map-Server MAY disable this
+   via configuration.
 
    The following specifies the procedure to remove a subscription: If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
