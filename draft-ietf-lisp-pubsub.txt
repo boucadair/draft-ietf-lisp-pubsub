@@ -511,12 +511,12 @@ Table of Contents
    PubSub is being used in an environment concerned with Map-Request
    replay attacks, then the Map-Server MUST verify that the OTK has not
    been used before.  If the Map-Server verifies the OTK and cannot
-   determine that OTK has not been used before, it MUST respond to the
-   Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0)
-   with ACT bits set to 5 "Drop/Auth-Failure".  The xTR might try again
-   with a different OTK upon reception of this Negative Map-Reply.  Note
-   that a Map-Server implementation might decide to not keep full past
-   OTKs and instead use some form of hash.  In that case, hash
+   determine that the OTK has not been used before, it MUST respond to
+   the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI
+   = 0) with ACT bits set to 5 "Drop/Auth-Failure".  The xTR might try
+   again with a different OTK upon reception of this Negative Map-Reply.
+   Note that a Map-Server implementation might decide to not keep full
+   past OTKs and instead use some form of hash.  In that case, hash
    collisions are handled as if the OTK has been reused.  Such an
    implementation needs to balance the hash length with the rate of
    collisions expected for the particular deployment; this is
@@ -548,7 +548,7 @@ Table of Contents
 
    Note that if the Map-Server replies with a Map-Notify, none of the
    regular LISP-SEC steps regarding Map-Reply described in Section 5.7
-   of [RFC9303] takes place.
+   of [RFC9303] occur.
 
 7.2.  DDoS Attack Mitigation
 
@@ -828,7 +828,7 @@ Acknowledgments
    Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their
    great suggestions and help regarding this document.
 
-   Many thanks to Alvaro Retano for the careful AD review.
+   Many thanks to Alvaro Retana for the careful AD review.
 
    Thanks to Chris M.  Lonvick for the security directorate review, Al
    Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike
