@@ -85,9 +85,9 @@ Table of Contents
 1.  Introduction
 
    The Locator/ID Separation Protocol (LISP) [RFC9300] [RFC9301] splits
-   IP addresses in two different namespaces: Endpoint Identifiers (EIDs)
-   and Routing Locators (RLOCs).  LISP uses a map-and-encap approach
-   that relies on (1) a Mapping System (basically a distributed
+   IP addresses into two different namespaces: Endpoint Identifiers
+   (EIDs) and Routing Locators (RLOCs).  LISP uses a map-and-encap
+   approach that relies on (1) a Mapping System (basically a distributed
    database) that stores and disseminates EID-RLOC mappings and on (2)
    LISP tunnel routers (xTRs) that encapsulate and decapsulate data
    packets based on the content of those mappings.
@@ -262,8 +262,8 @@ Table of Contents
    the Mapping System.  This document does not assume that a Map-Server
    is pre-assigned to handle the subscription state for a given xTR.
    The Map-Server that receives the Map-Request will be the Map-Server
-   responsible to notify that specific xTR about future mapping changes
-   for the subscribed mapping records.
+   responsible for notifying that specific xTR about future mapping
+   changes for the subscribed mapping records.
 
    Upon receipt of the Map-Request, the Map-Server processes it as
    described in Section 8.3 of [RFC9301].  In addition, unless the xTR
@@ -308,17 +308,17 @@ Table of Contents
    Notify messages by a Map-Server follow the procedure specified in
    Section 5.7 of [RFC9301].  Some state changes may trigger an overload
    that would impact, e.g., the outbound capacity of a Map-Server.  A
-   similar problem may be experienced when a large number of state were
-   simultaneously updated.  To prevent such phenomena, Map-Servers
-   SHOULD be configured with policies to control the maximum number of
-   subscriptions and also the pace of Map-Notify messages.  For example,
-   the Map-Server may be instructed to limit the resources that are
-   dedicated to unsolicited Map-Notify messages to a small fraction
-   (e.g., less than 10%) of its overall processing and forwarding
-   capacity.  The exact details to characterize such policies are
-   deployment and implementation specific.  Likewise, this document does
-   not specify which notifications take precedence when these policies
-   are enforced.
+   similar problem may be experienced when a large number of state
+   entries are simultaneously updated.  To prevent such phenomena, Map-
+   Servers SHOULD be configured with policies to control the maximum
+   number of subscriptions and also the pace of Map-Notify messages.
+   For example, the Map-Server may be instructed to limit the resources
+   that are dedicated to unsolicited Map-Notify messages to a small
+   fraction (e.g., less than 10%) of its overall processing and
+   forwarding capacity.  The exact details to characterize such policies
+   are deployment and implementation specific.  Likewise, this document
+   does not specify which notifications take precedence when these
+   policies are enforced.
 
    When the xTR receives a Map-Notify with a nonce that matches one in
    the list of outstanding Map-Request messages sent with an N-bit set,
@@ -355,7 +355,7 @@ Table of Contents
    subscription state for the xTR-ID to the least-specific prefix that
    both matches the original query and does not match any EID-Prefix
    known to exist in the LISP-capable infrastructure.  Alternatively,
-   the Map-Server can instead determine that such subscription request
+   the Map-Server can instead determine that such a subscription request
    fails, and send a Negative Map-Reply following Section 8.3 of
    [RFC9301].  In both cases, the TTL of the temporary subscription
    state or the Negative Map-Reply SHOULD be configurable, with a value
@@ -536,8 +536,8 @@ Table of Contents
       Notify between the Map-Server and the ITR for the subscribed EID-
       Prefix.  This includes the Map-Notify sent as a confirmation to
       the subscription.  When the ITR wants to update the security
-      association for that Map-Server and EID-Prefix, it follows again
-      the procedure described in this section.
+      association for that Map-Server and EID-Prefix, it once again
+      follows the procedure described in this section.
 
    Note that if the Map-Server replies with a Map-Notify, none of the
    regular LISP-SEC steps regarding Map-Reply described in Section 5.7
@@ -546,7 +546,7 @@ Table of Contents
 7.2.  DDoS Attack Mitigation
 
    Misbehaving nodes may send massive subscription requests which may
-   lead to exhaust the resources of a Map-Server.  Furthermore,
+   lead to exhausting the resources of a Map-Server.  Furthermore,
    frequently changing the state of a subscription may also be
    considered as an attack vector.  To mitigate such issues, Section 5.3
    of [RFC9301] discusses rate-limiting Map-Requests and Section 5.7 of
@@ -828,8 +828,8 @@ Acknowledgments
    McBride for the rtg-dir review, Magnus Westerlund for the tsv
    directorate review, and Sheng Jiang for the int-dir review.
 
-   Thanks to John Scudder, Erik Kline, and Lars Eggert for the IESG
-   review.
+   Thanks to John Scudder, Erik Kline, Lars Eggert, and Warren Kumari
+   for the IESG review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
    13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).
