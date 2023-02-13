@@ -135,7 +135,7 @@ Table of Contents
    document.
 
    The reader may refer to [I-D.boucadair-lisp-pubsub-flow-examples] for
-   sample flows to illustrate the the use of the PubSub specification.
+   sample flows to illustrate the use of the PubSub specification.
 
 2.  Terminology and Requirements Notation
 
@@ -689,7 +689,7 @@ Table of Contents
 Appendix A.  Sample PubSub Deployment Experiences
 
    Early implementations of PubSub have been running in production
-   networks for some time.  The following subsections provides an
+   networks for some time.  The following subsections provide an
    inventory of some experience lessons from these deployments.
 
 A.1.  PubSub as a Monitoring Tool
@@ -828,10 +828,11 @@ Acknowledgments
    McBride for the rtg-dir review, Magnus Westerlund for the tsv
    directorate review, and Sheng Jiang for the int-dir review.
 
-   Thanks to John Scudder and Erik Kline for the IESG review.
+   Thanks to John Scudder, Erik Kline, and Lars Eggert for the IESG
+   review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
-   13-INFR-009 (https://www.lisp-lab.org).
+   13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).
 
 Contributors
 
