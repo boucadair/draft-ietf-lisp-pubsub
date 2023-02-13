@@ -491,8 +491,8 @@ Table of Contents
 
    When the Map-Server receives the Map-Request it follows the procedure
    specified in Section 5.  The Map-Server SHOULD verify that the OTK
-   has not been used before.  If PubSub is being used in an environment
-   where replay attacks might occur, then the Map-Server MUST verify
+   has not been used before.  If PubSub is being used in a deployment
+   concerned about Map-Request replays, then the Map-Server MUST verify
    that the OTK has not been used before.  If the Map-Server has to
    reply with a Map-Reply (e.g., due to PubSub not supported,
    subscription not accepted, or OTK reused.), then it follows normal
