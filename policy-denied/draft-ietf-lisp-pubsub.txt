@@ -371,13 +371,16 @@ Table of Contents
    xTR and Map-Server MUST be configured with the initial nonce to use.
    It is RECOMMENDED to have a configuration option to enable (or
    disable) the xTR to accept publication information for EID-Prefixes
-   it did not subscribe to itself.  By default, the xTR is allowed to
-   modify explicit subscription state following the procedures described
-   in this section, however the Map-Server MAY disable this via
-   configuration.  If the Map-Server disables this, whenever the xTR
-   tries to modify the explicit subscription the Map-Server MUST return
+   it did not explicitly subscribe to.  By default, the xTR is allowed
+   to modify explicit subscription state following the procedures
+   described in this section, however the Map-Server MAY disable this
+   via configuration.  If the Map-Server is instructed to disable
+   modifying explicit subscriptions by xTRs themselves, whenever an xTR
+   tries to modify an explicit subscription the Map-Server SHOULD return
    a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits
-   set to 4 "Drop/Policy-Denied".
+   set to 4 "Drop/Policy-Denied".  The Map-Server MAY silently ignore
+   these requests if, for example, these requests are received within a
+   short interval.
 
    The following specifies the procedure to remove a subscription: If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
