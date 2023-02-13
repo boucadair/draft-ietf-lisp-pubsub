@@ -500,12 +500,12 @@ Table of Contents
    When the Map-Server receives the Map-Request it follows the procedure
    specified in Section 5 with the following considerations: The Map-
    Server SHOULD verify that the OTK has not been used before.  If
-   PubSub is being used in an environment where replay attacks might
-   occur, then the Map-Server MUST verify that the OTK has not been used
-   before.  If the Map-Server verifies the OTK and cannot determine that
-   OTK has not been used before, it MUST respond to the Map-Request with
-   a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits
-   set to 5 "Drop/Auth-Failure".  The xTR might try again with a
+   PubSub is being used in a deployment concerned about Map-Request
+   replays, then the Map-Server MUST verify that the OTK has not been
+   used before.  If the Map-Server verifies the OTK and cannot determine
+   that OTK has not been used before, it MUST respond to the Map-Request
+   with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT
+   bits set to 5 "Drop/Auth-Failure".  The xTR might try again with a
    different OTK upon reception of this Negative Map-Reply.  Note that a
    Map-Server implementation might decide to not keep full past OTKs and
    instead use some form of hash.  In that case, hash collisions are
