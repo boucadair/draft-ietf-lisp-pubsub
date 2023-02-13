@@ -379,15 +379,15 @@ Table of Contents
    The following specifies the procedure to remove a subscription: If
    the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown
    Address), the Map-Server MUST remove the subscription state for that
-   xTR-ID.  In this case, the Map-Server MUST send the Map-Notify to the
-   source RLOC of the Map-Request.  Removing subscription state at the
-   Map-Server is subject to replay attacks.  To soften this, the Map-
+   xTR-ID (unless this is disabled via configuration, see previous
+   paragraph).  In this case, the Map-Server MUST send a Map-Notify to
+   the source RLOC of the Map-Request.  Removing subscription state at
+   the Map-Server can lead to replay attacks.  To soften this, the Map-
    Server SHOULD keep the last nonce seen per xTR (and EID-Prefix, when
    applicable).  If the Map-Server does not keep last nonces seen, then
-   in deployments concerned about Map-Request replay attacks, the Map-
-   Server MUST require the xTRs to subscribe using the procedure
-   described in Section 7.1 to successfully create a new security
-   association with the Map-Server.
+   in deployments concerned with replay attacks the Map-Server MUST
+   require the xTRs to subscribe using the procedure described in
+   Section 7.1 to create a new security association with the Map-Server.
 
    If the Map-Server receives a Map-Request asking to remove a
    subscription for an EID-Prefix without subscription state for that
