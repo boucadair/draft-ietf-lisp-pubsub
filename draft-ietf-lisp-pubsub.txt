@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 17 August 2023                                           Google
+Expires: 19 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                        13 February 2023
+                                                        15 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2023.
+   This Internet-Draft will expire on 19 August 2023.
 
 Copyright Notice
 
@@ -163,7 +163,9 @@ Table of Contents
    If either assumption is not met, a subscription cannot be
    established, and the network will continue operating without this
    enhancement.  The configuration of xTR-IDs (and Site-IDs) is out of
-   the scope of this document.
+   the scope of this document.  The reader may refer to
+   [I-D.ietf-lisp-yang] for an example of how these identifiers can be
+   provisioned to LISP nodes.
 
 4.  Map-Request PubSub Additions
 
@@ -674,6 +676,14 @@ Table of Contents
               draft-ietf-lisp-eid-mobility-11, 10 January 2023,
               <https://www.ietf.org/archive/id/draft-ietf-lisp-eid-
               mobility-11.txt>.
+
+   [I-D.ietf-lisp-yang]
+              Ermagan, V., Rodriguez-Natal, A., Coras, F., Moberg, C.,
+              Rahman, R., Cabellos-Aparicio, A., and F. Maino, "LISP
+              YANG Model", Work in Progress, Internet-Draft, draft-ietf-
+              lisp-yang-18, 29 August 2022,
+              <https://www.ietf.org/archive/id/draft-ietf-lisp-yang-
+              18.txt>.
 
    [I-D.moreno-lisp-uberlay]
               Moreno, V., Farinacci, D., Rodriguez-Natal, A., Portoles-
