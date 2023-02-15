@@ -265,7 +265,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             <t>The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-ID to the Map-Request. The xTR-ID uniquely identifies the xTR.</t>
             <t>The xTR MUST set the N-bit to 1 for the EID-Record to which the xTR wants to subscribe.</t>
-            <t>If the xTR has a nonce associated with the EID-Prefix, it MUST use this nonce increased by one in the Map-Request. It is RECOMMENDED that the xTR uses persistent storage to keep nonce state. If the xTR does not have persistent storage and does not have a nonce associated with the EID-Prefix, it MUST reset the nonce by using the procedure described in <xref target="association"></xref> to successfully create a new security association with the Map-Server.</t>
+            <t>If the xTR has a nonce associated with the EID-Prefix, it MUST use this nonce increased by one in the Map-Request. Otherwise, it generates a nonce following Section 5.2 of <xref target="RFC9301"></xref>. It is RECOMMENDED that the xTR uses persistent storage to keep nonce state. If the xTR does not have persistent storage and does not have a nonce associated with the EID-Prefix, it MUST reset the nonce by using the procedure described in <xref target="association"></xref> to successfully create a new security association with the Map-Server.</t>
 
           </list></t>
 
