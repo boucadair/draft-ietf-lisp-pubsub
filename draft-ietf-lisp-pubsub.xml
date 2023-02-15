@@ -17,6 +17,7 @@ An alternate method (rfc include) is described in the references. -->
 <!ENTITY I-D.haindl-lisp-gb-atn SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.haindl-lisp-gb-atn.xml">
 <!ENTITY I-D.moreno-lisp-uberlay SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moreno-lisp-uberlay.xml">
 <!ENTITY I-D.boucadair-lisp-pubsub-flow-examples SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.boucadair-lisp-pubsub-flow-examples.xml">
+<!ENTITY I-D.ietf-lisp-yang SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-lisp-yang.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
@@ -191,7 +192,7 @@ please see http://xml.resource.org/authoring/README.html. -->
           <t>Map-Servers are configured to proxy Map-Replying (i.e., they are solicited to generate and send Map-Reply messages) for the mappings they are serving.</t>
         </list></t>
 
-        <t>If either assumption is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. </t>
+        <t>If either assumption is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <xref target="I-D.ietf-lisp-yang"></xref> for an example of how these identifiers can be provisioned to LISP nodes.</t>
 
       </section>
 
@@ -432,6 +433,8 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           &I-D.moreno-lisp-uberlay;
 
           &I-D.boucadair-lisp-pubsub-flow-examples;
+
+          &I-D.ietf-lisp-yang;
         </references>
 
         <section anchor="deployment" title="Sample PubSub Deployment Experiences">
