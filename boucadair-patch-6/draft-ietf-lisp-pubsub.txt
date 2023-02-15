@@ -118,7 +118,7 @@ Table of Contents
         on the EID-Prefix.
 
    (5)  The Map-Server sends a Map-Notify to the ITR/RTR/PITR to confirm
-        that the subscription is created and then waits for an
+        that the subscription has been created and then waits for an
         acknowledgement of the notification.
 
    (6)  The ITR/RTR/PITR sends back a Map-Notify-Ack to acknowledge the
@@ -386,20 +386,19 @@ Table of Contents
    Server MAY silently ignore these requests if, for example, they are
    received within a short interval.
 
-   The following specifies the procedure to remove a subscription: If
-   the Map-Request with the N-bit set only has one ITR-RLOC with AFI = 0
-   (i.e., Unknown Address) and no error is encountered when validating
-   the message, the Map-Server MUST remove the subscription state for
-   that xTR-ID (unless this is disabled via configuration, see previous
-   paragraph).  If the subscription state is removed, the Map-Server
-   MUST send a Map-Notify to the source RLOC of the Map-Request.
-   Removing subscription state at the Map-Server can lead to replay
-   attacks.  To soften this, the Map-Server SHOULD keep the last nonce
-   seen per xTR (and EID-Prefix, when applicable).  If the Map-Server
-   does not keep last nonces seen, then in deployments concerned with
-   replay attacks the Map-Server MUST require the xTRs to subscribe
-   using the procedure described in Section 7.1 to create a new security
-   association with the Map-Server.
+   The following specifies the procedure to remove a subscription: If a
+   valid Map-Request with the N-bit set only has one ITR-RLOC with AFI =
+   0 (i.e., Unknown Address), the Map-Server MUST remove the
+   subscription state for that xTR-ID (unless this is disabled via
+   configuration, see previous paragraph).  If the subscription state is
+   removed, the Map-Server MUST send a Map-Notify to the source RLOC of
+   the Map-Request.  Removing subscription state at the Map-Server can
+   lead to replay attacks.  To soften this, the Map-Server SHOULD keep
+   the last nonce seen per xTR (and EID-Prefix, when applicable).  If
+   the Map-Server does not keep last nonces seen, then in deployments
+   concerned with replay attacks the Map-Server MUST require the xTRs to
+   subscribe using the procedure described in Section 7.1 to create a
+   new security association with the Map-Server.
 
    If the Map-Server receives a Map-Request asking to remove a
    subscription for an EID-Prefix without subscription state for that
