@@ -158,14 +158,15 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       <t>Ingress Tunnel Routers (ITRs) / Re-encapsulating Tunnel Routers (RTRs) / Proxy Ingress Tunnel Routers (PITRs) pull EID-to-RLOC mapping information from the Mapping System by means of an explicit request message. Section 6.1 of <xref target="RFC9301"></xref> indicates how Egress Tunnel Routers (ETRs) can tell ITRs/RTRs/PITRs about mapping changes. This document presents a Publish/Subscribe (PubSub) extension in which the Mapping System can notify ITRs/RTRs/PITRs about mapping changes. When this mechanism is used, mapping changes can be notified faster and can be managed in the Mapping System versus the LISP sites.</t>
 
-      <t>In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following steps occur:</t>
+      <t>In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following main steps occur:</t>
 
       <t><list style="format (%d)">
         <t>The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.</t>
         <t>The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on the Map-Request and includes its xTR-ID and Site-ID.</t>
         <t>The Map-Request is forwarded to one of the Map-Servers that the EID-Prefix is registered to.</t>
         <t>The Map-Server creates subscription state for the ITR/RTR/PITR on the EID-Prefix.</t>
-        <t>The Map-Server sends a Map-Notify to the ITR/RTR/PITR to acknowledge the successful subscription.</t>
+        <t>The Map-Server sends a Map-Notify to the ITR/RTR/PITR to confirm that the subscription has been created and then waits for an acknowledgement of the notification.</t>
+        <t>The ITR/RTR/PITR sends back a Map-Notify-Ack to acknowledge the successful receipt of the Map-Notify.</t>
         <t>When there is a change in the mapping of the EID-Prefix, the Map-Server sends a Map-Notify message to each ITR/RTR/PITR in the subscription list.</t>
         <t>Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the received Map-Notify.</t>
       </list></t>
@@ -297,7 +298,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>The subscription state can also be created explicitly by configuration at the Map-Server (possible when a pre-shared security association exists, see <xref target="security"></xref>) using a variety of means that are out of scope. If at the time the explicit subscription is configured there is no nonce that can be used for the explicit subscription state (e.g., from a different subscription already established with the same xTR when a single nonce is kept per xTR-ID), then both the xTR and Map-Server MUST be configured with the initial nonce to use. It is RECOMMENDED to have a configuration option to enable (or disable) the xTR to accept publication information for EID-Prefixes the xTR did not explicitly subscribe to. By default, the xTR is allowed to modify explicitly configured subscription state following the procedures described in this section, however the Map-Server MAY disable this via configuration. If the Map-Server is instructed to not allow xTRs to modify explicitly configured subscriptions, whenever an xTR tries to modify an explicitly configured subscription the Map-Server SHOULD return a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 4 "Drop/Policy-Denied". The Map-Server MAY silently ignore these requests if, for example, they are received within a short interval.</t>
 
-          <t>The following specifies the procedure to remove a subscription: If the Map-Request only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID (unless this is disabled via configuration, see previous paragraph). If the subscription state is removed, the Map-Server MUST send a Map-Notify to the source RLOC of the Map-Request. Removing subscription state at the Map-Server can lead to replay attacks. To soften this, the Map-Server SHOULD keep the last nonce seen per xTR (and EID-Prefix, when applicable). If the Map-Server does not keep last nonces seen, then in deployments concerned with replay attacks the Map-Server MUST require the xTRs to subscribe using the procedure described in <xref target="association"></xref> to create a new security association with the Map-Server.</t>
+          <t>The following specifies the procedure to remove a subscription: If a valid Map-Request with the N-bit set only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID (unless this is disabled via configuration, see previous paragraph). If the subscription state is removed, the Map-Server MUST send a Map-Notify to the source RLOC of the Map-Request. Removing subscription state at the Map-Server can lead to replay attacks. To soften this, the Map-Server SHOULD keep the last nonce seen per xTR (and EID-Prefix, when applicable). If the Map-Server does not keep last nonces seen, then in deployments concerned with replay attacks the Map-Server MUST require the xTRs to subscribe using the procedure described in <xref target="association"></xref> to create a new security association with the Map-Server.</t>
 
           <t>If the Map-Server receives a Map-Request asking to remove a subscription for an EID-Prefix without subscription state for that xTR-ID, but covered by a less-specific EID-Prefix for which subscription state exists for the xTR-ID, the Map-Server SHOULD stop publishing updates about this more-specific EID-Prefix to that xTR, until the xTR subscribes to the more-specific EID-Prefix. The same considerations regarding authentication, integrity protection, and nonce checks described in this section and <xref target="security"></xref> for Map-Requests used to update subscription state, apply for Map-Requests used to remove subscription state.</t>
 
@@ -488,7 +489,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.</t>
 
-          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, and Warren Kumari for the IESG review.</t>
+          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, and Martin Duke for the IESG review.</t>
 
           <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).</t>
 
