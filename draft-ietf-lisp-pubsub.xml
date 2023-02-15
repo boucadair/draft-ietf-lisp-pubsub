@@ -182,6 +182,16 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       </section>
 
+      <section anchor="app-scope" title="Applicability Scope">
+
+         <t>The PubSub procedure specified in this document is intended to be used in contexts with controlled access to the Map-Server. Specifically:</t>
+
+        <t><list style="format (%d)">
+          <t>Map-Resolvers MUST verify that an xTR is allowed to use PubSub and to use the xTR-ID and ITR-RLOCs included in a Map-Request.</t>
+          <t>Map-Servers MUST be configured to only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described.</t>
+        </list></t>
+      </section>
+
       <section anchor="assumptions" title="Deployment Assumptions">
 
         <t>In addition to the general assumptions and expectations that <xref target="RFC9301"></xref> makes for LISP deployments, this document makes the following two deployment assumptions: </t>
@@ -195,7 +205,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       </section>
 
-      <section anchor="map-request" title="Map-Request PubSub Additions">
+    <section anchor="map-request" title="Map-Request PubSub Additions">
 
         <t><xref target="mrq-fig"></xref> shows the format of the updated Map-Request to support the PubSub functionality. In particular, this document associates a meaning with one of the reserved bits (see <xref target="IANA"></xref>). </t>
 
@@ -329,7 +339,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>In the particular case of PubSub, cache poisoning via malicious Map-Notify messages is avoided by the use of nonce and the security association between the ITRs and the Map-Servers.</t>
 
-          <t>To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance from Section 9 of <xref target="RFC9301"></xref> to ensure integrity protection of Map-Request messages. It is also RECOMMENDED that the Map-Resolver verifies that the xTR is allowed to use PubSub and to use the xTR-ID and ITR-RLOCs included in the Map-Request. Map-Servers SHOULD be configured to only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described. </t>
+          <t>To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance from Section 9 of <xref target="RFC9301"></xref> to ensure integrity protection of Map-Request messages.</t>
 
           <section anchor="association" title="Security Association between ITR and Map-Server">
 
