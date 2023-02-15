@@ -256,7 +256,8 @@ Table of Contents
         xTR wants to subscribe.
 
    (3)  If the xTR has a nonce associated with the EID-Prefix, it MUST
-        use this nonce increased by one in the Map-Request.  It is
+        use this nonce increased by one in the Map-Request.  Otherwise,
+        it generates a nonce following Section 5.2 of [RFC9301].  It is
         RECOMMENDED that the xTR uses persistent storage to keep nonce
         state.  If the xTR does not have persistent storage and does not
         have a nonce associated with the EID-Prefix, it MUST reset the

@@ -1376,7 +1376,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </dd>
         <dd class="break"></dd>
 <dt>(3)</dt>
-<dd id="section-5-2.3">If the xTR has a nonce associated with the EID-Prefix, it MUST use this nonce increased by one in the Map-Request. It is RECOMMENDED that the xTR uses persistent storage to keep nonce state. If the xTR does not have persistent storage and does not have a nonce associated with the EID-Prefix, it MUST reset the nonce by using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to successfully create a new security association with the Map-Server.<a href="#section-5-2.3" class="pilcrow">¶</a>
+<dd id="section-5-2.3">If the xTR has a nonce associated with the EID-Prefix, it MUST use this nonce increased by one in the Map-Request. Otherwise, it generates a nonce following Section 5.2 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. It is RECOMMENDED that the xTR uses persistent storage to keep nonce state. If the xTR does not have persistent storage and does not have a nonce associated with the EID-Prefix, it MUST reset the nonce by using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to successfully create a new security association with the Map-Server.<a href="#section-5-2.3" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
