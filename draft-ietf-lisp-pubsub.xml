@@ -157,14 +157,15 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       <t>Ingress Tunnel Routers (ITRs) / Re-encapsulating Tunnel Routers (RTRs) / Proxy Ingress Tunnel Routers (PITRs) pull EID-to-RLOC mapping information from the Mapping System by means of an explicit request message. Section 6.1 of <xref target="RFC9301"></xref> indicates how Egress Tunnel Routers (ETRs) can tell ITRs/RTRs/PITRs about mapping changes. This document presents a Publish/Subscribe (PubSub) extension in which the Mapping System can notify ITRs/RTRs/PITRs about mapping changes. When this mechanism is used, mapping changes can be notified faster and can be managed in the Mapping System versus the LISP sites.</t>
 
-      <t>In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following steps occur:</t>
+      <t>In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following main steps occur:</t>
 
       <t><list style="format (%d)">
         <t>The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.</t>
         <t>The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on the Map-Request and includes its xTR-ID and Site-ID.</t>
         <t>The Map-Request is forwarded to one of the Map-Servers that the EID-Prefix is registered to.</t>
         <t>The Map-Server creates subscription state for the ITR/RTR/PITR on the EID-Prefix.</t>
-        <t>The Map-Server sends a Map-Notify to the ITR/RTR/PITR to acknowledge the successful subscription.</t>
+        <t>The Map-Server sends a Map-Notify to the ITR/RTR/PITR to confirm that the subscription is created and then waits for an acknowledgement of the notification.</t>
+        <t>The ITR/RTR/PITR sends back a Map-Notify-Ack to acknowledge the successful receipt of the Map-Notify.        
         <t>When there is a change in the mapping of the EID-Prefix, the Map-Server sends a Map-Notify message to each ITR/RTR/PITR in the subscription list.</t>
         <t>Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the received Map-Notify.</t>
       </list></t>
