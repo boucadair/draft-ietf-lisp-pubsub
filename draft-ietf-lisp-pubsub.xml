@@ -175,16 +175,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       <t>The reader may refer to <xref target="I-D.boucadair-lisp-pubsub-flow-examples"></xref> for sample flows to illustrate the use of the PubSub specification.</t>
 
-    </section>
-
-    <section title="Terminology and Requirements Notation">
-      <t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref> when, and only when, they appear in all capitals, as shown here.</t>
-
-       <t>The document uses the terms defined in Section 3 of <xref target="RFC9300"></xref>. </t>
-
-      </section>
-
-      <section anchor="app-scope" title="Applicability Scope">
+      <section anchor="app-scope" title="Scope of Applicability">
 
          <t>The PubSub procedure specified in this document is intended to be used in contexts with controlled access to the Map-Server. Specifically:</t>
 
@@ -192,6 +183,16 @@ please see http://xml.resource.org/authoring/README.html. -->
           <t>Map-Resolvers MUST verify that an xTR is allowed to use PubSub and to use the xTR-ID and ITR-RLOCs included in a Map-Request.</t>
           <t>Map-Servers MUST be configured to only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described.</t>
         </list></t>
+      </section>
+
+
+    </section>
+
+    <section title="Terminology and Requirements Notation">
+      <t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref> when, and only when, they appear in all capitals, as shown here.</t>
+
+       <t>The document uses the terms defined in Section 3 of <xref target="RFC9300"></xref>. </t>
+
       </section>
 
       <section anchor="assumptions" title="Deployment Assumptions">
