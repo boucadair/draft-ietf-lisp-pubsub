@@ -61,7 +61,7 @@ Table of Contents
    1.  Introduction
      1.1.  Scope of Applicability
    2.  Terminology and Requirements Notation
-   3.  Deployment Assumptions
+   3.  Deployment Requirements
    4.  Map-Request PubSub Additions
    5.  Mapping Request Subscribe Procedures
    6.  Mapping Notification Publish Procedures
@@ -165,11 +165,11 @@ Table of Contents
 
    The document uses the terms defined in Section 3 of [RFC9300].
 
-3.  Deployment Assumptions
+3.  Deployment Requirements
 
    In addition to the general assumptions and expectations that
    [RFC9301] makes for LISP deployments, this document makes the
-   following two deployment assumptions:
+   following two deployment requirements:
 
    (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
@@ -178,7 +178,7 @@ Table of Contents
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
 
-   If either assumption is not met, a subscription cannot be
+   If either requirement is not met, a subscription cannot be
    established, and the network will continue operating without this
    enhancement.  The configuration of xTR-IDs (and Site-IDs) is out of
    the scope of this document.  The reader may refer to
@@ -861,7 +861,7 @@ Acknowledgments
    directorate review, and Sheng Jiang for the int-dir review.
 
    Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari,
-   Martin Duke, and Éric Vyncke for the IESG review.
+   Martin Duke, Éric Vyncke, and Robert Wilton for the IESG review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
    13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).
