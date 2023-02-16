@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-14T00:46:50.676918+00:00",
+  "timestamp": "2023-02-16T00:45:57.961689+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -945,6 +945,118 @@
           ]
         }
       ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOI2dNNs5J7hU-",
+      "title": "Add a pointer to the YANG spec as an example to provision IDs and EID\u2026",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/14",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026s-for-which Map-Notify will be requested",
+      "createdAt": "2023-02-14T10:19:02Z",
+      "updatedAt": "2023-02-15T14:19:04Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "6a0b515dbd58685cf25f72603d7df9cac3693c9d",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "boucadair-patch-5",
+      "headRefOid": "4333b2c62297f76b75140f70a423d57c00b6a13f",
+      "closedAt": "2023-02-15T14:19:03Z",
+      "mergedAt": "2023-02-15T14:19:03Z",
+      "mergedBy": "arnatal",
+      "mergeCommit": {
+        "oid": "34e20d271afb0b9318f83922129e4f01f514208b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOI2dNNs5KAQDj",
+      "title": "Update sequence events (Martin Duke)",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/15",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-15T06:12:52Z",
+      "updatedAt": "2023-02-15T18:13:09Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "6a0b515dbd58685cf25f72603d7df9cac3693c9d",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "boucadair-patch-6",
+      "headRefOid": "ac590d2ba30b5f25244a5f250078557eca3faf9a",
+      "closedAt": "2023-02-15T18:13:09Z",
+      "mergedAt": "2023-02-15T18:13:09Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "d58d1c605a5d193ee6f536371acb449d0abf4101"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOI2dNNs5KAwct",
+      "title": "Applicability Scope",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/16",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-15T08:36:03Z",
+      "updatedAt": "2023-02-15T18:19:57Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "6a0b515dbd58685cf25f72603d7df9cac3693c9d",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "boucadair-patch-7",
+      "headRefOid": "e3deebd0cb4e5655e02b158b4b63e1f5495f47bb",
+      "closedAt": "2023-02-15T18:19:56Z",
+      "mergedAt": "2023-02-15T18:19:56Z",
+      "mergedBy": "arnatal",
+      "mergeCommit": {
+        "oid": "b386c5ab012e8738484583821e78aff1f97c8cd4"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOI2dNNs5KDmzL",
+      "title": "Making implicit nonce explicit",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/17",
+      "state": "MERGED",
+      "author": "arnatal",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-15T17:38:17Z",
+      "updatedAt": "2023-02-15T18:14:16Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "34e20d271afb0b9318f83922129e4f01f514208b",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "mrq-nonce",
+      "headRefOid": "2a8a99aee700acb13266c7f0bc0009a9c37b8125",
+      "closedAt": "2023-02-15T18:14:16Z",
+      "mergedAt": "2023-02-15T18:14:16Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "6849e1e99263cf8d4c2273125aa7fbc9c15a3731"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
