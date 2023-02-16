@@ -396,7 +396,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             <c>N</c><c>Map-Request-N</c><c>1</c><c>Notification-Requested Bit</c><c>This-Document</c>
           </texttable>
 
-          <t>The remaining bits are Unassigned.</t>
+          <t>The remaining bits (i.e., Bit positions 2-8) are Unassigned.</t>
 
           <t>The policy for allocating new bits from this sub-registry is Specification Required (Section 4.6 of <xref target="RFC8126"></xref>). </t>
 
