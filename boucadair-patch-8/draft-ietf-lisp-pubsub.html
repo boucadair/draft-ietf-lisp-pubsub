@@ -1158,7 +1158,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology-and-requirement" class="internal xref">Terminology and Requirements Notation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-deployment-assumptions" class="internal xref">Deployment Assumptions</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-deployment-requirements" class="internal xref">Deployment Requirements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-map-request-pubsub-addition" class="internal xref">Map-Request PubSub Additions</a></p>
@@ -1294,10 +1294,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </section>
 <div id="assumptions">
 <section id="section-3">
-      <h2 id="name-deployment-assumptions">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-deployment-assumptions" class="section-name selfRef">Deployment Assumptions</a>
+      <h2 id="name-deployment-requirements">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-deployment-requirements" class="section-name selfRef">Deployment Requirements</a>
       </h2>
-<p id="section-3-1">In addition to the general assumptions and expectations that <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> makes for LISP deployments, this document makes the following two deployment assumptions:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">In addition to the general assumptions and expectations that <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> makes for LISP deployments, this document makes the following two deployment requirements:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="olPercent" id="section-3-2">
 <dt>(1)</dt>
 <dd id="section-3-2.1">A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is assigned to each xTR.<a href="#section-3-2.1" class="pilcrow">¶</a>
@@ -1308,7 +1308,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-3-3">If either assumption is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <span>[<a href="#I-D.ietf-lisp-yang" class="cite xref">I-D.ietf-lisp-yang</a>]</span> for an example of how these identifiers can be provisioned to LISP nodes.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-3">If either requirement is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <span>[<a href="#I-D.ietf-lisp-yang" class="cite xref">I-D.ietf-lisp-yang</a>]</span> for an example of how these identifiers can be provisioned to LISP nodes.<a href="#section-3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="map-request">
@@ -1690,7 +1690,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 <p id="appendix-B-1"> We would like to thank Marc Portoles, Balaji Venkatachalapathy, Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their great suggestions and help regarding this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2"> Many thanks to Alvaro Retana for the careful AD review.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <p id="appendix-B-3">Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
-<p id="appendix-B-4"> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, and Roman Danyliw for the IESG review.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
+<p id="appendix-B-4"> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, and Roman Danyliw for the IESG review.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <p id="appendix-B-5"> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).<a href="#appendix-B-5" class="pilcrow">¶</a></p>
 </section>
 </div>
