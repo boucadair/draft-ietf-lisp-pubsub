@@ -860,7 +860,8 @@ Acknowledgments
    directorate review, and Sheng Jiang for the int-dir review.
 
    Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari,
-   Martin Duke, and Murray Kucherawy for the IESG review.
+   Martin Duke, Murray Kucherawy, Éric Vyncke, and Roman Danyliw for the
+   IESG review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
    13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).
