@@ -194,16 +194,16 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       </section>
 
-      <section anchor="assumptions" title="Deployment Assumptions">
+      <section anchor="assumptions" title="Deployment Requirements">
 
-        <t>In addition to the general assumptions and expectations that <xref target="RFC9301"></xref> makes for LISP deployments, this document makes the following two deployment assumptions: </t>
+        <t>In addition to the general assumptions and expectations that <xref target="RFC9301"></xref> makes for LISP deployments, this document makes the following two deployment requirements: </t>
 
         <t><list style="format (%d)">
           <t>A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is assigned to each xTR.</t>
           <t>Map-Servers are configured to proxy Map-Replying (i.e., they are solicited to generate and send Map-Reply messages) for the mappings they are serving.</t>
         </list></t>
 
-        <t>If either assumption is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <xref target="I-D.ietf-lisp-yang"></xref> for an example of how these identifiers can be provisioned to LISP nodes.</t>
+        <t>If either requirement is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <xref target="I-D.ietf-lisp-yang"></xref> for an example of how these identifiers can be provisioned to LISP nodes.</t>
 
       </section>
 
@@ -499,8 +499,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.</t>
 
-          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, and Roman Danyliw for the IESG review.</t>
-
+          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, and Roman Danyliw for the IESG review.</t>
 
           <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).</t>
 
