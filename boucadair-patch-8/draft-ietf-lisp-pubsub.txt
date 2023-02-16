@@ -108,7 +108,7 @@ Table of Contents
    changes for a given EID-Prefix, the following main steps occur:
 
    (1)  The ITR/RTR/PITR builds a Map-Request for that EID-Prefix with
-        the Notification-Requested bit (N-bit) set and which also and
+        the Notification-Requested bit (N-bit) set and which also
         includes its xTR-ID and Site-ID.
 
    (2)  The Map-Request is forwarded to one of the Map-Servers that the
