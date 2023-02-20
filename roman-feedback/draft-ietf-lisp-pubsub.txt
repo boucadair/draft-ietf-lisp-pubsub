@@ -518,13 +518,13 @@ Table of Contents
    First, when the ITR is sending a Map-Request with the N-bit set
    following Section 5, the ITR also performs the steps described in
    Section 6.4 of [RFC9303].  The ITR can then generate a PubSubKey by
-   deriving a key from the One-Time Key (OTK) and Map-Request nonce as
-   follows: PubSubKey = KDF( OTK + nonce ), where KDF is the Key
+   deriving a key from the One-Time Key (OTK) and Map-Request's nonce as
+   follows: PubSubKey = KDF(OTK + nonce), where KDF is the Key
    Derivation Function indicated by the OTK Wrapping ID.  If OTK
-   Wrapping ID equals NULL-KEY-WRAP-128 then the PubSubKey is the OTK.
+   Wrapping ID equals NULL-KEY-WRAP-128, then the PubSubKey is the OTK.
    Note that as opposed to the pre-shared PubSubKey, this generated
-   PubSubKey is different per EID-Prefix the ITR subscribes to (since
-   the ITR will use a different OTK per Map-Request).
+   PubSubKey is different per EID-Prefix to which an ITR subscribes
+   (since the ITR will use a different OTK per Map-Request).
 
    When the Map-Server receives the Map-Request it follows the procedure
    specified in Section 5 with the following considerations: The Map-
