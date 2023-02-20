@@ -395,7 +395,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             <c>N</c><c>Map-Request-N</c><c>1</c><c>Notification-Requested Bit</c><c>This-Document</c>
           </texttable>
 
-          <t>The remaining bits are Unassigned.</t>
+          <t>The remaining bits (i.e., Bit positions 2-8) are Unassigned.</t>
 
           <t>The policy for allocating new bits from this sub-registry is Specification Required (Section 4.6 of <xref target="RFC8126"></xref>). </t>
 
@@ -499,7 +499,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.</t>
 
-          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, and Roman Danyliw for the IESG review.</t>
+          <t> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, Zaheduzzaman Sarker, and Roman Danyliw for the IESG review.</t>
 
           <t> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).</t>
 
