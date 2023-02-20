@@ -502,7 +502,7 @@ Table of Contents
 
    It is RECOMMENDED to follow guidance from the last paragraph of
    Section 9 of [RFC9301] to ensure integrity protection of Map-Request
-   messages (e.g. to prevent xTR-ID hijacking).
+   messages (e.g., to prevent xTR-ID hijacking).
 
 7.1.  Security Association between ITR and Map-Server
 
