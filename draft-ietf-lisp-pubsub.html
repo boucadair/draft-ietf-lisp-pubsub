@@ -1242,35 +1242,31 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-3">In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following main steps occur:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="olPercent" id="section-1-4">
 <dt>(1)</dt>
-<dd id="section-1-4.1">The ITR/RTR/PITR sends a Map-Request for that EID-Prefix.<a href="#section-1-4.1" class="pilcrow">¶</a>
+<dd id="section-1-4.1">The ITR/RTR/PITR builds a Map-Request for that EID-Prefix with the Notification-Requested bit (N-bit) set and which also includes its xTR-ID and Site-ID.<a href="#section-1-4.1" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(2)</dt>
-<dd id="section-1-4.2">The ITR/RTR/PITR sets the Notification-Requested bit (N-bit) on the Map-Request and includes its xTR-ID and Site-ID.<a href="#section-1-4.2" class="pilcrow">¶</a>
+<dd id="section-1-4.2">The Map-Request is forwarded to one of the Map-Servers that the EID-Prefix is registered to.<a href="#section-1-4.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(3)</dt>
-<dd id="section-1-4.3">The Map-Request is forwarded to one of the Map-Servers that the EID-Prefix is registered to.<a href="#section-1-4.3" class="pilcrow">¶</a>
+<dd id="section-1-4.3">The Map-Server creates subscription state for the ITR/RTR/PITR on the EID-Prefix.<a href="#section-1-4.3" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(4)</dt>
-<dd id="section-1-4.4">The Map-Server creates subscription state for the ITR/RTR/PITR on the EID-Prefix.<a href="#section-1-4.4" class="pilcrow">¶</a>
+<dd id="section-1-4.4">The Map-Server sends a Map-Notify to the ITR/RTR/PITR to confirm that the subscription has been created and then waits for an acknowledgement of the notification.<a href="#section-1-4.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(5)</dt>
-<dd id="section-1-4.5">The Map-Server sends a Map-Notify to the ITR/RTR/PITR to confirm that the subscription has been created and then waits for an acknowledgement of the notification.<a href="#section-1-4.5" class="pilcrow">¶</a>
+<dd id="section-1-4.5">The ITR/RTR/PITR sends back a Map-Notify-Ack to acknowledge the successful receipt of the Map-Notify.<a href="#section-1-4.5" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(6)</dt>
-<dd id="section-1-4.6">The ITR/RTR/PITR sends back a Map-Notify-Ack to acknowledge the successful receipt of the Map-Notify.<a href="#section-1-4.6" class="pilcrow">¶</a>
+<dd id="section-1-4.6">When there is a change in the mapping of the EID-Prefix, the Map-Server sends a Map-Notify message to each ITR/RTR/PITR in the subscription list.<a href="#section-1-4.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt>(7)</dt>
-<dd id="section-1-4.7">When there is a change in the mapping of the EID-Prefix, the Map-Server sends a Map-Notify message to each ITR/RTR/PITR in the subscription list.<a href="#section-1-4.7" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt>(8)</dt>
-<dd id="section-1-4.8">Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the received Map-Notify.<a href="#section-1-4.8" class="pilcrow">¶</a>
+<dd id="section-1-4.7">Each ITR/RTR/PITR sends a Map-Notify-Ack to acknowledge the received Map-Notify.<a href="#section-1-4.7" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1436,7 +1432,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       <dd class="break"></dd>
 </dl>
 <p id="section-5-8">As a reminder, the initial transmission and retransmission of Map-Notify messages by a Map-Server follow the procedure specified in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. Some state changes may trigger an overload that would impact, e.g., the outbound capacity of a Map-Server. A similar problem may be experienced when a large number of state entries are simultaneously updated. To prevent such phenomena, Map-Servers SHOULD be configured with policies to control the maximum number of subscriptions and also the pace of Map-Notify messages. For example, the Map-Server may be instructed to limit the resources that are dedicated to unsolicited Map-Notify messages to a small fraction (e.g., less than 10%) of its overall processing and forwarding capacity. The exact details to characterize such policies are deployment and implementation specific.  Likewise, this document does not specify which notifications take precedence when these policies are enforced.<a href="#section-5-8" class="pilcrow">¶</a></p>
-<p id="section-5-9">When the xTR receives a Map-Notify with a nonce that matches one in the list of outstanding Map-Request messages sent with an N-bit set, it knows that the Map-Notify is to acknowledge a successful subscription. The xTR processes this Map-Notify, as described in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, and MUST use the Map-Notify to populate its Map-Cache with the returned EID-Prefix and RLOC-set. As a reminder, following Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, the xTR has to send a Map-Notify-Ack back to the Map-Server. If the Map-Server does not receive the Map-Notify-Ack after exhausting the Map-Notify retransmissions described in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, the Map-Server can remove the subscription state. If the Map-Server removes the subscription state, it SHOULD notify the xTR by sending a single Map-Notify with the same nonce but with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/Auth-Failure".<a href="#section-5-9" class="pilcrow">¶</a></p>
+<p id="section-5-9">When the xTR receives a Map-Notify with a nonce that matches one in the list of outstanding Map-Request messages sent with an N-bit set, it knows that the Map-Notify is to acknowledge a successful subscription. The xTR processes this Map-Notify, as described in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, and MUST use the Map-Notify to populate its Map-Cache with the returned EID-Prefix and RLOC-set. As a reminder, following Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, the xTR has to send a Map-Notify-Ack back to the Map-Server. If the Map-Server does not receive the Map-Notify-Ack after exhausting the Map-Notify retransmissions described in Section 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>, the Map-Server can remove the subscription state. If the Map-Server removes the subscription state, and absent explicit policy, it SHOULD notify the xTR by sending a single Map-Notify with the same nonce but with Loc-Count = 0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/Auth-Failure". This message is specifically useful for cases where Map-Notifies are successfully received by an xTR but the corresponding Map-Notify-Acks were lost when forwarded to the Map-Server. xTR implementations can use this signal to try to reinstall their subscription state instead of maintaining stale mappings.<a href="#section-5-9" class="pilcrow">¶</a></p>
 <p id="section-5-10">The subscription of an xTR-ID may fail for a number of reasons. For example, it fails because of local configuration policies (such as accept and drop lists of subscribers), because the Map-Server has exhausted the resources to dedicate to the subscription of that EID-Prefix (e.g., the number of subscribers excess the capacity of the Map-Server), or because the xTR tried but was not successful in establishing a new security association (<a href="#association" class="auto internal xref">Section 7.1</a>).<a href="#section-5-10" class="pilcrow">¶</a></p>
 <p id="section-5-11">If the subscription request fails, the Map-Server MUST send a Map-Reply to the originator of the Map-Request, as described in Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. The xTR processes the Map-Reply as specified in Section 8.1 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. If the subscription request fails, it is up to the implementation to try to subscribe again.<a href="#section-5-11" class="pilcrow">¶</a></p>
 <p id="section-5-12">If the Map-Server receives a subscription request for an EID-Prefix not present in the mapping database, it SHOULD follow the same logic described in Section 8.4 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> and create a temporary subscription state for the xTR-ID to the least-specific prefix that both matches the original query and does not match any EID-Prefix known to exist in the LISP-capable infrastructure. Alternatively, the Map-Server can instead determine that such a subscription request fails, and send a Negative Map-Reply following Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. In both cases, the TTL of the temporary subscription state or the Negative Map-Reply SHOULD be configurable, with a value of 15-minutes being RECOMMENDED.<a href="#section-5-12" class="pilcrow">¶</a></p>
@@ -1704,7 +1700,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 <p id="appendix-B-1"> We would like to thank Marc Portoles, Balaji Venkatachalapathy, Bernhard Haindl, Luigi Iannone, and Padma Pillay-Esnault for their great suggestions and help regarding this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2"> Many thanks to Alvaro Retana for the careful AD review.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <p id="appendix-B-3">Thanks to Chris M. Lonvick for the security directorate review, Al Morton for the OPS-DIR review, Roni Even for the Gen-ART review, Mike McBride for the rtg-dir review, Magnus Westerlund for the tsv directorate review, and Sheng Jiang for the int-dir review.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
-<p id="appendix-B-4"> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Éric Vyncke, Robert Wilton, and Zaheduzzaman Sarker for the IESG review.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
+<p id="appendix-B-4"> Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari, Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, Zaheduzzaman Sarker, and Roman Danyliw for the IESG review.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <p id="appendix-B-5"> This work was partly funded by the ANR LISP-Lab project #ANR-13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).<a href="#appendix-B-5" class="pilcrow">¶</a></p>
 </section>
 </div>
