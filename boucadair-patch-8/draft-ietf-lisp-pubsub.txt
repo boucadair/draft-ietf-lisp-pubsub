@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 20 August 2023                                           Google
+Expires: 24 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                        16 February 2023
+                                                        20 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2023.
+   This Internet-Draft will expire on 24 August 2023.
 
 Copyright Notice
 
@@ -353,7 +353,12 @@ Table of Contents
    subscription state.  If the Map-Server removes the subscription
    state, and absent explicit policy, it SHOULD notify the xTR by
    sending a single Map-Notify with the same nonce but with Loc-Count =
-   0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/Auth-Failure".
+   0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/Auth-Failure".  This
+   message is specifically useful for cases where Map-Notifies are
+   successfully received by an xTR but the corresponding Map-Notify-Acks
+   were lost when forwarded to the Map-Server.  Such an xTR will
+   reinstall its subscription state instead of maintaining stale
+   mappings.
 
    The subscription of an xTR-ID may fail for a number of reasons.  For
    example, it fails because of local configuration policies (such as
@@ -671,9 +676,9 @@ Table of Contents
    [I-D.boucadair-lisp-pubsub-flow-examples]
               Boucadair, M., "LISP PubSub Flow Examples", Work in
               Progress, Internet-Draft, draft-boucadair-lisp-pubsub-
-              flow-examples-01, 7 February 2023,
+              flow-examples-03, 10 February 2023,
               <https://datatracker.ietf.org/doc/html/draft-boucadair-
-              lisp-pubsub-flow-examples-01>.
+              lisp-pubsub-flow-examples-03>.
 
    [I-D.haindl-lisp-gb-atn]
               Haindl, B., Lindner, M., Moreno, V., Portoles-Comeras, M.,
