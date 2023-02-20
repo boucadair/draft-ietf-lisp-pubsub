@@ -620,7 +620,7 @@ Table of Contents
      Table 2: Initial Content of LISP Control Plane Header Bits: Map-
                        Request-Record Sub-Registry
 
-   The remaining bits are Unassigned.
+   The remaining bits (i.e., Bit positions 2-8) are Unassigned.
 
    The policy for allocating new bits from this sub-registry is
    Specification Required (Section 4.6 of [RFC8126]).
@@ -865,8 +865,8 @@ Acknowledgments
    directorate review, and Sheng Jiang for the int-dir review.
 
    Thanks to John Scudder, Erik Kline, Lars Eggert, Warren Kumari,
-   Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton, and Roman
-   Danyliw for the IESG review.
+   Martin Duke, Murray Kucherawy, Éric Vyncke, Robert Wilton,
+   Zaheduzzaman Sarker, and Roman Danyliw for the IESG review.
 
    This work was partly funded by the ANR LISP-Lab project #ANR-
    13-INFR-009 (https://anr.fr/Projet-ANR-13-INFR-0009).
