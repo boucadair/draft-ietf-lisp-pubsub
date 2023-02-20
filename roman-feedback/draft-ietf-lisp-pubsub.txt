@@ -409,8 +409,8 @@ Table of Contents
    received within a short interval.
 
    The following specifies the procedure to remove a subscription: If a
-   valid Map-Request with the N-bit set only has one ITR-RLOC with AFI =
-   0 (i.e., Unknown Address), the Map-Server MUST remove the
+   valid Map-Request with the N-bit set to 1 only has one ITR-RLOC with
+   AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the
    subscription state for that xTR-ID (unless this is disabled via
    configuration, see previous paragraph).  If the subscription state is
    removed, the Map-Server MUST send a Map-Notify to the source RLOC of
