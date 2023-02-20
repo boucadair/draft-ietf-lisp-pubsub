@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 23 August 2023                                           Google
+Expires: 24 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                        19 February 2023
+                                                        20 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2023.
+   This Internet-Draft will expire on 24 August 2023.
 
 Copyright Notice
 
@@ -408,9 +408,9 @@ Table of Contents
    subscription state for that xTR-ID (unless this is disabled via
    configuration, see previous paragraph).  If the subscription state is
    removed, the Map-Server MUST send a Map-Notify to the source RLOC of
-   the Map-Request.  If the request for subscription removal fails (e.g.
-   due to configuration) this is handled as a failed subscription
-   request, and the Map-Reply will be sent to the source RLOC of the
+   the Map-Request.  Failed subscription removals (e.g., due to
+   configuration) are handled by the Map-Server as failed subscription
+   requests; the Map-Server sends a Map-Reply to the source RLOC of the
    Map-Request in this case.  Removing subscription state at the Map-
    Server can lead to replay attacks.  To soften this, the Map-Server
    SHOULD keep the last nonce seen per xTR (and EID-Prefix, when
