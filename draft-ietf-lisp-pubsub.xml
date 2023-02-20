@@ -180,7 +180,7 @@ please see http://xml.resource.org/authoring/README.html. -->
          <t>The PubSub procedure specified in this document is intended to be used in contexts with controlled access to the Map-Server. How a deployment controls access to a Map-Server is deployment specific, and therefore out of the scope of this document, but it needs to at least ensure the following:</t>
 
         <t><list style="format (%d)">
-          <t>Map-Resolvers MUST verify that an xTR is allowed to set the N-bit to 1 and use the xTR-ID/Site-ID and ITR-RLOCs included in a Map-Request.</t>
+          <t>Map-Resolvers MUST verify that an xTR is allowed to (1) set the N-bit to 1 and (2) use the xTR-ID, Site-ID, and ITR-RLOCs included in a Map-Request.</t>
           <t>Map-Servers MUST only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described.</t>
         </list></t>
       </section>
