@@ -343,7 +343,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t>In the particular case of PubSub, cache poisoning via malicious Map-Notify messages is avoided by the use of nonce and the security association between the ITRs and the Map-Servers.</t>
 
-          <t>It is RECOMMENDED to follow guidance from the last paragraph of Section 9 of <xref target="RFC9301"></xref> to ensure integrity protection of Map-Request messages (e.g. to prevent xTR-ID hijacking).</t>
+          <t>It is RECOMMENDED to follow guidance from the last paragraph of Section 9 of <xref target="RFC9301"></xref> to ensure integrity protection of Map-Request messages (e.g., to prevent xTR-ID hijacking).</t>
 
           <section anchor="association" title="Security Association between ITR and Map-Server">
 
