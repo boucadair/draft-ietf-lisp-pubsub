@@ -18,7 +18,7 @@
 <meta content="draft-ietf-lisp-pubsub-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.16.0
-    Python 3.10.9
+    Python 3.10.10
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -373,9 +373,12 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
+  margin-right: 2ch;
   min-width: 8ch;
 }
 dl.dlNewline > dt {
@@ -385,6 +388,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -1049,7 +1055,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rodriguez-Natal, et al.</td>
-<td class="center">Expires 20 August 2023</td>
+<td class="center">Expires 24 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lisp-pubsub-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-16" class="published">16 February 2023</time>
+<time datetime="2023-02-20" class="published">20 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-20">20 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-24">24 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1117,7 +1123,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1231,7 +1237,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Locator/ID Separation Protocol (LISP) <span>[<a href="#RFC9300" class="cite xref">RFC9300</a>]</span> <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> splits IP addresses into two different namespaces: Endpoint Identifiers (EIDs) and Routing Locators (RLOCs). LISP uses a map-and-encap approach that relies on (1) a Mapping System (basically a distributed database) that stores and disseminates EID-RLOC mappings and on (2) LISP tunnel routers (xTRs) that encapsulate and decapsulate data packets based on the content of those mappings.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">The Locator/ID Separation Protocol (LISP) <span>[<a href="#RFC9300" class="cite xref">RFC9300</a>]</span> <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> splits IP addresses into two different namespaces: Endpoint Identifiers (EIDs) and Routing Locators (RLOCs). LISP uses a map and encapsulate (a.k.a., map-and-encap) approach that relies on (1) a Mapping System (basically a distributed database) that stores and disseminates EID-RLOC mappings and on (2) LISP tunnel routers (xTRs) that encapsulate and decapsulate data packets based on the content of those mappings.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Ingress Tunnel Routers (ITRs) / Re-encapsulating Tunnel Routers (RTRs) / Proxy Ingress Tunnel Routers (PITRs) pull EID-to-RLOC mapping information from the Mapping System by means of an explicit request message. Section 6.1 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> indicates how Egress Tunnel Routers (ETRs) can tell ITRs/RTRs/PITRs about mapping changes. This document presents a Publish/Subscribe (PubSub) extension in which the Mapping System can notify ITRs/RTRs/PITRs about mapping changes. When this mechanism is used, mapping changes can be notified faster and can be managed in the Mapping System versus the LISP sites.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">In general, when an ITR/RTR/PITR wants to be notified for mapping changes for a given EID-Prefix, the following main steps occur:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="olPercent" id="section-1-4">
@@ -1275,14 +1281,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-scope-of-applicability">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-scope-of-applicability" class="section-name selfRef">Scope of Applicability</a>
         </h3>
-<p id="section-1.1-1">The PubSub procedure specified in this document is intended to be used in contexts with controlled access to the Map-Server. Specifically:<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">The PubSub procedure specified in this document is intended to be used in contexts with controlled access to the Map-Server. How a deployment controls access to a Map-Server is deployment specific, and therefore out of the scope of this document, but it needs to at least ensure the following:<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="olPercent" id="section-1.1-2">
 <dt>(1)</dt>
-<dd id="section-1.1-2.1">Map-Resolvers MUST verify that an xTR is allowed to use PubSub and to use the xTR-ID and ITR-RLOCs included in a Map-Request.<a href="#section-1.1-2.1" class="pilcrow">¶</a>
+<dd id="section-1.1-2.1">Map-Resolvers MUST verify that an xTR is allowed to (1) set the N-bit to 1 and (2) use the xTR-ID, Site-ID, and ITR-RLOCs included in a Map-Request.<a href="#section-1.1-2.1" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt>(2)</dt>
-<dd id="section-1.1-2.2">Map-Servers MUST be configured to only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described.<a href="#section-1.1-2.2" class="pilcrow">¶</a>
+<dd id="section-1.1-2.2">Map-Servers MUST only accept subscription requests from Map-Resolvers that verify Map-Requests as previously described.<a href="#section-1.1-2.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1309,6 +1315,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <dd class="break"></dd>
 <dt>(2)</dt>
 <dd id="section-3-2.2">Map-Servers are configured to proxy Map-Replying (i.e., they are solicited to generate and send Map-Reply messages) for the mappings they are serving.<a href="#section-3-2.2" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+<dt>(3)</dt>
+<dd id="section-3-2.3">A security association (e.g., a PubSubKey) is required between the ITRs and the Map-Servers (see <a href="#association" class="auto internal xref">Section 7.1</a>).<a href="#section-3-2.3" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1408,7 +1418,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       <dd class="break"></dd>
 </dl>
 <p id="section-5-3">The Map-Request is forwarded to the appropriate Map-Server through the Mapping System. This document does not assume that a Map-Server is pre-assigned to handle the subscription state for a given xTR. The Map-Server that receives the Map-Request will be the Map-Server responsible for notifying that specific xTR about future mapping changes for the subscribed mapping records.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">Upon receipt of the Map-Request, the Map-Server processes it as described in Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. In addition, unless the xTR is using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to create a new security association, the Map-Server MUST verify that the nonce in the Map-Request is greater than the stored nonce (if any) associated with the EID-prefix and xTR-ID. Otherwise, the Map-Server silently drops the Map-Request message and logs the event to record that a replay attack could have occurred. Furthermore, upon processing, for the EID-Record that has the N-bit set to 1, the Map-Server proceeds to add the xTR-ID contained in the Map-Request to the list of xTRs that have requested to be subscribed to that EID-Prefix.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">Upon receipt of the Map-Request, the Map-Server processes it as described in Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. In addition, unless the xTR is using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to create a new security association, the Map-Server MUST verify that the nonce in the Map-Request is greater than the stored nonce (if any) associated with the EID-prefix and xTR-ID. Otherwise, the Map-Server MUST silently drop the Map-Request message and SHOULD log the event to record that a replay attack could have occurred. Furthermore, upon processing, for the EID-Record that has the N-bit set to 1, the Map-Server proceeds to add the xTR-ID contained in the Map-Request to the list of xTRs that have requested to be subscribed to that EID-Prefix.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <p id="section-5-5">If an xTR-ID is successfully added to the list of subscribers for an EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs present in the Map-Request, and store the association between the EID-Prefix, xTR-ID, ITR-RLOCs,  and nonce. Any already present state regarding ITR-RLOCs and/or nonce for the same xTR-ID MUST be overwritten. When the LISP deployment has a single Map-Server, the Map-Server can be configured to keep a single nonce per xTR-ID for all EID-Prefixes (when used, this option MUST be enabled at the Map-Server and all xTRs).<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">If the xTR-ID is added to the list, the Map-Server MUST send a Map-Notify message back to the xTR to acknowledge the successful subscription. The Map-Server builds the Map-Notify according to Sections 5.5 and 5.7 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> with the following considerations:<a href="#section-5-6" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="olPercent" id="section-5-7">
@@ -1431,7 +1441,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 <p id="section-5-11">If the subscription request fails, the Map-Server MUST send a Map-Reply to the originator of the Map-Request, as described in Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. The xTR processes the Map-Reply as specified in Section 8.1 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. If the subscription request fails, it is up to the implementation to try to subscribe again.<a href="#section-5-11" class="pilcrow">¶</a></p>
 <p id="section-5-12">If the Map-Server receives a subscription request for an EID-Prefix not present in the mapping database, it SHOULD follow the same logic described in Section 8.4 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> and create a temporary subscription state for the xTR-ID to the least-specific prefix that both matches the original query and does not match any EID-Prefix known to exist in the LISP-capable infrastructure. Alternatively, the Map-Server can instead determine that such a subscription request fails, and send a Negative Map-Reply following Section 8.3 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>. In both cases, the TTL of the temporary subscription state or the Negative Map-Reply SHOULD be configurable, with a value of 15-minutes being RECOMMENDED.<a href="#section-5-12" class="pilcrow">¶</a></p>
 <p id="section-5-13">The subscription state can also be created explicitly by configuration at the Map-Server (possible when a pre-shared security association exists, see <a href="#security" class="auto internal xref">Section 7</a>) using a variety of means that are out of scope. If at the time the explicit subscription is configured there is no nonce that can be used for the explicit subscription state (e.g., from a different subscription already established with the same xTR when a single nonce is kept per xTR-ID), then both the xTR and Map-Server MUST be configured with the initial nonce to use. It is RECOMMENDED to have a configuration option to enable (or disable) the xTR to accept publication information for EID-Prefixes the xTR did not explicitly subscribe to. By default, the xTR is allowed to modify explicitly configured subscription state following the procedures described in this section, however the Map-Server MAY disable this via configuration. If the Map-Server is instructed to not allow xTRs to modify explicitly configured subscriptions, whenever an xTR tries to modify an explicitly configured subscription the Map-Server SHOULD return a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 4 "Drop/Policy-Denied". The Map-Server MAY silently ignore these requests if, for example, they are received within a short interval.<a href="#section-5-13" class="pilcrow">¶</a></p>
-<p id="section-5-14">The following specifies the procedure to remove a subscription: If a valid Map-Request with the N-bit set only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID (unless this is disabled via configuration, see previous paragraph). If the subscription state is removed, the Map-Server MUST send a Map-Notify to the source RLOC of the Map-Request. Removing subscription state at the Map-Server can lead to replay attacks. To soften this, the Map-Server SHOULD keep the last nonce seen per xTR (and EID-Prefix, when applicable). If the Map-Server does not keep last nonces seen, then in deployments concerned with replay attacks the Map-Server MUST require the xTRs to subscribe using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to create a new security association with the Map-Server.<a href="#section-5-14" class="pilcrow">¶</a></p>
+<p id="section-5-14">The following specifies the procedure to remove a subscription: If a valid Map-Request with the N-bit set to 1 only has one ITR-RLOC with AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the subscription state for that xTR-ID (unless this is disabled via configuration, see previous paragraph). If the subscription state is removed, the Map-Server MUST send a Map-Notify to the source RLOC of the Map-Request. Removing subscription state at the Map-Server can lead to replay attacks. To soften this, the Map-Server SHOULD keep the last nonce seen per xTR (and EID-Prefix, when applicable). If the Map-Server does not keep last nonces seen, then the Map-Server MUST require the xTRs to subscribe using the procedure described in <a href="#association" class="auto internal xref">Section 7.1</a> to create a new security association with the Map-Server.<a href="#section-5-14" class="pilcrow">¶</a></p>
 <p id="section-5-15">If the Map-Server receives a Map-Request asking to remove a subscription for an EID-Prefix without subscription state for that xTR-ID, but covered by a less-specific EID-Prefix for which subscription state exists for the xTR-ID, the Map-Server SHOULD stop publishing updates about this more-specific EID-Prefix to that xTR, until the xTR subscribes to the more-specific EID-Prefix. The same considerations regarding authentication, integrity protection, and nonce checks described in this section and <a href="#security" class="auto internal xref">Section 7</a> for Map-Requests used to update subscription state, apply for Map-Requests used to remove subscription state.<a href="#section-5-15" class="pilcrow">¶</a></p>
 <p id="section-5-16">When an EID-Prefix is removed from the Map-Server (either when explicitly withdrawn or when its TTL expires), the Map-Server notifies its subscribers (if any) via a Map-Notify with TTL equal 0.<a href="#section-5-16" class="pilcrow">¶</a></p>
 </section>
@@ -1468,15 +1478,15 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       </h2>
 <p id="section-7-1">Generic security considerations related to LISP control messages are discussed in Section 9 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">In the particular case of PubSub, cache poisoning via malicious Map-Notify messages is avoided by the use of nonce and the security association between the ITRs and the Map-Servers.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance from Section 9 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> to ensure integrity protection of Map-Request messages.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">It is RECOMMENDED to follow guidance from the last paragraph of Section 9 of <span>[<a href="#RFC9301" class="cite xref">RFC9301</a>]</span> to ensure integrity protection of Map-Request messages (e.g., to prevent xTR-ID hijacking).<a href="#section-7-3" class="pilcrow">¶</a></p>
 <div id="association">
 <section id="section-7.1">
         <h3 id="name-security-association-betwee">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-security-association-betwee" class="section-name selfRef">Security Association between ITR and Map-Server</a>
         </h3>
 <p id="section-7.1-1">Since Map-Notifies from the Map-Server to the ITR need to be authenticated, there is a need for a soft-state or hard-state security association (e.g., a PubSubKey) between the ITRs and the Map-Servers. For some controlled deployments, it might be possible to have a shared PubSubKey (or set of keys) between the ITRs and the Map-Servers. However, if pre-shared keys are not used in the deployment, LISP-SEC <span>[<a href="#RFC9303" class="cite xref">RFC9303</a>]</span> can be used as follows to create a security association between the ITR and the MS.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">First, when the ITR is sending a Map-Request with the N-bit set following <a href="#sub" class="auto internal xref">Section 5</a>, the ITR also performs the steps described in Section 5.4 of <span>[<a href="#RFC9303" class="cite xref">RFC9303</a>]</span>. The ITR can then generate a PubSubKey by deriving a key from the One-Time Key (OTK) as follows: PubSubKey = KDF( OTK ), where KDF is the Key Derivation Function indicated by the OTK Wrapping ID. If OTK Wrapping ID equals NULL-KEY-WRAP-128 then the PubSubKey is the OTK. Note that as opposed to the pre-shared PubSubKey, this generated PubSubKey is different per EID-Prefix the ITR subscribes to (since the ITR will use a different OTK per Map-Request).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.1-3">When the Map-Server receives the Map-Request it follows the procedure specified in <a href="#sub" class="auto internal xref">Section 5</a> with the following considerations: The Map-Server SHOULD verify that the OTK has not been used before. If PubSub is being used in an environment concerned with Map-Request replay attacks, then the Map-Server MUST verify that the OTK has not been used before. If the Map-Server verifies the OTK and cannot determine that the OTK has not been used before, it MUST respond to the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 5 "Drop/Auth-Failure". The xTR might try again with a different OTK upon reception of this Negative Map-Reply. Note that a Map-Server implementation might decide to not keep full past OTKs and instead use some form of hash. In that case, hash collisions are handled as if the OTK has been reused. Such an implementation needs to balance the hash length with the rate of collisions expected for the particular deployment; this is implementation specific. If the Map-Server has to reply with a Map-Reply for any other reason (e.g., due to PubSub not supported, subscription not accepted, etc.), then it follows normal LISP-SEC procedure described in Section 5.7 of <span>[<a href="#RFC9303" class="cite xref">RFC9303</a>]</span>. No PubSubKey, security association, or subscription state is created when the Map-Server responds with any Map-Reply message.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">First, when the ITR is sending a Map-Request with the N-bit set following <a href="#sub" class="auto internal xref">Section 5</a>, the ITR also performs the steps described in Section 6.4 of <span>[<a href="#RFC9303" class="cite xref">RFC9303</a>]</span>. The ITR can then generate a PubSubKey by deriving a key from the One-Time Key (OTK) and Map-Request's nonce as follows: PubSubKey = KDF(OTK + nonce), where KDF is the Key Derivation Function indicated by the OTK Wrapping ID. If OTK Wrapping ID equals NULL-KEY-WRAP-128, then the PubSubKey is the OTK. Note that as opposed to the pre-shared PubSubKey, this generated PubSubKey is different per EID-Prefix to which an ITR subscribes (since the ITR will use a different OTK per Map-Request).<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">When the Map-Server receives the Map-Request it follows the procedure specified in <a href="#sub" class="auto internal xref">Section 5</a> with the following considerations: The Map-Server MUST verify that the OTK has not been used before. If the Map-Server verifies the OTK and cannot determine that the OTK has not been used before, it MUST respond to the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 5 "Drop/Auth-Failure". The xTR might try again with a different OTK upon reception of this Negative Map-Reply. Note that a Map-Server implementation might decide to not keep full past OTKs and instead use some form of hash. In that case, hash collisions are handled as if the OTK has been reused. Such an implementation needs to balance the hash length with the rate of collisions expected for the particular deployment; this is implementation specific. If the Map-Server has to reply with a Map-Reply for any other reason (e.g., due to PubSub not supported, subscription not accepted, etc.), then it follows normal LISP-SEC procedure described in Section 5.7 of <span>[<a href="#RFC9303" class="cite xref">RFC9303</a>]</span>. No PubSubKey, security association, or subscription state is created when the Map-Server responds with any Map-Reply message.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 <p id="section-7.1-4">Otherwise, if the Map-Server has to reply with a Map-Notify (e.g., due to subscription accepted) to a received Map-Request, the following extra steps take place:<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.1-5.1">The Map-Server extracts the OTK and OTK Wrapping ID from the LISP-SEC ECM Authentication Data.<a href="#section-7.1-5.1" class="pilcrow">¶</a>
@@ -1604,7 +1614,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 <dl class="references">
 <dt id="I-D.boucadair-lisp-pubsub-flow-examples">[I-D.boucadair-lisp-pubsub-flow-examples]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span>, <span class="refTitle">"LISP PubSub Flow Examples"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-lisp-pubsub-flow-examples-01</span>, <time datetime="2023-02-07" class="refDate">7 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-boucadair-lisp-pubsub-flow-examples-01">https://datatracker.ietf.org/doc/html/draft-boucadair-lisp-pubsub-flow-examples-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refTitle">"LISP PubSub Flow Examples"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-boucadair-lisp-pubsub-flow-examples-03</span>, <time datetime="2023-02-10" class="refDate">10 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-boucadair-lisp-pubsub-flow-examples-03">https://datatracker.ietf.org/doc/html/draft-boucadair-lisp-pubsub-flow-examples-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.haindl-lisp-gb-atn">[I-D.haindl-lisp-gb-atn]</dt>
         <dd>
@@ -1638,7 +1648,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       <h2 id="name-sample-pubsub-deployment-ex">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-sample-pubsub-deployment-ex" class="section-name selfRef">Sample PubSub Deployment Experiences</a>
       </h2>
-<p id="appendix-A-1">Early implementations of PubSub have been running in production networks for some time. The following subsections provide an inventory of some experience lessons from these deployments.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Some LISP production networks have been running forms of PubSub for some time. The following subsections provide an inventory of some experience lessons from these deployments.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="deploy-monitoring">
 <section id="appendix-A.1">
         <h3 id="name-pubsub-as-a-monitoring-tool">

@@ -5,14 +5,14 @@
 LISP Working Group                                    A. Rodriguez-Natal
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                              V. Ermagan
-Expires: 20 August 2023                                           Google
+Expires: 24 August 2023                                           Google
                                                              A. Cabellos
                                                        UPC/BarcelonaTech
                                                                S. Barkai
                                                                    Nexar
                                                             M. Boucadair
                                                                   Orange
-                                                        16 February 2023
+                                                        20 February 2023
 
 
  Publish/Subscribe Functionality for the Locator/ID Separation Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2023.
+   This Internet-Draft will expire on 24 August 2023.
 
 Copyright Notice
 
@@ -87,11 +87,11 @@ Table of Contents
 
    The Locator/ID Separation Protocol (LISP) [RFC9300] [RFC9301] splits
    IP addresses into two different namespaces: Endpoint Identifiers
-   (EIDs) and Routing Locators (RLOCs).  LISP uses a map-and-encap
-   approach that relies on (1) a Mapping System (basically a distributed
-   database) that stores and disseminates EID-RLOC mappings and on (2)
-   LISP tunnel routers (xTRs) that encapsulate and decapsulate data
-   packets based on the content of those mappings.
+   (EIDs) and Routing Locators (RLOCs).  LISP uses a map and encapsulate
+   (a.k.a., map-and-encap) approach that relies on (1) a Mapping System
+   (basically a distributed database) that stores and disseminates EID-
+   RLOC mappings and on (2) LISP tunnel routers (xTRs) that encapsulate
+   and decapsulate data packets based on the content of those mappings.
 
    Ingress Tunnel Routers (ITRs) / Re-encapsulating Tunnel Routers
    (RTRs) / Proxy Ingress Tunnel Routers (PITRs) pull EID-to-RLOC
@@ -145,15 +145,17 @@ Table of Contents
 1.1.  Scope of Applicability
 
    The PubSub procedure specified in this document is intended to be
-   used in contexts with controlled access to the Map-Server.
-   Specifically:
+   used in contexts with controlled access to the Map-Server.  How a
+   deployment controls access to a Map-Server is deployment specific,
+   and therefore out of the scope of this document, but it needs to at
+   least ensure the following:
 
-   (1)  Map-Resolvers MUST verify that an xTR is allowed to use PubSub
-        and to use the xTR-ID and ITR-RLOCs included in a Map-Request.
+   (1)  Map-Resolvers MUST verify that an xTR is allowed to (1) set the
+        N-bit to 1 and (2) use the xTR-ID, Site-ID, and ITR-RLOCs
+        included in a Map-Request.
 
-   (2)  Map-Servers MUST be configured to only accept subscription
-        requests from Map-Resolvers that verify Map-Requests as
-        previously described.
+   (2)  Map-Servers MUST only accept subscription requests from Map-
+        Resolvers that verify Map-Requests as previously described.
 
 2.  Terminology and Requirements Notation
 
@@ -177,6 +179,9 @@ Table of Contents
    (2)  Map-Servers are configured to proxy Map-Replying (i.e., they are
         solicited to generate and send Map-Reply messages) for the
         mappings they are serving.
+
+   (3)  A security association (e.g., a PubSubKey) is required between
+        the ITRs and the Map-Servers (see Section 7.1).
 
    If either requirement is not met, a subscription cannot be
    established, and the network will continue operating without this
@@ -291,12 +296,12 @@ Table of Contents
    is using the procedure described in Section 7.1 to create a new
    security association, the Map-Server MUST verify that the nonce in
    the Map-Request is greater than the stored nonce (if any) associated
-   with the EID-prefix and xTR-ID.  Otherwise, the Map-Server silently
-   drops the Map-Request message and logs the event to record that a
-   replay attack could have occurred.  Furthermore, upon processing, for
-   the EID-Record that has the N-bit set to 1, the Map-Server proceeds
-   to add the xTR-ID contained in the Map-Request to the list of xTRs
-   that have requested to be subscribed to that EID-Prefix.
+   with the EID-prefix and xTR-ID.  Otherwise, the Map-Server MUST
+   silently drop the Map-Request message and SHOULD log the event to
+   record that a replay attack could have occurred.  Furthermore, upon
+   processing, for the EID-Record that has the N-bit set to 1, the Map-
+   Server proceeds to add the xTR-ID contained in the Map-Request to the
+   list of xTRs that have requested to be subscribed to that EID-Prefix.
 
    If an xTR-ID is successfully added to the list of subscribers for an
    EID-Prefix, the Map-Server MUST extract the nonce and ITR-RLOCs
@@ -404,18 +409,17 @@ Table of Contents
    received within a short interval.
 
    The following specifies the procedure to remove a subscription: If a
-   valid Map-Request with the N-bit set only has one ITR-RLOC with AFI =
-   0 (i.e., Unknown Address), the Map-Server MUST remove the
+   valid Map-Request with the N-bit set to 1 only has one ITR-RLOC with
+   AFI = 0 (i.e., Unknown Address), the Map-Server MUST remove the
    subscription state for that xTR-ID (unless this is disabled via
    configuration, see previous paragraph).  If the subscription state is
    removed, the Map-Server MUST send a Map-Notify to the source RLOC of
    the Map-Request.  Removing subscription state at the Map-Server can
    lead to replay attacks.  To soften this, the Map-Server SHOULD keep
    the last nonce seen per xTR (and EID-Prefix, when applicable).  If
-   the Map-Server does not keep last nonces seen, then in deployments
-   concerned with replay attacks the Map-Server MUST require the xTRs to
-   subscribe using the procedure described in Section 7.1 to create a
-   new security association with the Map-Server.
+   the Map-Server does not keep last nonces seen, then the Map-Server
+   MUST require the xTRs to subscribe using the procedure described in
+   Section 7.1 to create a new security association with the Map-Server.
 
    If the Map-Server receives a Map-Request asking to remove a
    subscription for an EID-Prefix without subscription state for that
@@ -496,9 +500,9 @@ Table of Contents
    Notify messages is avoided by the use of nonce and the security
    association between the ITRs and the Map-Servers.
 
-   To prevent xTR-ID hijacking, it is RECOMMENDED to follow guidance
-   from Section 9 of [RFC9301] to ensure integrity protection of Map-
-   Request messages.
+   It is RECOMMENDED to follow guidance from the last paragraph of
+   Section 9 of [RFC9301] to ensure integrity protection of Map-Request
+   messages (e.g., to prevent xTR-ID hijacking).
 
 7.1.  Security Association between ITR and Map-Server
 
@@ -513,36 +517,33 @@ Table of Contents
 
    First, when the ITR is sending a Map-Request with the N-bit set
    following Section 5, the ITR also performs the steps described in
-   Section 5.4 of [RFC9303].  The ITR can then generate a PubSubKey by
-   deriving a key from the One-Time Key (OTK) as follows: PubSubKey =
-   KDF( OTK ), where KDF is the Key Derivation Function indicated by the
-   OTK Wrapping ID.  If OTK Wrapping ID equals NULL-KEY-WRAP-128 then
-   the PubSubKey is the OTK.  Note that as opposed to the pre-shared
-   PubSubKey, this generated PubSubKey is different per EID-Prefix the
-   ITR subscribes to (since the ITR will use a different OTK per Map-
-   Request).
+   Section 6.4 of [RFC9303].  The ITR can then generate a PubSubKey by
+   deriving a key from the One-Time Key (OTK) and Map-Request's nonce as
+   follows: PubSubKey = KDF(OTK + nonce), where KDF is the Key
+   Derivation Function indicated by the OTK Wrapping ID.  If OTK
+   Wrapping ID equals NULL-KEY-WRAP-128, then the PubSubKey is the OTK.
+   Note that as opposed to the pre-shared PubSubKey, this generated
+   PubSubKey is different per EID-Prefix to which an ITR subscribes
+   (since the ITR will use a different OTK per Map-Request).
 
    When the Map-Server receives the Map-Request it follows the procedure
    specified in Section 5 with the following considerations: The Map-
-   Server SHOULD verify that the OTK has not been used before.  If
-   PubSub is being used in an environment concerned with Map-Request
-   replay attacks, then the Map-Server MUST verify that the OTK has not
-   been used before.  If the Map-Server verifies the OTK and cannot
-   determine that the OTK has not been used before, it MUST respond to
-   the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI
-   = 0) with ACT bits set to 5 "Drop/Auth-Failure".  The xTR might try
-   again with a different OTK upon reception of this Negative Map-Reply.
-   Note that a Map-Server implementation might decide to not keep full
-   past OTKs and instead use some form of hash.  In that case, hash
-   collisions are handled as if the OTK has been reused.  Such an
-   implementation needs to balance the hash length with the rate of
-   collisions expected for the particular deployment; this is
-   implementation specific.  If the Map-Server has to reply with a Map-
-   Reply for any other reason (e.g., due to PubSub not supported,
-   subscription not accepted, etc.), then it follows normal LISP-SEC
-   procedure described in Section 5.7 of [RFC9303].  No PubSubKey,
-   security association, or subscription state is created when the Map-
-   Server responds with any Map-Reply message.
+   Server MUST verify that the OTK has not been used before.  If the
+   Map-Server verifies the OTK and cannot determine that the OTK has not
+   been used before, it MUST respond to the Map-Request with a Negative
+   Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 5
+   "Drop/Auth-Failure".  The xTR might try again with a different OTK
+   upon reception of this Negative Map-Reply.  Note that a Map-Server
+   implementation might decide to not keep full past OTKs and instead
+   use some form of hash.  In that case, hash collisions are handled as
+   if the OTK has been reused.  Such an implementation needs to balance
+   the hash length with the rate of collisions expected for the
+   particular deployment; this is implementation specific.  If the Map-
+   Server has to reply with a Map-Reply for any other reason (e.g., due
+   to PubSub not supported, subscription not accepted, etc.), then it
+   follows normal LISP-SEC procedure described in Section 5.7 of
+   [RFC9303].  No PubSubKey, security association, or subscription state
+   is created when the Map-Server responds with any Map-Reply message.
 
    Otherwise, if the Map-Server has to reply with a Map-Notify (e.g.,
    due to subscription accepted) to a received Map-Request, the
@@ -672,9 +673,9 @@ Table of Contents
    [I-D.boucadair-lisp-pubsub-flow-examples]
               Boucadair, M., "LISP PubSub Flow Examples", Work in
               Progress, Internet-Draft, draft-boucadair-lisp-pubsub-
-              flow-examples-01, 7 February 2023,
+              flow-examples-03, 10 February 2023,
               <https://datatracker.ietf.org/doc/html/draft-boucadair-
-              lisp-pubsub-flow-examples-01>.
+              lisp-pubsub-flow-examples-03>.
 
    [I-D.haindl-lisp-gb-atn]
               Haindl, B., Lindner, M., Moreno, V., Portoles-Comeras, M.,
@@ -720,9 +721,9 @@ Table of Contents
 
 Appendix A.  Sample PubSub Deployment Experiences
 
-   Early implementations of PubSub have been running in production
-   networks for some time.  The following subsections provide an
-   inventory of some experience lessons from these deployments.
+   Some LISP production networks have been running forms of PubSub for
+   some time.  The following subsections provide an inventory of some
+   experience lessons from these deployments.
 
 A.1.  PubSub as a Monitoring Tool
 
