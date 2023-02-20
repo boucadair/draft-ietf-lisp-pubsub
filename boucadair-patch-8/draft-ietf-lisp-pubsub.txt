@@ -368,9 +368,9 @@ Table of Contents
    Map-Server), or because the xTR tried but was not successful in
    establishing a new security association (Section 7.1).
 
-   If the subscription request fails, the Map-Server MUST send a
-   Negative Map-Reply to the originator of the Map-Request, as described
-   in Section 8.3 of [RFC9301].  The xTR processes the Map-Reply as
+   If the subscription request fails, the Map-Server MUST send a Map-
+   Reply to the originator of the Map-Request, as described in
+   Section 8.3 of [RFC9301].  The xTR processes the Map-Reply as
    specified in Section 8.1 of [RFC9301].  If the subscription request
    fails, it is up to the implementation to try to subscribe again.
 
