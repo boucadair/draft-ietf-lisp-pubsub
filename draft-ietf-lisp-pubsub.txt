@@ -520,7 +520,7 @@ Table of Contents
    to have a shared PubSubKey (or set of keys) between the ITRs and the
    Map-Servers.  However, if pre-shared keys are not used in the
    deployment, LISP-SEC [RFC9303] can be used as follows to create a
-   security association between the ITR and the MS.
+   security association between the ITR and the Map-Server.
 
    First, when the ITR is sending a Map-Request with the N-bit set
    following Section 5, the ITR also performs the steps described in
@@ -728,9 +728,9 @@ Table of Contents
 
 Appendix A.  Sample PubSub Deployment Experiences
 
-   Some LISP production networks have been running forms of PubSub for
-   some time.  The following subsections provide an inventory of some
-   experience lessons from these deployments.
+   Some LISP production networks have been running different forms of
+   PubSub for some time.  The following subsections provide an inventory
+   of some experience lessons from these deployments.
 
 A.1.  PubSub as a Monitoring Tool
 
