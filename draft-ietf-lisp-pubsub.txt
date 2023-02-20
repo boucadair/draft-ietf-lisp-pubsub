@@ -146,8 +146,9 @@ Table of Contents
    The PubSub procedure specified in this document is intended to be
    used in contexts with controlled access to the Map-Server.  How a
    deployment controls access to a Map-Server is deployment specific,
-   and therefore out of the scope of this document, but it needs to at
-   least ensure the following:
+   and therefore out of the scope of this document.  However, the Map-
+   Resolvers and Map-Servers need to be configured with the required
+   information to at least ensure the following:
 
    (1)  Map-Resolvers MUST verify that an xTR is allowed to (1) set the
         N-bit to 1 and (2) use the xTR-ID, Site-ID, and ITR-RLOCs
