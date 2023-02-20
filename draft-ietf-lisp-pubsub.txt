@@ -377,7 +377,8 @@ Table of Contents
    Reply to the originator of the Map-Request, as described in
    Section 8.3 of [RFC9301].  The xTR processes the Map-Reply as
    specified in Section 8.1 of [RFC9301].  If the subscription request
-   fails, it is up to the implementation to try to subscribe again.
+   fails, it is up to the implementation of the xTR to try to subscribe
+   again.
 
    If the Map-Server receives a subscription request for an EID-Prefix
    not present in the mapping database, it SHOULD follow the same logic
@@ -403,14 +404,12 @@ Table of Contents
    disable) the xTR to accept publication information for EID-Prefixes
    the xTR did not explicitly subscribe to.  By default, the xTR is
    allowed to modify explicitly configured subscription state following
-   the procedures described in this section, however the Map-Server MAY
-   disable this via configuration.  If the Map-Server is instructed to
-   not allow xTRs to modify explicitly configured subscriptions,
-   whenever an xTR tries to modify an explicitly configured subscription
-   the Map-Server SHOULD return a Negative Map-Reply (Loc-Count = 0 and
-   Loc-AFI = 0) with ACT bits set to 4 "Drop/Policy-Denied".  The Map-
-   Server MAY silently ignore these requests if, for example, they are
-   received within a short interval.
+   the procedures described in this section, however this MAY be
+   disabled at the Map-Server via configuration.  If the Map-Server is
+   instructed to not allow xTRs to modify explicitly configured
+   subscriptions, and an xTR tries to do so, the Map-Server will follow
+   the usual process described in this section to handle failed
+   subscription requests (i.e. responding with a Map-Reply).
 
    The following specifies the procedure to remove a subscription: If a
    valid Map-Request with the N-bit set to 1 only has one ITR-RLOC with
@@ -418,12 +417,16 @@ Table of Contents
    subscription state for that xTR-ID (unless this is disabled via
    configuration, see previous paragraph).  If the subscription state is
    removed, the Map-Server MUST send a Map-Notify to the source RLOC of
-   the Map-Request.  Removing subscription state at the Map-Server can
-   lead to replay attacks.  To soften this, the Map-Server SHOULD keep
-   the last nonce seen per xTR (and EID-Prefix, when applicable).  If
-   the Map-Server does not keep last nonces seen, then the Map-Server
-   MUST require the xTRs to subscribe using the procedure described in
-   Section 7.1 to create a new security association with the Map-Server.
+   the Map-Request.  Failed subscription removals (e.g., due to
+   configuration) are handled by the Map-Server as failed subscription
+   requests; the Map-Server sends a Map-Reply to the source RLOC of the
+   Map-Request in this case.  Removing subscription state at the Map-
+   Server can lead to replay attacks.  To soften this, the Map-Server
+   SHOULD keep the last nonce seen per xTR (and EID-Prefix, when
+   applicable).  If the Map-Server does not keep last nonces seen, then
+   the Map-Server MUST require the xTRs to subscribe using the procedure
+   described in Section 7.1 to create a new security association with
+   the Map-Server.
 
    If the Map-Server receives a Map-Request asking to remove a
    subscription for an EID-Prefix without subscription state for that
