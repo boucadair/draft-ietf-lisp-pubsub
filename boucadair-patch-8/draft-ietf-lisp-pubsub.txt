@@ -356,9 +356,9 @@ Table of Contents
    0 (and Loc-AFI = 0), and ACT bits set to 5 "Drop/Auth-Failure".  This
    message is specifically useful for cases where Map-Notifies are
    successfully received by an xTR but the corresponding Map-Notify-Acks
-   were lost when forwarded to the Map-Server.  Such an xTR will
-   reinstall its subscription state instead of maintaining stale
-   mappings.
+   were lost when forwarded to the Map-Server. xTR implementations can
+   use this signal to try to reinstall their subscription state instead
+   of maintaining stale mappings.
 
    The subscription of an xTR-ID may fail for a number of reasons.  For
    example, it fails because of local configuration policies (such as
