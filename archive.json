@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-21T00:49:29.688471+00:00",
+  "timestamp": "2023-02-23T00:44:48.707112+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -1175,7 +1175,7 @@
       "labels": [],
       "body": "We shouldn't send a NMR when a xTR tries to modify a non-modifiable subscription, might have the unintended side effect of removing the map-cache on the xTR. Also I think we were redefining things here and rather should have a consistent way to handle failed (un)subscription requests.",
       "createdAt": "2023-02-19T12:33:46Z",
-      "updatedAt": "2023-02-20T18:49:01Z",
+      "updatedAt": "2023-02-22T12:56:39Z",
       "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
       "baseRefName": "main",
       "baseRefOid": "05c727d5584b0b69a6db3a338843d29ee0c67972",
@@ -1293,6 +1293,66 @@
               "body": "Since this is the last remaining open item, I'm merging this as is @boucadair, in order to generate version -14. We can continue the conversation on this after and make small changes if needed.",
               "createdAt": "2023-02-20T18:48:49Z",
               "updatedAt": "2023-02-20T18:48:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5N5POT",
+          "commit": {
+            "abbreviatedOid": "8f8b51a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-21T07:38:29Z",
+          "updatedAt": "2023-02-21T07:38:29Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "The issue with a (positive) Map-Reply is that the xTR does not know how to interpret it. The worse case is that it can interpret this as a subscription failure, and the reissue a subscription request or send regular refresh requests.\r\n\r\nAn example of an update I have in mind is updating the RLOCs (this can fail because of the policy related to explicit subs, the xTR provided an RLOC list that exceeds an allowed max). Returning a normal Map-Reply can be seen as if the subscription as a whole was removed, not that this is only about this update. The behavior is not deterministic with the current text in the draft. \r\n\r\nWith the negative Map-Reply, we have an explicit signal about the reason of the failure without touching any existing cache. The text can be clarified to indicate that the cache is not touched when the xTR asked for an update of the subscription state, but that subscription failed. \r\n\r\n",
+              "createdAt": "2023-02-21T07:38:29Z",
+              "updatedAt": "2023-02-21T07:38:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5OBp5g",
+          "commit": {
+            "abbreviatedOid": "b168984"
+          },
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-22T11:32:40Z",
+          "updatedAt": "2023-02-22T11:32:41Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "A returned Map-Reply doesn't mean the subscription was removed, it means that the subscription request was not accepted. Returning a Negative Map-Reply has the same implications, just that in that case the xTR assumes subscription not accepted and no RLOCs available for that EID. \r\n\r\nIf we want to add explicit machinery for this we need to go back to the text we had that used NMR w/ ACT = 4 and then add the text saying that the map-cache is not updated in that case. ",
+              "createdAt": "2023-02-22T11:32:40Z",
+              "updatedAt": "2023-02-22T11:32:41Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOI2dNNs5OCIPS",
+          "commit": {
+            "abbreviatedOid": "8f8b51a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-02-22T12:56:39Z",
+          "updatedAt": "2023-02-22T12:56:39Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "> If we want to add explicit machinery for this we need to go back to the text we had that used NMR w/ ACT = 4 and then add the text saying that the map-cache is not updated in that case.\r\n\r\nI prefer this. Thanks",
+              "createdAt": "2023-02-22T12:56:39Z",
+              "updatedAt": "2023-02-22T12:56:39Z"
             }
           ]
         }
