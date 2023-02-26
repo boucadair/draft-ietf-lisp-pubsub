@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-23T00:44:48.707112+00:00",
+  "timestamp": "2023-02-26T00:52:42.033877+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -1442,6 +1442,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOI2dNNs5KswyK",
+      "title": "Consolidated Map-Reply text",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/23",
+      "state": "OPEN",
+      "author": "arnatal",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR tries to consolidate the text we had for Map-Replies (particularly Negative Map-Replies), so we don't need to define similar things several times in different places. ",
+      "createdAt": "2023-02-24T13:14:10Z",
+      "updatedAt": "2023-02-24T13:14:10Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "b71e142f8bd308f7cd7186768cb7280bd1475622",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "fix-explicit-2",
+      "headRefOid": "3674b9f4b64b7f0549d9dce1aa5a66d23080fb10",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
