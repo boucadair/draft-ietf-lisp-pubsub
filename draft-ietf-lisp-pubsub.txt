@@ -171,7 +171,7 @@ Table of Contents
 
    In addition to the general assumptions and expectations that
    [RFC9301] makes for LISP deployments, this document makes the
-   following two deployment requirements:
+   following deployment requirements:
 
    (1)  A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is
         assigned to each xTR.
@@ -185,8 +185,8 @@ Table of Contents
 
    If a requirement is not met, a subscription cannot be established,
    and the network will continue operating without this enhancement.
-   The configuration of xTR-IDs (and Site-IDs) is out of the scope of
-   this document.  The reader may refer to [I-D.ietf-lisp-yang] for an
+   The configuration of xTR-IDs and Site-IDs is out of the scope of this
+   document.  The reader may refer to [I-D.ietf-lisp-yang] for an
    example of how these identifiers can be provisioned to LISP nodes.
 
 4.  Map-Request PubSub Additions
@@ -237,28 +237,28 @@ Table of Contents
    Section 5.2 of [RFC9301]:
 
       xTR-ID bit (I-bit): This bit is set to 1 to indicate that 128-bit
-      xTR-ID and 64-bit Site-ID fields are present at the end of the
-      Map-Request message.  For PubSub operation, an xTR MUST be
-      configured with an xTR-ID and Site-ID, and it MUST set the I-bit
-      to 1 and include its xTR-ID and Site-ID in the Map-Request
-      messages it generates.  If the I-bit is set, but the Site-ID and/
-      or xTR-ID are not included, a receiver can detect the error
-      because, after processing that last EID-record, there are no bytes
-      left from processing the message.  In this case, the receiver
-      SHOULD log a malformed Map-Request and MUST drop the message.
+      xTR-ID and 64-bit Site-ID fields are present in the Map-Request
+      message.  For PubSub operation, an xTR MUST be configured with an
+      xTR-ID and Site-ID, and it MUST set the I-bit to 1 and include its
+      xTR-ID and Site-ID in the Map-Request messages it generates.  If
+      the I-bit is set, but the Site-ID and/or xTR-ID are not included,
+      a receiver can detect the error because, after processing that
+      last EID-record, there are no bytes left from processing the
+      message.  In this case, the receiver SHOULD log a malformed Map-
+      Request and MUST drop the message.
 
       Notification-Requested bit (N-bit): The N-bit of an EID-Record is
       set to 1 to specify that the xTR wants to be notified of updates
       for that EID-Prefix.
 
-      xTR-ID field: If the I-bit is set, this field if added at the end
-      of the Map-Request message, starting after the final Record in the
-      message (or the Map-Reply Record, if present).  The xTR-ID is
-      specified in Section 5.6 of [RFC9301].
+      xTR-ID field: If the I-bit is set, this field if added to the Map-
+      Request message as shown in Figure 1, starting right after the
+      final Record in the message (or the Map-Reply Record, if present).
+      The xTR-ID is specified in Section 5.6 of [RFC9301].
 
-      Site-ID field: If the I-bit is set, this field is added at the end
-      of the Map-Request message, following the xTR-ID.  The Site-ID is
-      defined in Section 5.6 of [RFC9301].
+      Site-ID field: If the I-bit is set, this field is added to the
+      Map-Request message as shown in Figure 1, following the xTR-ID
+      field.  The Site-ID is defined in Section 5.6 of [RFC9301].
 
 5.  Mapping Request Subscribe Procedures
 
@@ -268,7 +268,7 @@ Table of Contents
    [RFC9301] but also does the following:
 
    (1)  The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-
-        ID to the Map-Request.  The xTR-ID uniquely identifies the xTR.
+        ID to the Map-Request.
 
    (2)  The xTR MUST set the N-bit to 1 for the EID-Record to which the
         xTR wants to subscribe.
@@ -572,8 +572,8 @@ Table of Contents
    implementation needs to balance the hash length with the rate of
    collisions expected for the particular deployment; this is
    implementation specific.  If the Map-Server has to reply with a Map-
-   Reply for any other reason (e.g., due to PubSub not supported,
-   subscription not accepted, etc.), then it follows normal LISP-SEC
+   Reply for any other reason (e.g., if PubSub is not supported or a
+   subscription is not accepted), then it follows normal LISP-SEC
    procedure described in Section 5.7 of [RFC9303].  No PubSubKey,
    security association, or subscription state is created when the Map-
    Server responds with any Map-Reply message.
@@ -603,17 +603,21 @@ Table of Contents
 
 7.2.  DDoS Attack Mitigation
 
-   Misbehaving nodes may send massive subscription requests which may
-   lead to exhausting the resources of a Map-Server.  Furthermore,
-   frequently changing the state of a subscription may also be
-   considered as an attack vector.  To mitigate such issues, Section 5.3
-   of [RFC9301] discusses rate-limiting Map-Requests and Section 5.7 of
-   [RFC9301] discusses rate-limiting Map-Notifies.  Note that when the
-   Map-Notify rate-limit threshold is met for a particular xTR-ID, the
-   Map-Server will discard additional subscription requests from that
-   xTR-ID and will fall back to [RFC9301] behavior when receiving a Map-
-   Request from that xTR-ID (i.e., the Map-Server will send a Map-
-   Reply).
+   If PubSub is deployed under the scope of applicability defined in
+   Section 1.1 only known nodes can participate on the PubSub
+   deployment.  DDoS attacks based on replayed messages by unknown nodes
+   are avoided by the use of nonce and the security association between
+   the ITRs and the Map-Servers.  Misbehaving known nodes may send
+   massive subscription requests which may lead to exhausting the
+   resources of a Map-Server.  Furthermore, frequently changing the
+   state of a subscription may also be considered as an attack vector.
+   To mitigate such issues, Section 5.3 of [RFC9301] discusses rate-
+   limiting Map-Requests and Section 5.7 of [RFC9301] discusses rate-
+   limiting Map-Notifies.  Note that when the Map-Notify rate-limit
+   threshold is met for a particular xTR-ID, the Map-Server will discard
+   additional subscription requests from that xTR-ID and will fall back
+   to [RFC9301] behavior when receiving a Map-Request from that xTR-ID
+   (i.e., the Map-Server will send a Map-Reply).
 
 8.  IANA Considerations
 
