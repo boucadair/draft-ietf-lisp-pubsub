@@ -196,7 +196,7 @@ please see http://xml.resource.org/authoring/README.html. -->
 
       <section anchor="assumptions" title="Deployment Requirements">
 
-        <t>In addition to the general assumptions and expectations that <xref target="RFC9301"></xref> makes for LISP deployments, this document makes the following two deployment requirements: </t>
+        <t>In addition to the general assumptions and expectations that <xref target="RFC9301"></xref> makes for LISP deployments, this document makes the following deployment requirements: </t>
 
         <t><list style="format (%d)">
           <t>A unique 128-bit xTR-ID (plus a 64-bit Site-ID) identifier is assigned to each xTR.</t>
@@ -204,7 +204,7 @@ please see http://xml.resource.org/authoring/README.html. -->
           <t>A security association (e.g., a PubSubKey) is required between the ITRs and the Map-Servers (see <xref target="association"></xref>).</t>
         </list></t>
 
-        <t>If either requirement is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs (and Site-IDs) is out of the scope of this document. The reader may refer to <xref target="I-D.ietf-lisp-yang"></xref> for an example of how these identifiers can be provisioned to LISP nodes.</t>
+        <t>If either requirement is not met, a subscription cannot be established, and the network will continue operating without this enhancement. The configuration of xTR-IDs and Site-IDs is out of the scope of this document. The reader may refer to <xref target="I-D.ietf-lisp-yang"></xref> for an example of how these identifiers can be provisioned to LISP nodes.</t>
 
       </section>
 
@@ -258,13 +258,13 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
           <t>The following is added to the Map-Request message defined in Section 5.2 of <xref target="RFC9301"></xref>:</t>
 
           <t><list style="hanging">
-            <t>xTR-ID bit (I-bit): This bit is set to 1 to indicate that 128-bit xTR-ID and 64-bit Site-ID fields are present at the end of the Map-Request message. For PubSub operation, an xTR MUST be configured with an xTR-ID and Site-ID, and it MUST set the I-bit to 1 and include its xTR-ID and Site-ID in the Map-Request messages it generates. If the I-bit is set, but the Site-ID and/or xTR-ID are not included, a receiver can detect the error because, after processing that last EID-record, there are no bytes left from processing the message. In this case, the receiver SHOULD log a malformed Map-Request and MUST drop the message.</t>
+            <t>xTR-ID bit (I-bit): This bit is set to 1 to indicate that 128-bit xTR-ID and 64-bit Site-ID fields are present in the Map-Request message. For PubSub operation, an xTR MUST be configured with an xTR-ID and Site-ID, and it MUST set the I-bit to 1 and include its xTR-ID and Site-ID in the Map-Request messages it generates. If the I-bit is set, but the Site-ID and/or xTR-ID are not included, a receiver can detect the error because, after processing that last EID-record, there are no bytes left from processing the message. In this case, the receiver SHOULD log a malformed Map-Request and MUST drop the message.</t>
 
             <t>Notification-Requested bit (N-bit): The N-bit of an EID-Record is set to 1 to specify that the xTR wants to be notified of updates for that EID-Prefix.</t>
 
-            <t>xTR-ID field: If the I-bit is set, this field if added at the end of the Map-Request message, starting after the final Record in the message (or the Map-Reply Record, if present). The xTR-ID is specified in Section 5.6 of <xref target="RFC9301"></xref>.</t>
+            <t>xTR-ID field: If the I-bit is set, this field if added to the Map-Request message as shown in <xref target="mrq-fig"></xref>, starting right after the final Record in the message (or the Map-Reply Record, if present). The xTR-ID is specified in Section 5.6 of <xref target="RFC9301"></xref>.</t>
 
-            <t>Site-ID field: If the I-bit is set, this field is added at the end of the Map-Request message, following the xTR-ID.  The Site-ID is defined in Section 5.6 of <xref target="RFC9301"></xref>.</t>
+            <t>Site-ID field: If the I-bit is set, this field is added to the Map-Request message as shown in <xref target="mrq-fig"></xref>, following the xTR-ID field.  The Site-ID is defined in Section 5.6 of <xref target="RFC9301"></xref>.</t>
           </list></t>
 
         </section>
@@ -275,7 +275,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
           <t><list style="format (%d)">
 
-            <t>The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-ID to the Map-Request. The xTR-ID uniquely identifies the xTR.</t>
+            <t>The xTR MUST set the I-bit to 1 and append its xTR-ID and Site-ID to the Map-Request.</t>
             <t>The xTR MUST set the N-bit to 1 for the EID-Record to which the xTR wants to subscribe.</t>
             <t>If the xTR has a nonce associated with the EID-Prefix, it MUST use this nonce increased by one in the Map-Request. Otherwise, it generates a nonce following Section 5.2 of <xref target="RFC9301"></xref>. It is RECOMMENDED that the xTR uses persistent storage to keep nonce state. If the xTR does not have persistent storage and does not have a nonce associated with the EID-Prefix, it MUST reset the nonce by using the procedure described in <xref target="association"></xref> to successfully create a new security association with the Map-Server.</t>
 
@@ -350,7 +350,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             <t>First, when the ITR is sending a Map-Request with the N-bit set following <xref target="sub"></xref>, the ITR also performs the steps described in Section 6.4 of <xref target="RFC9303"></xref>. The ITR can then generate a PubSubKey by deriving a key from the One-Time Key (OTK) and Map-Request's nonce as follows: PubSubKey = KDF(OTK + nonce), where KDF is the Key Derivation Function indicated by the OTK Wrapping ID. If OTK Wrapping ID equals NULL-KEY-WRAP-128, then the PubSubKey is the OTK. Note that as opposed to the pre-shared PubSubKey, this generated PubSubKey is different per EID-Prefix to which an ITR subscribes (since the ITR will use a different OTK per Map-Request).</t>
 
-            <t>When the Map-Server receives the Map-Request it follows the procedure specified in <xref target="sub"></xref> with the following considerations: The Map-Server MUST verify that the OTK has not been used before. If the Map-Server verifies the OTK and cannot determine that the OTK has not been used before, it MUST respond to the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 5 "Drop/Auth-Failure". The xTR might try again with a different OTK upon reception of this Negative Map-Reply. Note that a Map-Server implementation might decide to not keep full past OTKs and instead use some form of hash. In that case, hash collisions are handled as if the OTK has been reused. Such an implementation needs to balance the hash length with the rate of collisions expected for the particular deployment; this is implementation specific. If the Map-Server has to reply with a Map-Reply for any other reason (e.g., due to PubSub not supported, subscription not accepted, etc.), then it follows normal LISP-SEC procedure described in Section 5.7 of <xref target="RFC9303"></xref>. No PubSubKey, security association, or subscription state is created when the Map-Server responds with any Map-Reply message.</t>
+            <t>When the Map-Server receives the Map-Request it follows the procedure specified in <xref target="sub"></xref> with the following considerations: The Map-Server MUST verify that the OTK has not been used before. If the Map-Server verifies the OTK and cannot determine that the OTK has not been used before, it MUST respond to the Map-Request with a Negative Map-Reply (Loc-Count = 0 and Loc-AFI = 0) with ACT bits set to 5 "Drop/Auth-Failure". The xTR might try again with a different OTK upon reception of this Negative Map-Reply. Note that a Map-Server implementation might decide to not keep full past OTKs and instead use some form of hash. In that case, hash collisions are handled as if the OTK has been reused. Such an implementation needs to balance the hash length with the rate of collisions expected for the particular deployment; this is implementation specific. If the Map-Server has to reply with a Map-Reply for any other reason (e.g., due to PubSub is not supported or a subscription is not accepted), then it follows normal LISP-SEC procedure described in Section 5.7 of <xref target="RFC9303"></xref>. No PubSubKey, security association, or subscription state is created when the Map-Server responds with any Map-Reply message.</t>
 
             <t>Otherwise, if the Map-Server has to reply with a Map-Notify (e.g., due to subscription accepted) to a received Map-Request, the following extra steps take place:
               <list style="symbols">
