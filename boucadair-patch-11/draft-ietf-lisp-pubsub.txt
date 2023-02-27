@@ -603,17 +603,21 @@ Table of Contents
 
 7.2.  DDoS Attack Mitigation
 
-   Misbehaving nodes may send massive subscription requests which may
-   lead to exhausting the resources of a Map-Server.  Furthermore,
-   frequently changing the state of a subscription may also be
-   considered as an attack vector.  To mitigate such issues, Section 5.3
-   of [RFC9301] discusses rate-limiting Map-Requests and Section 5.7 of
-   [RFC9301] discusses rate-limiting Map-Notifies.  Note that when the
-   Map-Notify rate-limit threshold is met for a particular xTR-ID, the
-   Map-Server will discard additional subscription requests from that
-   xTR-ID and will fall back to [RFC9301] behavior when receiving a Map-
-   Request from that xTR-ID (i.e., the Map-Server will send a Map-
-   Reply).
+   If PubSub is deployed under the scope of applicability defined in
+   Section 1.1 only known nodes can participate on the PubSub
+   deployment.  DDoS attacks based on replayed messages by unknown nodes
+   are avoided by the use of nonce and the security association between
+   the ITRs and the Map-Servers.  Misbehaving known nodes may send
+   massive subscription requests which may lead to exhausting the
+   resources of a Map-Server.  Furthermore, frequently changing the
+   state of a subscription may also be considered as an attack vector.
+   To mitigate such issues, Section 5.3 of [RFC9301] discusses rate-
+   limiting Map-Requests and Section 5.7 of [RFC9301] discusses rate-
+   limiting Map-Notifies.  Note that when the Map-Notify rate-limit
+   threshold is met for a particular xTR-ID, the Map-Server will discard
+   additional subscription requests from that xTR-ID and will fall back
+   to [RFC9301] behavior when receiving a Map-Request from that xTR-ID
+   (i.e., the Map-Server will send a Map-Reply).
 
 8.  IANA Considerations
 
