@@ -262,7 +262,7 @@ Rec +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
             <t>Notification-Requested bit (N-bit): The N-bit of an EID-Record is set to 1 to specify that the xTR wants to be notified of updates for that EID-Prefix.</t>
 
-            <t>xTR-ID field: If the I-bit is set, this field if added to the Map-Request message as shown in <xref target="mrq-fig"></xref>, starting right after the final Record in the message (or the Map-Reply Record, if present). The xTR-ID is specified in Section 5.6 of <xref target="RFC9301"></xref>.</t>
+            <t>xTR-ID field: If the I-bit is set, this field is added to the Map-Request message as shown in <xref target="mrq-fig"></xref>, starting right after the final Record in the message (or the Map-Reply Record, if present). The xTR-ID is specified in Section 5.6 of <xref target="RFC9301"></xref>.</t>
 
             <t>Site-ID field: If the I-bit is set, this field is added to the Map-Request message as shown in <xref target="mrq-fig"></xref>, following the xTR-ID field.  The Site-ID is defined in Section 5.6 of <xref target="RFC9301"></xref>.</t>
           </list></t>
