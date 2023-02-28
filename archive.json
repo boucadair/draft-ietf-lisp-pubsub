@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-02-26T00:52:42.033877+00:00",
+  "timestamp": "2023-02-28T00:46:37.139710+00:00",
   "repo": "boucadair/draft-ietf-lisp-pubsub",
   "labels": [
     {
@@ -1448,25 +1448,77 @@
       "id": "PR_kwDOI2dNNs5KswyK",
       "title": "Consolidated Map-Reply text",
       "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "arnatal",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR tries to consolidate the text we had for Map-Replies (particularly Negative Map-Replies), so we don't need to define similar things several times in different places. ",
       "createdAt": "2023-02-24T13:14:10Z",
-      "updatedAt": "2023-02-24T13:14:10Z",
+      "updatedAt": "2023-02-27T10:21:30Z",
       "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
       "baseRefName": "main",
       "baseRefOid": "b71e142f8bd308f7cd7186768cb7280bd1475622",
       "headRepository": "boucadair/draft-ietf-lisp-pubsub",
       "headRefName": "fix-explicit-2",
       "headRefOid": "3674b9f4b64b7f0549d9dce1aa5a66d23080fb10",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-02-27T10:21:28Z",
+      "mergedAt": "2023-02-27T10:21:28Z",
+      "mergedBy": "arnatal",
+      "mergeCommit": {
+        "oid": "ff9d59b04f92b0de47764ae46fd6e8fbd71e5ed3"
+      },
       "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOI2dNNs5OYmUu",
+          "commit": {
+            "abbreviatedOid": "3674b9f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "I like this version. Thank you for taking care of this.",
+          "createdAt": "2023-02-27T08:08:16Z",
+          "updatedAt": "2023-02-27T08:08:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOI2dNNs5KzlJZ",
+      "title": "minor fixes and few nits",
+      "url": "https://github.com/boucadair/draft-ietf-lisp-pubsub/pull/24",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "* remove \"end of message\" mention for a future proof spec (e.g. place data right after these ids if one of the reserved bits are defined in the future). \r\n* unique IDs are  already mentioned early in the spec. No need to repeat that",
+      "createdAt": "2023-02-27T08:12:13Z",
+      "updatedAt": "2023-02-27T13:40:24Z",
+      "baseRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "baseRefName": "main",
+      "baseRefOid": "ff9d59b04f92b0de47764ae46fd6e8fbd71e5ed3",
+      "headRepository": "boucadair/draft-ietf-lisp-pubsub",
+      "headRefName": "boucadair-patch-11",
+      "headRefOid": "75635f4321df38c99eea49d0afa800eef020bd7d",
+      "closedAt": "2023-02-27T13:40:22Z",
+      "mergedAt": "2023-02-27T13:40:22Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "875af96843f2ef70fca009914f33a66945d308be"
+      },
+      "comments": [
+        {
+          "author": "arnatal",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks @boucadair, your changes LGTM. I added a sentence to further clarify on DDoS attacks by (un)known nodes. ",
+          "createdAt": "2023-02-27T11:09:20Z",
+          "updatedAt": "2023-02-27T11:09:20Z"
+        }
+      ],
       "reviews": []
     }
   ]
